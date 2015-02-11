@@ -47,13 +47,11 @@
 
 ## Installation guide
 
-1. Clone this repo
-2. Run: `(sudo) npm install -g`
-3. Run: `(sudo) npm link`  
-4. Create folder for your project and run inside: `yo lb`  
-5. Complete installation
-6. ?
-7. Profit
+1. Install via npm `(sudo) npm install -g generator-lb`  
+2. Create folder for your project and run inside: `yo lb`  
+3. Complete installation
+4. ?
+5. Profit
 
 ## Usage
 
