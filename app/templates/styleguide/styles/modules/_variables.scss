@@ -1,0 +1,113 @@
+// ---------------------------------------------
+// VARIABLES
+// ---------------------------------------------
+
+// ----------------------------
+// FONTS & ICONS
+
+  $font-size-root: 16px !default;
+
+  $font-size-xl: 72px !default;
+  $font-size-l: 48px !default;
+  $font-size-m: 36px !default;
+  $font-size-s: 24px !default;
+  $font-size-xs: 22px !default;
+  $font-size-xxs: 14px !default;
+  
+  $font-size-18: 18px !default;
+
+  $font-size-sub-xl: 28px !default;
+  $font-size-sub-l: 24px !default;
+  $font-size-sub-m: 24px !default;
+  $font-size-sub-s: 20px !default;
+
+  $font-family-helvetica: 'Helvetica Neue', Helvetica, Arial, sans-serif !default;
+  $font-family-modernica: 'Modernica', Helvetica, Arial, sans-serif !default;
+
+  $line-height-normal: 26px !default;
+
+  $line-height-xl: 72px !default;
+  $line-height-l: 54px !default;
+  $line-height-m: 42px !default;
+  $line-height-s: 30px !default;
+  
+  $text-margin-xl: 40px !default;
+  $text-margin-l: 27px !default;
+  $text-margin-m: 30px !default;
+  $text-margin-s: 20px !default;
+  
+  $icon-48: 48px !default;
+  $icon-32: 32px !default;
+  $icon-24: 24px !default;
+  $icon-16: 16px !default;
+
+// ----------------------------
+// SIZES
+
+  $page-viewport: 960px !default;
+  $page-viewport-xl: 1080px !default;
+  
+  $page-side-padding: 10px !default;
+  $page-side-padding-xl: 15px !default;
+  $page-side-padding-m: 40px !default;
+  $page-side-padding-s: 20px !default;
+  
+  $space-horizontal: 10px !default;
+  $space-horizontal-xl: 15px !default;
+  $space-horizontal-m: 15px !default;
+  $space-horizontal-s: 10px !default;
+
+  $space-vertical: 20px !default;
+  $space-vertical2x: 40px !default;
+  
+  $space-text: 0.83em !default;
+  
+  $border-radius-main: 4px !default;
+
+// ----------------------------
+// COLORS
+
+  $color-white: #fff !default;
+  $color-black: #000 !default;
+  
+  $color-error: #E74053 !default;
+  
+  $color-darkgrey: #444 !default;
+  $color-darkgrey-light: lighten($color-darkgrey,10%) !default;
+  $color-darkgrey-lighter: lighten($color-darkgrey,15%) !default;
+  $color-darkgrey-dark: darken($color-darkgrey,10%) !default;
+  
+  $color-lightgrey: #ccc;
+
+  $color-orange: #F67532 !default;
+  $color-orange-light: lighten($color-orange,5%) !default;
+  $color-orange-lighter: lighten($color-orange,10%) !default;
+  $color-orange-dark: darken($color-orange,10%) !default;
+
+  $color-semiwhite: rgba(255,255,255,0.5) !default;
+  $color-semiblack: rgba(0,0,0,0.5) !default;
+  $color-semiblack-2: rgba(0,0,0,0.3) !default;
+  $color-semiblack-3: rgba(0,0,0,0.05) !default;
+  
+// ----------------------------
+// SHADOWS
+
+  $box-shadow-lvl-1: 0 3px 6px rgba(0,0,0,0.3) !default;
+
+// ---------------------------------------------
+// Z-INDEX
+
+  $z-index-default: 100 !default;
+  $z-index-topbar: 200 !default;
+
+// ---------------------------------------------
+// EASINGS
+
+  $ease-300: 0.3s ease 0s !default;
+  $ease-100: 0.1s ease 0s !default;
+  $ease-200: 0.2s ease 0s !default;
+  $ease-200-delayed: 0.2s ease 0.2s !default;
+  $ease-600: 0.6s ease 0s !default;
+
+  $slow-end-anim: cubic-bezier(0.250, 0.250, 0.000, 0.995) !default;
+

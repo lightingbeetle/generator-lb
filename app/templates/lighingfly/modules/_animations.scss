@@ -1,0 +1,63 @@
+// ---------------------------------------------
+// ANIMATIONS
+// ---------------------------------------------
+
+@mixin keyframes(
+  $name ) {
+    @-webkit-keyframes #{$name} { @content; }
+            @keyframes #{$name} { @content; }
+}
+
+@mixin animation(
+  $arguments... ){
+    -webkit-animation: $arguments;
+            animation: $arguments;
+}
+
+@mixin animation-name(
+  $names... ){
+    -webkit-animation-name: $names;
+            animation-name: $names;
+}
+
+@mixin animation-duration(
+  $durations... ){
+    -webkit-animation-duration: $durations;
+            animation-duration: $durations;
+}
+
+@mixin animation-timing-function(
+  $timings... ){
+    -webkit-animation-timing-function: $timings;
+            animation-timing-function: $timings;
+}
+
+@mixin animation-delay(
+  $delays... ){
+    -webkit-animation-delay: $delays;
+            animation-delay: $delays;
+}
+
+@mixin animation-iteration-count(
+  $iterations... ){
+    -webkit-animation-iteration-count: $iterations;
+            animation-iteration-count: $iterations;
+}
+
+@mixin animation-direction(
+  $directions... ){
+    -webkit-animation-direction: $directions;
+            animation-direction: $directions;
+}
+
+@mixin animation-fill-mode(
+  $modes... ){
+    -webkit-animation-fill-mode: $modes;
+            animation-fill-mode: $modes;    
+}
+
+@mixin animation-play-state(
+  $states... ){
+    -webkit-animation-play-state: $states;
+            animation-play-state: $states;
+}

@@ -1,0 +1,42 @@
+doctype html
+html.no-js
+  head
+    meta(charset="utf-8")
+    title <%= projectName %>
+    meta(name="description", content="")
+    meta(name="viewport", content="width=device-width")
+    link(rel="shortcut icon", href="/favicon.ico")
+    // build:css styles/vendor.min.css
+    // endbuild
+    // build:css({.tmp,app}) styles/main.min.css
+    // bower:css
+    // endbower
+    <% if (includeStyleguide) { %>
+    link(rel="stylesheet", href="icons/icomoon/style.css")
+    <% } %>
+    link(rel="stylesheet", href="styles/main.css")
+    // endbuild
+    <% if (includeModernizr) { %>
+    // build:js({.tmp,app}) scripts/vendor/modernizr.min.js
+    script(src="scripts/vendor/modernizr.js")
+    // endbuild
+    <% } %>
+
+  body
+
+    include ../modules/_header
+
+    main
+      block content
+
+    include ../modules/_footer
+
+    // build:js(./app/) scripts/vendor.min.js
+    // bower:js
+    // endbower
+    // endbuild
+    // build:js scripts/plugins.min.js
+    // endbuild
+    // build:js({app,.tmp}) scripts/main.min.js
+    script(src="scripts/main.js")
+    // endbuild

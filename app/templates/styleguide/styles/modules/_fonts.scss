@@ -1,0 +1,32 @@
+@font-face {
+    font-family: 'Modernica';
+    src: url('../fonts/modernica/ModernicaRegular-webfont.eot');
+    src: url('../fonts/modernica/ModernicaRegular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/modernica/ModernicaRegular-webfont.woff') format('woff'),
+         url('../fonts/modernica/ModernicaRegular-webfont.ttf') format('truetype'),
+         url('../fonts/modernica/ModernicaRegular-webfont.svg#modernicaregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Modernica';
+    src: url('../fonts/modernica/ModernicaRegular-Italic-webfont.eot');
+    src: url('../fonts/modernica/ModernicaRegular-Italic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/modernica/ModernicaRegular-Italic-webfont.woff') format('woff'),
+         url('../fonts/modernica/ModernicaRegular-Italic-webfont.ttf') format('truetype'),
+         url('../fonts/modernica/ModernicaRegular-Italic-webfont.svg#modernicaitalic') format('svg');
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Modernica';
+    src: url('../fonts/modernica/ModernicaBold-webfont.eot');
+    src: url('../fonts/modernica/ModernicaBold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/modernica/ModernicaBold-webfont.woff') format('woff'),
+         url('../fonts/modernica/ModernicaBold-webfont.ttf') format('truetype'),
+         url('../fonts/modernica/ModernicaBold-webfont.svg#modernica_boldbold') format('svg');
+    font-weight: bold;
+    font-style: normal;
+}

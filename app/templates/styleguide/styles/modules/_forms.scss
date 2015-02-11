@@ -1,0 +1,474 @@
+// ---------------------------------------------
+// FORMS
+// ---------------------------------------------
+
+// ----------------------------
+// FORM CONTOROLS
+
+  .input {
+    width: 100%;
+    height: $input-height;
+    margin: 0;
+    padding: $input-padding;
+    position: relative;
+    display: inline-block;
+    background-color: $input-bg-color;
+    border: 1px solid $input-border-color;
+    @include border-radius($input-border-radius);
+    outline: none;
+    @include font-size($input-font-size, $font-size-root);
+    color: $input-text-color;
+    line-height: 20px;
+    @include transition(border $input-ease, color $input-ease, box-shadow $input-ease);
+
+    &:focus, &:active {
+      border-color: $input-hover-border-color;
+    }
+
+    &[disabled],
+    &.disabled {
+      opacity: 0.6;
+      border-color: $input-border-color;
+      @include box-shadow(none);
+      cursor: not-allowed;
+    }
+
+    &.readonly,
+    &[readonly] {
+      opacity: 0.8;
+      border-color: $input-border-color;
+      @include box-shadow(none);
+    }
+
+    &.error {
+      border-color: $input-error-border-color;
+      color: $input-error-text-color;
+    }
+  }
+
+  // FORM CONTOROLS SIZES
+
+    .input-l {
+      height: $input-l-height;
+      padding: $input-l-padding;
+      @include font-size($input-l-font-size, $font-size-root);
+    }
+
+    .input-s {
+      height: $input-s-height;
+      padding: $input-s-padding;
+      @include font-size($input-s-font-size, $font-size-root);
+    }
+
+// ----------------------------
+// TEXTAREA
+
+  textarea {
+    height: auto !important;
+    resize: none !important;
+    line-height: normal !important;
+  } // /textarea
+
+// ----------------------------
+// CUSTOM CHECKBOX/RADIO
+
+  .checkbox,
+  .radio {
+    margin: 0 0 $checkbox-margin;
+    display: inline-block;
+    @include clearfix;
+  }
+
+  .checkbox-input,
+  .radio-input {
+    @include visually-hidden;
+  }
+
+  .checkbox-custom,
+  .radio-custom {
+    width: $checkbox-size;
+    height: $checkbox-size;
+    position: relative;
+    top: 5px;
+    float: left;
+    display: block;
+    background-color: $checkbox-bg-color;
+    border: 1px solid $checkbox-border-color;
+    cursor: pointer;
+    [disabled] + &, .disabled + & {
+      opacity: 0.6;
+      pointer-events: none;
+    }
+    .error + & {
+      border-color: $checkbox-error-border-color;
+    }
+  }
+
+  .checkbox-custom {
+    @include border-radius($checkbox-border-radius);
+    :checked + & {
+      background-color: $checkbox-checked-bg-color;
+    }
+    [disabled] + &, .disabled + & {
+      + .checkbox-label {
+        opacity: 0.6;
+        pointer-events: none;
+      }
+    }
+    .error + & {
+      + .checkbox-label { color: $checkbox-error-text-color; }
+    }
+  }
+
+  .radio-custom {
+    @include border-radius(50%);
+    :checked + & {
+      background-color: $checkbox-checked-bg-color;
+    }
+    [disabled] + &, .disabled + & {
+      + .radio-label {
+        opacity: 0.6;
+        pointer-events: none;
+      }
+    }
+    .error + & {
+      + .radio-label { color: $checkbox-error-text-color; }
+    }
+  }
+
+  .checkbox-label,
+  .radio-label {
+    margin-left: $checkbox-label-margin;
+    display: block;
+    cursor: pointer;
+    @include font-size($checkbox-label-font-size, $font-size-root);
+  }
+
+  .checkbox-group, .radio-group {
+    margin: 0 0 $checkbox-margin;
+    @include clearfix;
+    display: inline-block;
+    .checkbox,
+    .radio {
+      float: left;
+      clear: both;
+      margin: 0;
+    }
+  }
+
+// ----------------------------
+// DROPDOWN LIST
+
+  .dropdown-list {
+    @extend %list-unstyled;
+    min-width: 100%;
+    padding: $dropdown-list-padding;
+    margin-top: 3px;
+    position: absolute;
+    left: 0;
+    top: 100%;
+    z-index: $dropdown-list-z-index;
+    opacity: 0;
+    visibility: hidden;
+    background-color: $dropdown-list-bg-color;
+    border: 1px solid $dropdown-list-border-color;
+    @include border-radius($dropdown-list-border-radius);
+    @include transition(visibility $dropdown-list-ease-delayed, opacity $dropdown-list-ease, transform $dropdown-list-ease);
+    @include transform(translateY(-20px));
+    .active > & {
+      opacity: 1;
+      visibility: visible;
+      @include transition-delay(0s);
+      @include transform(translateY(0px) scale(1,1));
+    }
+  }
+  .dropdown-list_item {
+    padding: $dropdown-list-item-padding;
+    display: block;
+    border: none;
+    color: $dropdown-list-item-text-color;
+    @include transition(color $dropdown-list-item-ease, background $dropdown-list-item-ease);
+    &:hover {
+      background-color: $dropdown-list-item-hover-bg-color;
+    }
+  }
+
+// ----------------------------
+// SELECT
+
+  .custom-select {
+    width: 100%;
+    margin: 0;
+    position: relative;
+
+    .custom-select-searchbox {
+      padding: 5px;
+    }
+
+    .no-results {padding: 5px 10px;}
+    .notify {
+      position: absolute;
+      bottom: 5px;
+      width: 96%;
+      margin: 0 2%;
+      min-height: 26px;
+      padding: 3px 5px;
+      background: #f5f5f5;
+      border: 1px solid #e3e3e3;
+      pointer-events: none;
+      opacity: 0.9;
+    }
+
+    // handle open state
+    &.open .custom-select-dropdown {display: block;}
+  }
+
+  .custom-select-control {
+    width: 100%;
+    height: $select-control-height;
+    padding: $select-control-padding;
+    position: relative;
+    display: block;
+    background-color: $select-control-bg-color;
+    border: 1px solid $select-control-border-color;
+    @include border-radius($select-control-border-radius);
+    outline: none;
+    @include font-size($select-control-font-size, $font-size-root);
+    color: $input-text-color;
+    line-height: 20px;
+    @include transition(border $select-control-ease, color $select-control-ease, box-shadow $select-control-ease);
+
+    &:focus, &:active, .open > &, .active > & {
+      border-color: $input-hover-border-color;
+    }
+
+    &[disabled],
+    &.disabled {
+      opacity: 0.6;
+      border-color: $input-border-color;
+      @include box-shadow(none);
+      pointer-events: none;
+    }
+
+    // &.readonly,
+    // &[readonly] {
+    //   @include opacity(0.8);
+    //   border-color: $input-border-color;
+    //   @include box-shadow(none);
+    // }
+
+    .error > & {
+      border-color: $input-error-border-color;
+      color: $input-error-text-color;
+    }
+
+    .filter-option {
+      display: inline-block;
+      overflow: hidden;
+      width: 100%;
+      text-align: left;
+      -ms-text-overflow: ellipsis;
+      text-overflow: ellipsis;
+    }
+    .icon {
+      position: absolute;
+      top: 50%;
+      right: 12px;
+      @include transform(translateY(-50%));
+    }
+  }
+
+  .custom-select-dropdown-wrap {
+    min-width: 100%;
+    margin-top: 3px;
+    padding: $select-dropdown-padding;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: $select-dropdown-z-index;
+    display: none;
+    background-color: $select-dropdown-bg-color;
+    border: 1px solid $select-dropdown-border-color;
+    @include border-radius($select-dropdown-border-radius);
+    //@include transition(visibility $select-dropdown-ease-delayed, opacity $select-dropdown-ease, transform $select-dropdown-ease);
+    //@include transform-2d(translateY(-20px));
+
+    .dropup & {
+      margin-top: 0;
+      margin-bottom: 3px;
+      top: auto;
+      bottom: 100%;
+      @include transform(translateY(20px));
+    }
+
+    .active > & {
+      display: block;
+      opacity: 1;
+      @include transition-delay(0s);
+      @include transform(translateY(0));
+    }
+  }
+
+  .custom-select-dropdown-inner {
+    @extend %list-unstyled;
+    .hide {display: none;}
+    .divider {
+      height: 1px;
+      background-color: #ccc;
+    }
+  }
+
+  .custom-select-dropdown_item {
+    padding: $select-dropdown-item-padding;
+    display: block;
+    border: none;
+    color: $select-dropdown-item-text-color;
+    @include transition(color $select-dropdown-item-ease, background $select-dropdown-item-ease);
+    cursor: pointer;
+    &:after {display: none;}
+    &:hover,
+    &:focus {
+      color: $select-dropdown-item-hover-text-color;
+      background-color: $select-dropdown-item-hover-bg-color;
+    }
+  }
+
+// ----------------------------
+// FORM LABEL & FORM HELP
+
+  .form-label {
+    label {
+      display: inline-block;
+      margin-bottom: 7px;
+      margin-left: 2px;
+      @include font-size($form-label-font-size, $font-size-root);
+      color: $form-label-text-color;
+      cursor: pointer;
+    }
+  } // /form-label
+
+  .form-label-l label {
+    @include font-size($form-label-l-font-size, $font-size-root);
+  }
+
+  .form-label-s label {
+    @include font-size($form-label-s-font-size, $font-size-root);
+  }
+
+  .form-help {
+    margin-top: 5px;
+    float: right;
+    clear: both;
+    color: #ddd;
+  }
+
+// ----------------------------
+// FIELDSET
+
+  fieldset {
+    margin: 0;
+    padding: 0;
+    border: none;
+    @include clearfix;
+    &.bottom-sep {
+      margin-bottom: 15px;
+      border-bottom: 1px solid #c2c8cd;
+    }
+  }
+
+// ----------------------------
+// FORM LAYOUTS
+
+  @include form-columns(12,12, $form-gutter);
+  @include form-offsets(12,12);
+  @include form-gutters(12, $form-gutter);
+
+  .form-control {
+    margin: 0 0 $form-control-vertical-margin;
+  }
+
+  .form-label-inline {
+    text-align: right;
+    label {
+      padding: $form-label-padding;
+      line-height: 20px;
+    }
+    &.form-label-l label {
+      padding: $form-label-l-padding;
+    }
+    &.form-label-s label {
+      padding: $form-label-s-padding;
+    }
+  }
+
+  .form-label-stack {
+    float: none;
+    display: inline-block;
+    text-align: left;
+    label {
+      padding: 0 !important;
+      line-height: inherit;
+    }
+    & + .form-controls { width: 100%; float: none;}
+  }
+
+  .form-controls-block {
+    .form-control:not(:last-child) {
+      margin-bottom: 10px;
+    }
+  }
+
+  @include media-w-xl {
+    @include form-gutters(12, $form-gutter-xl);
+    .form-label-stack-xl {
+      text-align: left;
+      float: none;
+      display: inline-block;
+      label {
+        padding: 0 !important;
+        line-height: inherit;
+      }
+      & + .form-controls { width: 100%; float: none;}
+    }
+  }
+  @include media-w-m {
+    @include form-columns-prefixed(12, 12, 'm');
+    @include form-gutters(12, $form-gutter-m);
+    .form-label-stack-m {
+      float: none;
+      display: inline-block;
+      text-align: left;
+      label {
+        padding: 0 !important;
+        line-height: inherit;
+      }
+      & + .form-controls { width: 100%; float: none;}
+    }
+  }
+  @include media-w-s {
+    @include form-columns-prefixed(12, 12, 's');
+    @include form-gutters(12, $form-gutter-s);
+    .form-label-stack-s {
+      float: none;
+      display: inline-block;
+      text-align: left;
+      label {
+        padding: 0 !important;
+        line-height: inherit;
+      }
+      & + .form-controls { width: 100%; float: none;}
+    }
+  }
+  @include media-w-xs {
+    @include form-columns-prefixed(12, 12, 'xs');
+    .form-label-stack-xs {
+      float: none;
+      display: inline-block;
+      text-align: left;
+      label {
+        padding: 0 !important;
+        line-height: inherit;
+      }
+      & + .form-controls { width: 100%; float: none;}
+    }
+  }

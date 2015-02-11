@@ -1,0 +1,56 @@
+// ---------------------------------------------
+// TRANSITIONS
+// ---------------------------------------------
+
+@mixin transition(
+  $arguments... ){
+    -webkit-transition: $arguments;
+            transition: $arguments;
+}
+
+@mixin transition-property(
+  $properties... ){
+    -webkit-transition-property: $properties;
+            transition-property: $properties;
+}
+
+@mixin transition-duration(
+  $durations... ){
+    -webkit-transition-duration: $durations;
+            transition-duration: $durations;
+}
+
+@mixin transition-timing-function(
+  $functions... ){
+    -webkit-transition-timing-function: $functions;
+            transition-timing-function: $functions;
+}
+
+@mixin transition-delay(
+  $delays... ){
+    -webkit-transition-delay: $delays;
+            transition-delay: $delays;
+}
+
+// ---------------------------------------------
+// PREDEFINED Mixins
+// ---------------------------------------------
+
+@mixin transition-for-transform(
+  $arguments... ){
+    -webkit-transition: -webkit-transform $arguments;
+    -webkit-transition:         transform $arguments;
+            transition:         transform $arguments;
+}
+
+@mixin transition-for-filter(
+  $arguments... ){
+    -webkit-transition: -webkit-filter $arguments;
+         -o-transition:      -o-filter $arguments;
+            transition:         filter $arguments;
+}
+
+@mixin transition-fix {
+  -webkit-transform: translateZ(0);
+}
+

@@ -1,0 +1,43 @@
+doctype html
+html.no-js
+  head
+    meta(charset="utf-8")
+    title Styleguide - <%= projectName %>
+    meta(name="description", content="")
+    meta(name="viewport", content="width=device-width")
+    link(rel="shortcut icon", href="/favicon.ico")
+    // build:css styles/vendor.min.css
+    // endbuild
+    // build:css({.tmp,app}) styles/main.min.css
+    // bower:css
+    // endbower
+    link(rel="stylesheet", href="icons/icomoon/style.css")
+    link(rel="stylesheet", href="styles/main.css")
+    // endbuild
+    // build:js({.tmp,app})  scripts/vendor/modernizr.min.js
+    script(src="scripts/vendor/modernizr.js")
+    // endbuild
+
+  body
+
+    block content
+
+    // build:js(./app/) scripts/vendor.min.js
+    // bower:js
+    // endbower
+    // endbuild
+    
+    // build:js scripts/styleguide-plugins.min.js
+    script(src="scripts/plugins/customselect.js")
+    script(src="scripts/modules/toggle.js")
+    script(src="scripts/modules/getViewport.js")
+    script(src="scripts/modules/fixMobileHeight.js")
+    // endbuild
+    
+    // build:js scripts/styleguide.min.js
+    script(src="scripts/styleguide.js")
+    // endbuild
+    
+    // build:js({app,.tmp}) scripts/main.min.js
+    script(src="scripts/main.js")
+    // endbuild

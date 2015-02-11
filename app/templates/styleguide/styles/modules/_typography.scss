@@ -1,0 +1,236 @@
+// ---------------------------------------------
+// TYPOGRAPHY
+// ---------------------------------------------
+
+%text-spacing {
+  margin: $default-text-margin-vertical 0;
+}
+
+// ---------------------------------------------
+// HEADLINES
+ 
+  %headline {
+    font-family: $headline-font-family;
+    font-weight: bold;
+  }
+
+  %subheadline {
+    @extend %text-spacing;
+    color: $subheadline-text-color;
+    font-family: $subheadline-font-family;
+    font-style: italic;
+    font-weight: normal;
+  }
+
+  h1, 
+  .h1 {
+    @extend %headline;
+    margin: _get-em($h1-margin, $h1-font-size) 0;
+    @include font-size($h1-font-size, $font-size-root);
+    line-height: _get-em($h1-line-height, $h1-font-size);
+    & + %subheadline { margin-top: -0.33em; }
+  } // headline 1
+
+  .subh1 {
+    @extend %subheadline;
+    @include font-size($subh1-font-size, $font-size-root);
+    line-height: _get-em($subh1-line-height, $subh1-font-size);
+  }
+
+  h2,
+  .h2 {
+    @extend %headline;
+    margin: _get-em($h2-margin, $h2-font-size) 0;
+    @include font-size($h2-font-size, $font-size-root);
+    line-height: _get-em($h2-line-height, $h2-font-size);
+    & + %subheadline { margin-top: -0.5em; }
+  } // headline 2
+
+  .subh2 {
+    @extend %subheadline;
+    @include font-size($subh2-font-size, $font-size-root);
+    line-height: _get-em($subh2-line-height, $subh2-font-size);
+  }
+
+  h3,
+  .h3 {
+    @extend %headline;
+    margin: _get-em($h3-margin, $h3-font-size) 0;
+    @include font-size($h3-font-size, $font-size-root);
+    line-height: _get-em($h3-line-height, $h3-font-size);
+    & + %subheadline { margin-top: -0.7em; }
+  } // headline 3
+
+  .subh3 {
+    @extend %subheadline;
+    @include font-size($subh3-font-size, $font-size-root);
+    line-height: _get-em($subh3-line-height, $subh3-font-size);
+  }
+
+  h4,
+  .h4 {
+    @extend %headline;
+    margin: _get-em($h4-margin, $h4-font-size) 0;
+    @include font-size($h4-font-size, $font-size-root);
+    line-height: _get-em($h4-line-height, $h4-font-size);
+    & + %subheadline { margin-top: -0.7em; }
+  } // headline 3
+
+  .subh4 {
+    @extend %subheadline;
+    @include font-size($subh4-font-size, $font-size-root);
+    line-height: _get-em($subh4-line-height, $subh4-font-size);
+  }
+
+  @include media-w-s {
+    h1, .h1 {
+      @include font-size($h1-font-size-s, $font-size-root);
+    }
+    .subh1 {
+      @include font-size($subh1-font-size-s, $font-size-root);
+    }
+    h2, .h2 {
+      @include font-size($h2-font-size-s, $font-size-root);
+    }
+    .subh2 {
+      @include font-size($subh2-font-size-s, $font-size-root);
+    }
+    h3, .h3 {
+      @include font-size($h3-font-size-s, $font-size-root);
+    }
+    .subh3 {
+      @include font-size($subh3-font-size-s, $font-size-root);
+    }
+    h4, .h4 {
+      @include font-size($h4-font-size-s, $font-size-root);
+    }
+  }
+
+  @include media-w-xs {
+    h1, .h1 {
+      @include font-size($h1-font-size-xs, $font-size-root);
+    }
+    h2, .h2 {
+      @include font-size($h2-font-size-xs, $font-size-root);
+    }
+    .subh2 {
+      @include font-size($subh2-font-size-xs, $font-size-root);
+    }
+  }
+
+// ---------------------------------------------
+// TEXT
+
+  p {
+    @extend %text-spacing;
+  } // paragraph
+
+  .text-big {
+    margin: 0.55em 0;
+    display: inline-block;
+    font-family: $hero-font-family;
+    @include font-size($hero-font-size, $font-size-root);
+    line-height: _get-em($hero-line-height, $hero-font-size);
+  } // big
+  
+  .text-desc {
+    color: $desc-text-color;
+    font-style: italic;
+  }
+ 
+  .text-small {
+    @include font-size($small-font-size, $font-size-root);
+  }
+
+
+  a {
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    color: $link-text-color;
+    cursor: pointer;
+    @include transition(color $link-ease, border $link-ease);
+    &:hover {
+      color: $link-hover-text-color;
+      border-bottom-color: $link-hover-text-color;
+    }
+  }
+
+  address {
+    font-style: normal;
+  }
+
+  abbr {
+    cursor: help;
+  }
+
+  @include media-w-s {
+    .text-big {
+      @include font-size($hero-font-size-s, $font-size-root);
+    }
+  }
+
+// ---------------------------------------------
+// LISTS
+
+  ul,
+  ol {
+    @extend %text-spacing;
+  }
+
+  .list-inline {
+    @extend %list-unstyled;
+    & > li {
+      margin: $default-text-margin-vertical 0.5em $default-text-margin-vertical 0;
+      display: inline-block;
+      &:first-child {margin-left: 0;}
+      &:last-child {margin-right: 0;}
+    }
+  }
+
+  .list-inline-expanded {
+    & > li {
+      margin: $default-text-margin-vertical 1em $default-text-margin-vertical 0;
+    }
+  }
+
+  dl {
+    @extend %text-spacing;
+    dt {
+      font-weight: bold;
+    }
+    dd {
+      margin-left: 0;
+      margin-bottom: $default-text-margin-vertical;
+    }
+  } // definition list
+
+// ---------------------------------------------
+// UTILITY CLASSES
+
+  .text-upper { text-transform: uppercase; }
+  .text-normal { font-weight: normal; }
+  .text-bold { font-weight: bold; }
+  .text-center { text-align: center; }
+  .text-left { text-align: left; }
+  .text-right { text-align: right; }
+  .text-justify { text-align: justify; }
+
+  .text-nospace {
+    margin: 0;
+  }
+
+  .text-ellipsis {
+    @include text-ellipsis;
+  }
+
+  %list-unstyled {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  } // unstyled list
+
+  .text-color-black { color: $text-color-black; }
+  .text-color-semiblack { color: $text-color-semiblack; }
+  .text-color-white { color: $text-color-white; }
+
+

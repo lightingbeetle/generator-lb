@@ -1,0 +1,46 @@
+<!doctype html>
+<html class="no-js">
+  <head>
+    <meta charset="utf-8">
+    <title><%= projectName %></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- build:css({.tmp,app}) styles/main.css -->
+    <!-- bower:css -->
+    <!-- endbower -->
+    <% if (includeStyleguide) { %>
+    <link rel="stylesheet" href="icons/icomoon/style.css">
+    <% } %>
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- endbuild --><% if (includeModernizr) { %>
+    <!-- build:js scripts/vendor/modernizr.js -->
+    <script src="bower_components/modernizr/modernizr.js"></script>
+    <!-- endbuild -->
+    <% } %>
+  </head>
+  <body>
+    <div class="sample-intro">
+      <h1>Please <%= projectName %> come for G.</h1>
+      <h2>Hodd luck!</h2>
+      <% if (includeStyleguide) { %><h3>
+        <a href="styleguide.html">View styleguide <i class="icon icon-m">arrowright</i></a>
+      </h3><% } %>
+      <p>Lighting Beetle @ 2014</p>
+    </div>
+    <!-- build:js(./) scripts/vendor.js -->
+    <!-- bower:js -->
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:js scripts/plugins.js -->
+    <% if (includeStyleguide) { %>
+    <script src="scripts/plugins/customselect.js"></script>
+    <script src="scripts/plugins/toggle.js"></script>
+    <% } %>
+    <!-- endbuild -->
+    <!-- build:js({app,.tmp}) scripts/main.js -->
+    <script src="scripts/main.js"></script>
+    <!-- endbuild -->
+  </body>
+</html>
