@@ -22,7 +22,7 @@
 * Bower (Web Package manager)
 * Sass (Compass/LibSass) (CSS Preprocessor)
 * Jade (HTML templating)
-* LB Styleguide (UIKit framework - in beta development) (optional)
+* light (UIKit framework - in beta development) (optional)
 * Bootstrap (Frontend framework) (Sass version) (optional)
 * Foundation (Frontend framework) (optional)
 * Modernizr (HTML5/CSS3 features detection) (optional)
