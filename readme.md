@@ -22,7 +22,6 @@
 * Bower (Web Package manager)
 * Sass (Compass/LibSass) (CSS Preprocessor)
 * Jade (HTML templating)
-* light (UIKit framework - in beta development) (optional)
 * Bootstrap (Frontend framework) (Sass version) (optional)
 * Foundation (Frontend framework) (optional)
 * Modernizr (HTML5/CSS3 features detection) (optional)
@@ -76,22 +75,18 @@ Gulpfile contains some useful tasks:
         +-- plugins
         +-- main.js
     +-- styles
-        +-- lightingfly (light)
+        +-- lightingfly (lightingfly)
         +-- modules
         +-- plugins
         +-- main.scss
     +-- views (optional)
         +-- data
             +-- index.json
-            +-- icons.json (light)
         +-- layouts
             +-- _default.jade
             +-- _footer.jade
             +-- _header.jade
-        +-- styleguide (light)
-            +-- _layout.jade
         +-- index.jade
-        +-- styleguide.jade (light)
     +-- .htaccess
     +-- favicon.ico
     +-- robots.txt
@@ -136,7 +131,6 @@ Gulpfile contains some useful tasks:
 
 ## Notes
  * Data for jade templates can by stored as JSON objects inside. ```app/views/data/```
- * Project is properly tested with light and Ruby Sass setup.
 
 ## Trubleshooting
  * Gulp wiredep is sometimes accomplished on second time

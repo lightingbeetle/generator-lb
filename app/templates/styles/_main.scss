@@ -6,26 +6,6 @@
 // bower:scss
 // endbower
 
-<% if (includeStyleguide) { %>
-@import "modules/_fonts";
-
-@import "modules/_variables";
-@import "modules/_config";
-@import "modules/_reset";
-
-@import "modules/_main";
-@import "modules/_typography";
-@import "modules/_icons_images";
-@import "modules/_grid";
-@import "modules/_buttons";
-// @import "modules/_tables";
-@import "modules/_forms";
-@import "modules/_components";
-// @import "modules/_animations";
-
-@import "modules/_style-guide";
-<% } %>
-
 .sample-intro {
   padding-top: 60px;
   font-family: 'Helvetica Neue', Helvetica;

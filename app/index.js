@@ -29,7 +29,7 @@ module.exports = yeoman.generators.Base.extend({
       name: 'features',
       message: 'What more would you like?',
       choices: [{
-        name: 'Frontend framework (light/Bootstrap/Foundation)',
+        name: 'Frontend framework (Bootstrap/Foundation)',
         value: 'includeFEFramework',
         checked: false
       },{
@@ -54,9 +54,6 @@ module.exports = yeoman.generators.Base.extend({
       name: 'feFramework',
       message: 'Please, choose frontend framework',
       choices: [{
-        name: 'light (Lighting Fly, jQuery, Modernizr)',
-        value: 'includeStyleguide'
-      }, {
         name: 'Bootstrap 3 (jQuery)',
         value: 'includeBootstrap'
       }, {
@@ -107,7 +104,6 @@ module.exports = yeoman.generators.Base.extend({
       // set FE framework
       this.includeBootstrap = false;
       this.includeFoundation = false;
-      this.includeStyleguide = false;
       switch(feFramework) {
         case 'includeBootstrap':
           this.includeBootstrap = true;
@@ -117,13 +113,7 @@ module.exports = yeoman.generators.Base.extend({
           this.includeFoundation = true;
           this.includejQuery = true;
           this.includeModernizr = true;
-          break;
-        case 'includeStyleguide':
-          this.includeStyleguide = true;
-          this.includeLightingFly = true;
-          this.includejQuery = true;
-          this.includeModernizr = true;
-          break;
+          break;;
       }
 
       // set SASS compilator
@@ -277,22 +267,6 @@ module.exports = yeoman.generators.Base.extend({
   lightingFLy: function() {
     if (this.includeLightingFly) {
       this.directory('lighingfly', 'app/styles/lightingfly');
-    }
-  },
-
-  styleguide: function() {
-    if (this.includeStyleguide) {
-      this.directory('app');
-      this.directory('styleguide/fonts', 'app/fonts');
-      this.directory('styleguide/icons', 'app/icons');
-      this.directory('styleguide/styles/modules', 'app/styles/modules');
-      this.directory('styleguide/scripts/plugins', 'app/scripts/plugins');
-      this.directory('styleguide/scripts/modules', 'app/scripts/modules');
-      this.copy('styleguide/scripts/styleguide.js', 'app/scripts/styleguide.js');
-      this.mkdir('app/views/styleguide');
-      this.directory('styleguide/jade/data', 'app/views/data');
-      this.template('styleguide/jade/styleguide.jade', 'app/views/styleguide.jade');
-      this.copy('styleguide/jade/_layout.jade', 'app/views/styleguide/_layout.jade');
     }
   },
 

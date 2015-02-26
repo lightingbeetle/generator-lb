@@ -24,14 +24,4 @@ gulp.task('wiredep', function () {
     }))
     .pipe(gulp.dest('app/views/layouts'));
   
-  <% if (includeStyleguide) { %>  
-  // Styleguide jade    
-  gulp.src('app/views/styleguide/_layout.jade')
-    .pipe(wiredep({
-      exclude: ['bootstrap-sass-official', 'modernizr'],
-      ignorePath: '../../',
-      overides: {}
-    }))
-    .pipe(gulp.dest('app/views/styleguide'));
-  <% } %>
 });
