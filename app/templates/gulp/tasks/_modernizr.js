@@ -13,5 +13,5 @@ gulp.task('modernizr', function () {
   return gulp.src(['app/scripts/**/*.js', '.tmp/styles/*.css'])
     .pipe(modernizr({silent: true}))
     .pipe(uglify())
-    .pipe(gulp.dest('.tmp/scripts/vendor/'))
+    .pipe(gulp.dest('.tmp/scripts/vendor/'));
 });
