@@ -25,7 +25,7 @@ gulp.task('styles', function () {
     .pipe(sourcemaps.write())
     .pipe(autoprefixer({browsers: ['last 2 version']}))
     .pipe(gulp.dest('.tmp/styles'))
-    .pipe(reload({stream:true}));
+    .pipe(reload({stream:true, once:true}));
 });
 <% } %><% if (includeLibSass) { %>
 // Complie scss using libsass
@@ -37,6 +37,6 @@ gulp.task('styles', function () {
     .pipe(sourcemaps.write())
     .pipe(autoprefixer({browsers: ['last 2 version']}))
     .pipe(gulp.dest('.tmp/styles'))
-    .pipe(reload({stream:true}));
+    .pipe(reload({stream:true, once:true}));
 }); 
 <% } %>

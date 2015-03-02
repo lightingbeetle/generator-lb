@@ -28,7 +28,8 @@ gulp.task('browser-sync:dist', function() {
     },
     notify: false,
     debugInfo: false,
-    host: 'localhost'
+    host: 'localhost',
+    reloadDelay: 500,
   });
 });
 

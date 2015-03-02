@@ -23,7 +23,7 @@ gulp.task('jade', ['jade:prepareData'], function() {
       compileDebug: false
     }))
     .pipe(gulp.dest('.tmp/'))
-    .pipe(reload({stream:true}));
+    .pipe(reload({stream:true, once:true}));
 });
 
 // Concat *.json file to single data.json
