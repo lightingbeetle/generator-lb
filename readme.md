@@ -9,6 +9,10 @@
 ```javascript
 (sudo) npm install -g yo
 ```
+* [Gulp](http://gulpjs.com/)
+```javascript
+(sudo) npm install -g gulp
+```
 * [Bower](http://bower.io/)
 ```javascript
 (sudo) npm install -g bower
