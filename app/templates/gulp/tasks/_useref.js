@@ -6,6 +6,7 @@ var uglify = require('gulp-uglify');
 var minifyCss = require('gulp-minify-css');
 var gulpif = require('gulp-if');
 var rev = require('gulp-rev');
+var revReplace = require('gulp-rev-replace');
 
 // Bundle css and js based on build tags
 
@@ -18,9 +19,11 @@ gulp.task('useref', function () {
     .pipe(assets)
     .pipe(gulpif('*.js', uglify())) // uglify JS
     .pipe(gulpif('*.css', minifyCss())) // minify CSS
+    .pipe(rev())
     .pipe((assets.restore()))
     .pipe(useref())
-    //.pipe(rev()) // add revision to files
-    //.pipe(rev.manifest()) // create rev-manifest.json 
+    .pipe(revReplace())
+    .pipe(gulp.dest('dist'))
+    .pipe(rev.manifest({merge: true})) // create rev-manifest.json 
     .pipe(gulp.dest('dist'));
 });
