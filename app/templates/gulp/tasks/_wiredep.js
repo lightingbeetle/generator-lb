@@ -3,25 +3,21 @@
 var gulp = require('gulp');
 var wiredep = require('wiredep').stream;
 
-// Inject bower components
+var config = require('./../config.js');
 
-gulp.task('wiredep', function () {
-  
-  // SCSS
-  gulp.src('app/styles/*.scss')
-    .pipe(wiredep({
-      ignorePath: '../../',
-      overides: {}
-    }))
-    .pipe(gulp.dest('app/styles'));
-  
-  // Jade
-  gulp.src('app/views/layouts/*.jade')
-    .pipe(wiredep({
-      exclude: ['bootstrap-sass-official', 'modernizr'],
-      ignorePath: '../../',
-      overides: {}
-    }))
-    .pipe(gulp.dest('app/views/layouts'));
-  
+// Inject bower components to sass
+gulp.task('wiredep:sass', function() {
+  return gulp.src(config.wiredep.sass.src)
+    .pipe(wiredep(config.wiredep.sass.cfg))
+    .pipe(gulp.dest(config.wiredep.sass.dest));
 });
+
+// Inject bower components to jade
+gulp.task('wiredep:jade', function() {
+  return gulp.src(config.wiredep.jade.src)
+    .pipe(wiredep(config.wiredep.jade.cfg))
+    .pipe(gulp.dest(config.wiredep.jade.dest));
+});
+
+// Inject bower components
+gulp.task('wiredep', ['wiredep:sass','wiredep:jade']);

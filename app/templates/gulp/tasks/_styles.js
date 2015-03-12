@@ -6,6 +6,7 @@ var sourcemaps = require('gulp-sourcemaps');
 var autoprefixer = require('gulp-autoprefixer');
 var plumber = require('gulp-plumber');
 
+var config = require('./../config.js');
 var reload = require('./browserSync.js').reload;
 var handleError = require('./../utils/handleError.js');
 
@@ -13,30 +14,26 @@ var handleError = require('./../utils/handleError.js');
 // Compile scss using ruby sass
 
 gulp.task('styles', function () {
-  return rubySass('app/styles/main.scss', {
-      sourcemap: false,
-      style: 'expanded',
-      lineNumbers: true
-    })
+  return rubySass(config.styles.src, config.styles.sassCfg)
     // Error emiting from sass not working right now
     // with plumber or without
     .pipe(plumber(handleError))
     //.on('error', handleError)
     .pipe(sourcemaps.write())
-    .pipe(autoprefixer({browsers: ['last 2 version']}))
-    .pipe(gulp.dest('.tmp/styles'))
+    .pipe(autoprefixer(config.styles.autoprefixerCfg))
+    .pipe(gulp.dest(config.styles.dest))
     .pipe(reload({stream:true, once:true}));
 });
 <% } %><% if (includeLibSass) { %>
 // Complie scss using libsass
 
 gulp.task('styles', function () {
-  return gulp.src('app/styles/main.scss')
+  return gulp.src(config.styles.src)
     .pipe(sourcemaps.init())
-      .pipe(sass())
+    .pipe(sass(config.styles.sassCfg))
     .pipe(sourcemaps.write())
-    .pipe(autoprefixer({browsers: ['last 2 version']}))
-    .pipe(gulp.dest('.tmp/styles'))
+    .pipe(autoprefixer(config.styles.autoprefixerCfg))
+    .pipe(gulp.dest(config.styles.dest))
     .pipe(reload({stream:true, once:true}));
 }); 
 <% } %>

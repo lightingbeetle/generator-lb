@@ -5,6 +5,7 @@ var gulp = require('gulp');
 var rsync = require('gulp-rsync');
 var plumber = require('gulp-plumber');
 
+var config = require('./../config.js');
 var handleError = require('./../utils/handleError.js');
 
 // Deploying via rsync/sftp 
@@ -12,24 +13,14 @@ var handleError = require('./../utils/handleError.js');
 
 // TODO plumber not working with this
 
-gulp.task( 'deploy', ['build'], function() {
-  return gulp.src('dist/**')
+gulp.task( 'deploy', function() {
+  return gulp.src(config.deploy.src)
     .pipe(plumber(handleError))
-    .pipe(rsync({
-      root: 'dist',
-      hostname: process.env.FTP_DEV_HOSTNAME,
-      username: process.env.FTP_DEV_USER,
-      destination: process.env.FTP_DEV_DEST
-    }));
+    .pipe(rsync(config.deploy.dev));
 });
 
-gulp.task( 'deploy:dist', ['build'], function() {
-  return gulp.src('dist/**')
+gulp.task( 'deploy:dist', function() {
+  return gulp.src(config.deploy.src)
     .pipe(plumber(handleError))
-    .pipe(rsync({
-      root: 'dist',
-      hostname: process.env.FTP_DIST_HOSTNAME,
-      username: process.env.FTP_DIST_USER,
-      destination: process.env.FTP_DIST_DEST
-    }));
+    .pipe(rsync(config.deploy.dist));
 });

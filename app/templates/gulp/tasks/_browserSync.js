@@ -3,34 +3,18 @@
 var gulp = require('gulp');
 var browserSync = require('browser-sync');
 
+var config = require('./../config.js');
+
 // Serve project with livereload
 
 gulp.task('browser-sync', function() {
-  browserSync({
-    server: {
-      baseDir: ['app', '.tmp'],
-      routes: {
-        '/bower_components': 'bower_components'
-      }
-    },
-    notify: false,
-    debugInfo: false,
-    host: 'localhost'
-  });
+  browserSync(config.browserSync.dev);
 });
 
 // Serve dist of project
 
 gulp.task('browser-sync:dist', function() {
-  browserSync({
-    server: {
-      baseDir: 'dist'
-    },
-    notify: false,
-    debugInfo: false,
-    host: 'localhost',
-    reloadDelay: 500,
-  });
+  browserSync(config.browserSync.dist);
 });
 
 module.exports.reload = browserSync.reload;

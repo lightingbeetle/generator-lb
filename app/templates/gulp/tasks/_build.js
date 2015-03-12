@@ -11,7 +11,7 @@ gulp.task('build', function(cb) {
   runSequence(
     ['wiredep','clean'],
     ['styles','jade', 'jshint'],
-    ['images', 'fonts', 'copy', 'extras'<% if (includeModernizr) { %>, 'modernizr'<% }%>],
+    ['images', 'copy', 'extras'<% if (includeModernizr) { %>, 'modernizr'<% }%>],
     'useref',
     'buildSize',
     cb

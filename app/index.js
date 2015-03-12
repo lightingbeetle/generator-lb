@@ -154,8 +154,6 @@ module.exports = yeoman.generators.Base.extend({
     this.copy('gulp/tasks/_buildSize.js', 'gulp/tasks/buildSize.js');
     this.copy('gulp/tasks/_clean.js', 'gulp/tasks/clean.js');
     this.copy('gulp/tasks/_deploy.js', 'gulp/tasks/deploy.js');
-    this.copy('gulp/tasks/_extras.js', 'gulp/tasks/extras.js');
-    this.copy('gulp/tasks/_fonts.js', 'gulp/tasks/fonts.js');
     this.copy('gulp/tasks/_images.js', 'gulp/tasks/images.js');
     this.copy('gulp/tasks/_jade.js', 'gulp/tasks/jade.js');
     this.copy('gulp/tasks/_jshint.js', 'gulp/tasks/jshint.js');
@@ -167,7 +165,7 @@ module.exports = yeoman.generators.Base.extend({
     this.copy('gulp/utils/_handleError.js', 'gulp/utils/handleError.js');
     this.copy('gulp/utils/_jsHintErrorReporter.js', 'gulp/utils/jsHintErrorReporter.js');
     
-    this.copy('gulp/_config.js', 'gulp/config.js');
+    this.template('gulp/_config.js', 'gulp/config.js');
     
     this.template('gulp/tasks/_build.js', 'gulp/tasks/build.js');
     this.template('gulp/tasks/_copy.js', 'gulp/tasks/copy.js');
@@ -232,10 +230,6 @@ module.exports = yeoman.generators.Base.extend({
 
   mainStylesheet: function () {
     this.template('styles/_main.scss', 'app/styles/main.scss');
-  },
-
-  cssLint: function () {
-    this.copy('csslintrc', '.csslintrc');
   },
 
   jade : function () {
