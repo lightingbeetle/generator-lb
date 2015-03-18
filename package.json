@@ -37,6 +37,9 @@
     "yosay": "~1.0.0"
   },
   "devDependencies": {
+    "gulp-frep": "^0.1.3",
+    "gulp-if": "^1.2.5",
+    "gulp-prettify": "^0.3.0",
     "mocha": "*",
     "underscore": "^1.6.0"
   },

@@ -3,14 +3,46 @@
 var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
 
+var ifFile = require('gulp-if');
+var frep = require('gulp-frep');
+
 function hasFeature(feat, features) {
   return features && features.indexOf(feat) !== -1;
 }
+
+var frepPatterns = [{
+    // Remove empty first line
+    pattern: /^[\s\t]*[\n\r]/,
+    replacement: ''
+  }, {
+    // Normalize and condense newlines
+    pattern: /^\s*$[\n\r]{2,}/gm,
+    replacement: '\n'
+  }
+];
 
 module.exports = yeoman.generators.Base.extend({
   initializing: function () {
     this.pkg = require('../package.json');
     this.version = this.pkg.version;
+    
+    // CLeanup after templating
+    // Probably not best solution...
+    
+    // cleanup .js files
+    this.registerTransformStream(ifFile('*.js',
+      frep(frepPatterns)
+    ));
+    
+    // cleanup .scss files
+    this.registerTransformStream(ifFile('*.scss',
+      frep(frepPatterns)
+    ));
+    
+    // cleanup .jade files
+    this.registerTransformStream(ifFile('*.jade',
+      frep(frepPatterns)
+    ));
   },
 
   prompting: {
@@ -83,18 +115,18 @@ module.exports = yeoman.generators.Base.extend({
         this.includejQuery = hasFeature('includejQuery', props.features);
         this.includeLightingFly = hasFeature('includeLightingFly', props.features);  
         
-          // set FE framework
-          this.includeBootstrap = hasFeature('includeBootstrap', props.feFramework);
-          this.includeFoundation = hasFeature('includeFoundation', props.feFramework);
-          
-          if (this.includeBootstrap) {
-            this.includejQuery = true;
-          }
-          
-          if (this.includeFoundation) {
-            this.includejQuery = true;
-            this.includeModernizr = true;
-          }
+        // set FE framework
+        this.includeBootstrap = hasFeature('includeBootstrap', props.feFramework);
+        this.includeFoundation = hasFeature('includeFoundation', props.feFramework);
+        
+        if (this.includeBootstrap) {
+          this.includejQuery = true;
+        }
+        
+        if (this.includeFoundation) {
+          this.includejQuery = true;
+          this.includeModernizr = true;
+        }
                 
         done();
       }.bind(this));
@@ -208,8 +240,7 @@ module.exports = yeoman.generators.Base.extend({
       };
 
       if (this.includeBootstrap) {
-        var bs = 'bootstrap-sass-official';
-        bower.dependencies[bs] = '~3.2.0';
+        bower.dependencies['bootstrap-sass-official'] = '~3.2.0';
       }
 
       if (this.includeFoundation) {
@@ -218,6 +249,10 @@ module.exports = yeoman.generators.Base.extend({
 
       if (this.includejQuery) {
         bower.dependencies.jquery = '~2.1.1';
+      }
+      
+      if (this.includeLightingFly) {
+        bower.dependencies.lightingfly = '~0.2.0';
       }
 
       this.write('bower.json', JSON.stringify(bower, null, 2));
@@ -264,12 +299,6 @@ module.exports = yeoman.generators.Base.extend({
       this.mkdir('app/styles/modules');
       this.mkdir('app/scripts/plugins');
       this.mkdir('app/scripts/modules');
-    },
-    
-    lightingFly: function() {
-      if (this.includeLightingFly) {
-        this.directory('lighingfly', 'app/styles/lightingfly');
-      }
     }
   },
 
