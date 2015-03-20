@@ -11,7 +11,7 @@
     "del": "~1.1.1",
     "dotenv": "~0.5.1",
     "gulp": "~3.8.11",
-    "gulp-autoprefixer": "~2.1.0",
+    "autoprefixer-core": "~5.1.7",
     "gulp-cache": "~0.2.8",
     "gulp-concat": "~2.5.2",
     "gulp-data": "~1.2.0",
@@ -24,6 +24,7 @@
     "gulp-minify-html": "~1.0.0",<% if (includeModernizr) { %>
     "gulp-modernizr": "~1.0.0-alpha",<% } %>
     "gulp-notify": "~2.2.0",
+    "gulp-postcss": "~4.0.3",
     "gulp-plumber": "~0.6.6",
     "gulp-rename": "~1.2.0",
     "gulp-rev": "~3.0.1",

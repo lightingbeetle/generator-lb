@@ -1,10 +1,16 @@
 'use strict';
 
 var gulp = require('gulp');
-<% if (includeRubySass) { %>var rubySass = require('gulp-ruby-sass');<% } %><% if (includeLibSass) { %>var sass = require('gulp-sass');<% } %>
+<% if (includeRubySass) { %>
+var rubySass = require('gulp-ruby-sass');
+<% } else if (includeLibSass) { %>
+var sass = require('gulp-sass');
+<% } %>
 var sourcemaps = require('gulp-sourcemaps');
-var autoprefixer = require('gulp-autoprefixer');
+var postcss = require('gulp-postcss');
 var plumber = require('gulp-plumber');
+
+var autoprefixer = require('autoprefixer-core');
 
 var config = require('./../config.js');
 var reload = require('./browserSync.js').reload;
@@ -19,20 +25,25 @@ gulp.task('styles', function () {
     // with plumber or without
     .pipe(plumber(handleError))
     //.on('error', handleError)
+    .pipe(postcss([
+      autoprefixer(config.styles.autoprefixerCfg)
+    ]))
     .pipe(sourcemaps.write())
-    .pipe(autoprefixer(config.styles.autoprefixerCfg))
     .pipe(gulp.dest(config.styles.dest))
     .pipe(reload({stream:true, once:true}));
 });
-<% } %><% if (includeLibSass) { %>
+
+<% } else if (includeLibSass) { %>
 // Complie scss using libsass
 
 gulp.task('styles', function () {
   return gulp.src(config.styles.src)
     .pipe(sourcemaps.init())
     .pipe(sass(config.styles.sassCfg))
+    .pipe(postcss([
+      autoprefixer(config.styles.autoprefixerCfg)
+    ]))
     .pipe(sourcemaps.write())
-    .pipe(autoprefixer(config.styles.autoprefixerCfg))
     .pipe(gulp.dest(config.styles.dest))
     .pipe(reload({stream:true, once:true}));
 }); 
