@@ -7,9 +7,9 @@
   "version" : "0.0.1",
   "description": "<%= projectName %> description",
   "devDependencies": {
-    "browser-sync": "~2.2.1",
+    "browser-sync": "~2.3.1",
     "del": "~1.1.1",
-    "dotenv": "~0.5.1",
+    "dotenv": "~1.0.0",
     "gulp": "~3.8.11",
     "autoprefixer-core": "~5.1.7",
     "gulp-cache": "~0.2.8",
@@ -19,13 +19,13 @@
     "gulp-if": "~1.2.5",
     "gulp-imagemin": "~2.2.1",
     "gulp-jade": "~1.0.0",
-    "gulp-jshint": "~1.9.2",
-    "gulp-minify-css": "~0.5.1",
+    "gulp-jshint": "~1.9.4",
+    "gulp-minify-css": "~1.0.0",
     "gulp-minify-html": "~1.0.0",<% if (includeModernizr) { %>
     "gulp-modernizr": "~1.0.0-alpha",<% } %>
     "gulp-notify": "~2.2.0",
     "gulp-postcss": "~4.0.3",
-    "gulp-plumber": "~0.6.6",
+    "gulp-plumber": "~1.0.0",
     "gulp-rename": "~1.2.0",
     "gulp-rev": "~3.0.1",
     "gulp-rev-replace": "~0.4.0",
@@ -41,10 +41,10 @@
     "jshint-stylish": "~1.0.1",
     "map-stream": "~0.0.5",<% if (includeLibSass) { %>
     "node-sass": "~2.0.0-beta",<% } %>
-    "require-dir": "~0.1.0",
+    "require-dir": "~0.2.0",
     "run-sequence": "~1.0.2",
     "wiredep": "~2.2.2",
-    "yargs": "~3.4.5"
+    "yargs": "~3.5.4"
   },
   "engines": {
     "node": ">=0.10.0"
