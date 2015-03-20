@@ -125,17 +125,19 @@ module.exports.jshint = {
   reporter: require('jshint-stylish')
 };
 
+<% if (includeModernizr) { %>
 // Modernizr task config
 module.exports.modernizr = {
   src: [ 
     path.join(app, scripts,'**/*.js'),
     path.join(tmp, styles,'*.css')
   ],
-  dest: path.join(app, scripts, 'vendor'),
+  dest: path.join(app, scripts, 'plugins'),
   cfg: {
     silent: true
   }
 };
+<% } %>
 
 // Styles task config
 module.exports.styles = {
