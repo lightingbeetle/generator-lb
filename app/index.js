@@ -64,6 +64,7 @@ module.exports = yeoman.generators.Base.extend({
       this.prompt(prompts, function(props) {
         this.projectName = props.name;
         
+        this.config.set('name', props.name);
         done();
       }.bind(this));
     },
@@ -127,7 +128,9 @@ module.exports = yeoman.generators.Base.extend({
           this.includejQuery = true;
           this.includeModernizr = true;
         }
-                
+        
+        this.config.set('features', props.features);
+        
         done();
       }.bind(this));
     },
@@ -153,6 +156,8 @@ module.exports = yeoman.generators.Base.extend({
         this.includeRubySass = hasFeature('includeRubySass', props.sassCompilator);
         this.includeLibSass = hasFeature('includeLibSass', props.sassCompilator);
         
+        this.config.set('sassCompilator', props.sassCompilator);
+        
         done();
       }.bind(this));
     },
@@ -169,6 +174,7 @@ module.exports = yeoman.generators.Base.extend({
       this.prompt(prompts, function(props) {
         //testing framework
         this.includeTestFramework = props.includeTestFramework;
+        
         if (this.includeTestFramework) {
           // setup the test-framework property, Gruntfile template will need this
           this.option('test-framework', {
@@ -178,6 +184,8 @@ module.exports = yeoman.generators.Base.extend({
           });
           this.testFramework = this.options['test-framework'];
         }
+        
+        this.config.set('testFramework', props.includeTestFramework);
         
         done();
       }.bind(this));
@@ -252,7 +260,7 @@ module.exports = yeoman.generators.Base.extend({
       }
       
       if (this.includeLightingFly) {
-        bower.dependencies.lightingfly = '~0.2.0';
+        bower.dependencies.lightingfly = '~0.2.1';
       }
 
       this.write('bower.json', JSON.stringify(bower, null, 2));
