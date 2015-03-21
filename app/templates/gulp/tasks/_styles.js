@@ -21,16 +21,13 @@ var handleError = require('./../utils/handleError.js');
 
 gulp.task('styles', function () {
   return rubySass(config.styles.src, config.styles.sassCfg)
-    // Error emiting from sass not working right now
-    // with plumber or without
-    .pipe(plumber(handleError))
-    //.on('error', handleError)
+    .on('error', handleError)
     .pipe(postcss([
       autoprefixer(config.styles.autoprefixerCfg)
     ]))
     .pipe(sourcemaps.write())
     .pipe(gulp.dest(config.styles.dest))
-    .pipe(reload({stream:true, once:true}));
+    .pipe(reload({stream:true}));
 });
 
 <% } else if (includeLibSass) { %>
@@ -45,6 +42,7 @@ gulp.task('styles', function () {
     ]))
     .pipe(sourcemaps.write())
     .pipe(gulp.dest(config.styles.dest))
-    .pipe(reload({stream:true, once:true}));
+    .on('error', handleError)
+    .pipe(reload({stream:true}));
 }); 
 <% } %>

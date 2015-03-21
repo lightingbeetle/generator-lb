@@ -153,7 +153,7 @@ module.exports.styles = {
   src: path.join(app, styles, 'main.scss'),
   dest: path.join(tmp,styles),
   sassCfg: <% if (includeRubySass) { %>{
-    sourcemap: false,
+    sourcemap: true,
     style: 'expanded',
     lineNumbers: true
   }, <% } else if (includeLibSass) { %>{}, <% } %>
