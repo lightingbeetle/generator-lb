@@ -11,5 +11,5 @@ gulp.task('watch', function () {
   gulp.watch(config.watch.styles, ['styles']);
   gulp.watch(config.watch.jade, ['jade', reload]);
   gulp.watch(config.watch.wiredep, ['wiredep', reload]);
-  gulp.watch(config.watch.jshint, ['jshint', reload]);
+  gulp.watch(config.watch.scripts, ['scripts', reload]);
 });

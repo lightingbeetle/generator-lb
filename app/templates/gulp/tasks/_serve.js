@@ -8,7 +8,7 @@ var runSequence = require('run-sequence');
 gulp.task('serve', function (cb) {
   runSequence(
     'wiredep',
-    ['styles','jade', 'jshint'],
+    ['styles','jade', 'scripts'],
     <% if (includeModernizr) { %>'modernizr',<% } %>
     'browser-sync',
     'watch',

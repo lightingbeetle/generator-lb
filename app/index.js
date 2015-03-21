@@ -91,8 +91,7 @@ module.exports = yeoman.generators.Base.extend({
           name: 'Lighting Fly',
           value: 'includeLightingFly',
           checked: false
-        },
-        ]
+        }]
       }, {
         when: function (props) {
           return props.features.indexOf('includeFEFramework') !== -1;
@@ -107,13 +106,28 @@ module.exports = yeoman.generators.Base.extend({
           name: 'Foundation 5 (jQuery, Modernizr)',
           value: 'includeFoundation'
         }]
+      }, {
+        when: function (props) {
+          return props.features.indexOf('includejQuery') !== -1;
+        },
+        type: 'list',
+        name: 'jQuery',
+        message: 'Please, choose jQuery version',
+        choices: [{
+          name: 'jQuery 1.x',
+          value: 'includejQuery1'
+        }, {
+          name: 'jQuery 2.x',
+          value: 'includejQuery2'
+        }]
       }];
       
       this.prompt(prompts, function(props) {
         // set features of aplication
         
         this.includeModernizr = hasFeature('includeModernizr', props.features);
-        this.includejQuery = hasFeature('includejQuery', props.features);
+        this.includejQuery1 = hasFeature('includejQuery1', props.features);
+        this.includejQuery2 = hasFeature('includejQuery2', props.features);
         this.includeLightingFly = hasFeature('includeLightingFly', props.features);  
         
         // set FE framework
@@ -121,11 +135,13 @@ module.exports = yeoman.generators.Base.extend({
         this.includeFoundation = hasFeature('includeFoundation', props.feFramework);
         
         if (this.includeBootstrap) {
-          this.includejQuery = true;
+          this.includejQuery1 = false;
+          this.includejQuery2 = true;
         }
         
         if (this.includeFoundation) {
-          this.includejQuery = true;
+          this.includejQuery1 = false;
+          this.includejQuery2 = true;
           this.includeModernizr = true;
         }
         
@@ -157,6 +173,25 @@ module.exports = yeoman.generators.Base.extend({
         this.includeLibSass = hasFeature('includeLibSass', props.sassCompilator);
         
         this.config.set('sassCompilator', props.sassCompilator);
+        
+        done();
+      }.bind(this));
+    },
+    askForES6: function() {
+      var done = this.async();
+      
+      var prompts = [{
+        type: 'confirm',
+        name: 'includeES6',
+        message: 'Do you want to use ES6 with Babel transpiler?',
+        default: true
+      }];
+      
+      this.prompt(prompts, function(props) {
+        //testing framework
+        this.includeES6 = props.includeES6;
+        
+        this.config.set('ES6', props.includeES6);
         
         done();
       }.bind(this));
@@ -199,13 +234,10 @@ module.exports = yeoman.generators.Base.extend({
       this.copy('_gulpfile.js','gulpfile.js');
       
       this.copy('gulp/tasks/_browserSync.js', 'gulp/tasks/browserSync.js');
-      this.copy('gulp/tasks/_buildSize.js', 'gulp/tasks/buildSize.js');
       this.copy('gulp/tasks/_clean.js', 'gulp/tasks/clean.js');
       this.copy('gulp/tasks/_deploy.js', 'gulp/tasks/deploy.js');
       this.copy('gulp/tasks/_images.js', 'gulp/tasks/images.js');
       this.copy('gulp/tasks/_jade.js', 'gulp/tasks/jade.js');
-      this.copy('gulp/tasks/_jshint.js', 'gulp/tasks/jshint.js');
-      this.copy('gulp/tasks/_browserSync.js', 'gulp/tasks/browserSync.js');
       this.copy('gulp/tasks/_useref.js', 'gulp/tasks/useref.js');
       this.copy('gulp/tasks/_watch.js', 'gulp/tasks/watch.js');
       
@@ -218,6 +250,7 @@ module.exports = yeoman.generators.Base.extend({
       this.template('gulp/tasks/_build.js', 'gulp/tasks/build.js');
       this.template('gulp/tasks/_copy.js', 'gulp/tasks/copy.js');
       this.template('gulp/tasks/_serve.js', 'gulp/tasks/serve.js');
+      this.template('gulp/tasks/_scripts.js', 'gulp/tasks/scripts.js');
       this.template('gulp/tasks/_styles.js', 'gulp/tasks/styles.js');
       this.template('gulp/tasks/_wiredep.js', 'gulp/tasks/wiredep.js');
       
@@ -248,15 +281,19 @@ module.exports = yeoman.generators.Base.extend({
       };
 
       if (this.includeBootstrap) {
-        bower.dependencies['bootstrap-sass-official'] = '~3.2.0';
+        bower.dependencies['bootstrap-sass'] = '~3.3.4';
       }
 
       if (this.includeFoundation) {
-        bower.dependencies.foundation = 'zurb/bower-foundation#~5.4.5';
+        bower.dependencies.foundation = 'zurb/bower-foundation#~5.5.1';
       }
 
-      if (this.includejQuery) {
-        bower.dependencies.jquery = '~2.1.1';
+      if (this.includejQuery1) {
+        bower.dependencies.jquery = '~1.11.2';
+      }
+      
+      if (this.includejQuery2) {
+        bower.dependencies.jquery = '~2.1.3';
       }
       
       if (this.includeLightingFly) {

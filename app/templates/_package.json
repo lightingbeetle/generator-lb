@@ -12,6 +12,7 @@
     "dotenv": "~1.0.0",
     "gulp": "~3.8.11",
     "autoprefixer-core": "~5.1.7",
+    "gulp-babel": "~4.0.0",
     "gulp-cache": "~0.2.8",
     "gulp-concat": "~2.5.2",
     "gulp-data": "~1.2.0",

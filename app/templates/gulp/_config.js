@@ -139,10 +139,19 @@ module.exports.modernizr = {
 };
 <% } %>
 
+// User scripts task
+module.exports.scripts = {
+  src: [
+    path.join(app, scripts, '*.js'),
+    path.join(app, scripts, 'modules/**/*.js')
+  ],
+  dest: path.join(app, tmp)
+};
+
 // Styles task config
 module.exports.styles = {
-  src: app + '/styles/main.scss',
-  dest: tmp +'/styles',
+  src: path.join(app, styles, 'main.scss'),
+  dest: path.join(tmp,styles),
   sassCfg: <% if (includeRubySass) { %>{
     sourcemap: false,
     style: 'expanded',
@@ -162,27 +171,30 @@ module.exports.useref = {
 
 // Watch task config
 module.exports.watch = {
-  styles: app +'/styles/**/*.scss',
-  jade: [app +'/views/**/*.jade', app + '/views/data/**/*.json'],
-  jshint: app + '/scripts/**/*.js',
+  styles: path.join(app, styles, '/**/*.scss'),
+  jade: [
+    path.join(app, views, '/**/*.jade'), 
+    path.join(app, views, data, '/**/*.json')
+  ],
+  scripts: path.join(app, scripts, '/**/*.js'),
   wiredep: 'bower.json' 
 };
 
 // Wiredep task config
 module.exports.wiredep = {
   sass: {
-    src: app + '/styles/*.scss',
-    dest: app + '/styles',
+    src: path.join(app, styles, '/*.scss'),
+    dest: path.join(app, styles),
     cfg: {
       ignorePath: '../../',
       overides: {}
     }
   },
   jade: {
-    src: app + '/views/layouts/*.jade',
-    dest: app + '/views/layouts',
+    src: path.join(app, views, '/layouts/*.jade'),
+    dest: path.join(app, views, '/layouts'),
     cfg: {
-      exclude: ['bootstrap-sass-official', 'modernizr'],
+      exclude: ['bootstrap-sass', 'modernizr'],
       ignorePath: '../../',
       overides: {}
     }
