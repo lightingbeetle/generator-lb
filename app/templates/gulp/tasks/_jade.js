@@ -26,6 +26,6 @@ gulp.task('jade', ['jade:prepareData'], function() {
 
 gulp.task('jade:prepareData', function() {
   return gulp.src(config.jadeData.src)
-  .pipe(extend(config.jadeData.dataName))
-  .pipe(gulp.dest(config.jadeData.dest));
+    .pipe(extend(config.jadeData.dataName))
+    .pipe(gulp.dest(config.jadeData.dest));
 });
