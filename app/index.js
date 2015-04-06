@@ -2,6 +2,7 @@
 
 var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
+var _s = require('underscore.string');
 
 var ifFile = require('gulp-if');
 var frep = require('gulp-frep');
@@ -63,6 +64,7 @@ module.exports = yeoman.generators.Base.extend({
       
       this.prompt(prompts, function(props) {
         this.projectName = props.name;
+        this.projectNameSlug = _s.slugify(props.name);
         
         this.config.set('name', props.name);
         done();
@@ -114,11 +116,11 @@ module.exports = yeoman.generators.Base.extend({
         name: 'jQuery',
         message: 'Please, choose jQuery version',
         choices: [{
-          name: 'jQuery 1.x',
-          value: 'includejQuery1'
-        }, {
           name: 'jQuery 2.x',
           value: 'includejQuery2'
+        }, {
+          name: 'jQuery 1.x',
+          value: 'includejQuery1'
         }]
       }];
       
@@ -275,7 +277,7 @@ module.exports = yeoman.generators.Base.extend({
 
     bower: function () {
       var bower = {
-        name: this._.slugify(this.projectName),
+        name: this.projectNameSlug,
         private: true,
         dependencies: {}
       };

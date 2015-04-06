@@ -1,5 +1,5 @@
 {
-  "name": "<%= _.slugify(projectName) %>",
+  "name": "<%= projectNameSlug %>",
   "repository": {
     "type": "git",
     "url": ""
