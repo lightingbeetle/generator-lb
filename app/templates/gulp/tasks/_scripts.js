@@ -24,7 +24,7 @@ gulp.task('scripts', ['jshint'],function () {
   <% if (includeES6) { %>return gulp.src(config.scripts.src)
     .pipe(sourcemaps.init())
     .pipe(babel())
-    .pipe(sourcemaps.write('.'))
     .on('error', handleError)
+    .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest(config.scripts.dest));<% } %>
 });

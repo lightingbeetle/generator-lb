@@ -19,7 +19,7 @@ var views = 'views';
 module.exports.browserSync = {
   dev: {
     server: {
-      baseDir: [app, tmp],
+      baseDir: [tmp, app],
       routes: {
         '/bower_components': bowerDir
       }
@@ -145,7 +145,7 @@ module.exports.scripts = {
     path.join(app, scripts, '*.js'),
     path.join(app, scripts, 'modules/**/*.js')
   ],
-  dest: path.join(app, tmp)
+  dest: path.join(tmp, scripts)
 };
 
 // Styles task config
