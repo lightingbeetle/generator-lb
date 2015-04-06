@@ -186,7 +186,7 @@ module.exports.wiredep = {
     src: path.join(app, styles, '/*.scss'),
     dest: path.join(app, styles),
     cfg: {
-      ignorePath: '../../',
+      ignorePath: '',
       overides: {}
     }
   },
