@@ -152,11 +152,11 @@ module.exports.scripts = {
 module.exports.styles = {
   src: path.join(app, styles, 'main.scss'),
   dest: path.join(tmp,styles),
-  main: '*.css',
   sassCfg: <% if (includeRubySass) { %>{
     sourcemap: true,
     style: 'expanded',
-    lineNumbers: true
+    lineNumbers: true,
+    container: '<%= projectNameSlug %>'
   }, <% } else if (includeLibSass) { %>{}, <% } %>
   autoprefixerCfg: {browsers: ['last 2 version']}
 };

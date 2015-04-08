@@ -10,7 +10,6 @@ var sourcemaps = require('gulp-sourcemaps');
 var postcss = require('gulp-postcss');
 var plumber = require('gulp-plumber');
 
-var ignore = require('gulp-ignore');
 var autoprefixer = require('autoprefixer-core');
 
 var config = require('./../config.js');
@@ -23,7 +22,6 @@ var handleError = require('./../utils/handleError.js');
 gulp.task('styles', function () {
   return rubySass(config.styles.src, config.styles.sassCfg)
     .on('error', handleError)
-    .pipe(ignore.include(config.styles.main))
     .pipe(postcss([
       autoprefixer(config.styles.autoprefixerCfg)
     ]))
