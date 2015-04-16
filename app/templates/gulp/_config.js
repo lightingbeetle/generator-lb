@@ -149,7 +149,14 @@ module.exports.modernizr = {
   ],
   dest: path.join(app, scripts, 'plugins'),
   cfg: {
-    silent: true
+    silent: true,
+    options: [
+      'setClasses',
+      'addTest',
+      'html5printshiv',
+      'testProp',
+      'fnBind'
+    ]
   }
 };
 <% } %>
