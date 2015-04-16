@@ -40,10 +40,25 @@ module.exports.browserSync = {
 
 // Build size task config
 module.exports.buildSize = {
-  src: dist + '/**/*',
-  cfg: {
+  srcAll: dist + '/**/*',
+  cfgAll: {
     title: 'build', 
     gzip: true
+  },
+  srcCss: path.join(dist, styles, '/**/*'),
+  cfgCss: {
+    title: 'CSS', 
+    gzip: true
+  },
+  srcJs: path.join(dist, scripts, '/**/*'),
+  cfgJs: {
+    title: 'JS', 
+    gzip: true
+  },
+  srcImages: path.join(dist, images, '/**/*'),
+  cfgImages: {
+    title: 'Images', 
+    gzip: false
   }
 };
 
