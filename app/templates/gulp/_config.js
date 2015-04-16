@@ -147,7 +147,7 @@ module.exports.modernizr = {
     path.join(app, scripts,'**/*.js'),
     path.join(tmp, styles,'*.css')
   ],
-  dest: path.join(app, scripts, 'plugins'),
+  dest: path.join(tmp, scripts, 'plugins'),
   cfg: {
     silent: true,
     options: [
