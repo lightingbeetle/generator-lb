@@ -1,6 +1,6 @@
 'use strict';
 
-var gulp = require('gulp');
+var gulp = require('gulp-help')(require('gulp'));
 var jade = require('gulp-jade');
 var data = require('gulp-data');
 var plumber  = require('gulp-plumber');
@@ -12,7 +12,7 @@ var handleError = require('./../utils/handleError.js');
 
 // Compile jade to html
 
-gulp.task('jade', ['jade:prepareData'], function() {
+gulp.task('jade', 'Compile Jade templates',['jade:prepareData'], function() {
   return gulp.src(config.jade.src)
     .pipe(plumber(handleError))
     .pipe(data(function() {
@@ -24,7 +24,7 @@ gulp.task('jade', ['jade:prepareData'], function() {
 
 // Concat *.json file to single data.json
 
-gulp.task('jade:prepareData', function() {
+gulp.task('jade:prepareData', 'Merge views data', function() {
   return gulp.src(config.jadeData.src)
     .pipe(extend(config.jadeData.dataName))
     .pipe(gulp.dest(config.jadeData.dest));

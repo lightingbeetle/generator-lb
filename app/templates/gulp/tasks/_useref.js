@@ -1,6 +1,6 @@
 'use strict';
 
-var gulp = require('gulp');
+var gulp = require('gulp-help')(require('gulp'));
 var useref = require('gulp-useref');
 var uglify = require('gulp-uglify');
 var minifyCss = require('gulp-minify-css');
@@ -12,7 +12,7 @@ var config = require('./../config.js');
 
 // Bundle css and js based on build tags
 
-gulp.task('useref', function () {
+gulp.task('useref', 'Bundle CSS and JS based on build tags and copy to `dist/` folder',function () {
   var assets = useref.assets(config.useref.assetsCfg);
   
   return gulp.src(config.useref.src)

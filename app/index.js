@@ -285,6 +285,7 @@ module.exports = yeoman.generators.Base.extend({
       
       this.copy('gulp/tasks/_browserSync.js', 'gulp/tasks/browserSync.js');
       this.copy('gulp/tasks/_clean.js', 'gulp/tasks/clean.js');
+      this.copy('gulp/tasks/_default.js', 'gulp/tasks/default.js');
       this.copy('gulp/tasks/_deploy.js', 'gulp/tasks/deploy.js');
       this.copy('gulp/tasks/_images.js', 'gulp/tasks/images.js');
       this.copy('gulp/tasks/_jade.js', 'gulp/tasks/jade.js');

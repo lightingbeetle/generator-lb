@@ -1,6 +1,6 @@
 'use strict';
 
-var gulp = require('gulp');
+var gulp = require('gulp-help')(require('gulp'));
 <% if (includeRubySass) { %>
 var rubySass = require('gulp-ruby-sass');
 <% } else if (includeLibSass) { %>
@@ -19,7 +19,7 @@ var handleError = require('./../utils/handleError.js');
 <% if (includeRubySass) { %>
 // Compile scss using ruby sass
 
-gulp.task('styles', function () {
+gulp.task('styles', 'Compile Sass to CSS', function () {
   return rubySass(config.styles.src, config.styles.sassCfg)
     .on('error', handleError)
     .pipe(postcss([
@@ -33,7 +33,7 @@ gulp.task('styles', function () {
 <% } else if (includeLibSass) { %>
 // Complie scss using libsass
 
-gulp.task('styles', function () {
+gulp.task('styles', 'Compile Sass to CSS', function () {
   return gulp.src(config.styles.src)
     .pipe(sourcemaps.init())
     .pipe(sass(config.styles.sassCfg))
