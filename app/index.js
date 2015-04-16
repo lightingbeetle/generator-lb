@@ -3,6 +3,7 @@
 var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
 var _s = require('underscore.string');
+var Insight = require('insight');
 
 var ifFile = require('gulp-if');
 var frep = require('gulp-frep');
@@ -21,6 +22,8 @@ var frepPatterns = [{
     replacement: '\n'
   }
 ];
+
+var insight;
 
 module.exports = yeoman.generators.Base.extend({
   initializing: function () {
@@ -44,16 +47,43 @@ module.exports = yeoman.generators.Base.extend({
     this.registerTransformStream(ifFile('*.jade',
       frep(frepPatterns)
     ));
+    
+    insight = new Insight({
+        // Google Analytics tracking code
+        trackingCode: 'UA-27851629-18',
+        pkg: this.pkg,
+        version: this.version
+    });
   },
 
   prompting: {
-    askForProjectName: function() {
+    askForAnalytics: function() {
       var done = this.async();
-
+      
       // welcome message
       if (!this.options['skip-welcome-message']) {
         this.log(chalk.yellow(require('yosay')('Welcome to Lighting Beetle generator. Hodd luck!')));
       }
+      
+      var prompts = [{
+        when: function () {
+            return insight.optOut === undefined;
+        },
+        type: 'confirm',
+        name: 'analytics',
+        message: 'May generator-lb anonymously report usage statistics to improve the tool over time?',
+        default: true
+      }];
+      
+      this.prompt(prompts, function(props) {
+        this.analytics = props.analytics;
+        insight.track('install', 'start');
+        this.config.set('analytics', props.analytics);
+        done();
+      }.bind(this));
+    },
+    askForProjectName: function() {
+      var done = this.async();
       
       var prompts = [{
         type: 'input',
@@ -105,7 +135,7 @@ module.exports = yeoman.generators.Base.extend({
           name: 'Bootstrap 3 (jQuery)',
           value: 'includeBootstrap'
         }, {
-          name: 'Foundation 5 (jQuery, Modernizr)',
+          name: 'Foundation 5 (jQuery2, Modernizr)',
           value: 'includeFoundation'
         }]
       }, {
@@ -128,17 +158,20 @@ module.exports = yeoman.generators.Base.extend({
         // set features of aplication
         
         this.includeModernizr = hasFeature('includeModernizr', props.features);
-        this.includejQuery1 = hasFeature('includejQuery1', props.features);
-        this.includejQuery2 = hasFeature('includejQuery2', props.features);
         this.includeLightingFly = hasFeature('includeLightingFly', props.features);  
+        
+        this.includejQuery1 = hasFeature('includejQuery1', props.jQuery);
+        this.includejQuery2 = hasFeature('includejQuery2', props.jQuery);
         
         // set FE framework
         this.includeBootstrap = hasFeature('includeBootstrap', props.feFramework);
         this.includeFoundation = hasFeature('includeFoundation', props.feFramework);
         
         if (this.includeBootstrap) {
-          this.includejQuery1 = false;
-          this.includejQuery2 = true;
+          if (this.includejQuery1 === false && this.includejQuery2 === false)  {
+            this.includejQuery1 = false;
+            this.includejQuery2 = true;
+          }
         }
         
         if (this.includeFoundation) {
@@ -148,6 +181,15 @@ module.exports = yeoman.generators.Base.extend({
         }
         
         this.config.set('features', props.features);
+        this.config.set('jQuery', props.jQuery);
+        this.config.set('feFramework', props.feFramework);
+        
+        insight.track('modernizr', this.includeModernizr);
+        insight.track('lightingFly', this.lightingfly);
+        insight.track('jQuery1', this.includejQuery1);
+        insight.track('jQuery2', this.includejQuery2);
+        insight.track('bootstrap', this.includeBootstrap);
+        insight.track('foundation', this.includeFoundation);
         
         done();
       }.bind(this));
@@ -174,6 +216,8 @@ module.exports = yeoman.generators.Base.extend({
         this.includeRubySass = hasFeature('includeRubySass', props.sassCompilator);
         this.includeLibSass = hasFeature('includeLibSass', props.sassCompilator);
         
+        insight.track('sass', props.sassCompilator);
+        
         this.config.set('sassCompilator', props.sassCompilator);
         
         done();
@@ -192,6 +236,8 @@ module.exports = yeoman.generators.Base.extend({
       this.prompt(prompts, function(props) {
         //testing framework
         this.includeES6 = props.includeES6;
+        
+        insight.track('ES6', props.includeES6);
         
         this.config.set('ES6', props.includeES6);
         
@@ -221,6 +267,8 @@ module.exports = yeoman.generators.Base.extend({
           });
           this.testFramework = this.options['test-framework'];
         }
+        
+        insight.track('testFramework', props.includeTestFramework);
         
         this.config.set('testFramework', props.includeTestFramework);
         
@@ -357,8 +405,11 @@ module.exports = yeoman.generators.Base.extend({
         skipInstall: this.options['skip-install'],
         callback: function () {
           this.log(chalk.green('All done, hodd luck!'));
+          insight.track('install', 'done');
         }.bind(this)
       });
+    } else {
+      insight.track('install', 'skip-install');
     }
     
     this.on('end', function () {
