@@ -48,6 +48,11 @@ module.exports = yeoman.generators.Base.extend({
       frep(frepPatterns)
     ));
     
+    // welcome message
+    if (!this.options['skip-welcome-message']) {
+      this.log(chalk.yellow(require('yosay')('Welcome to Lighting Beetle generator. Hodd luck!')));
+    }
+    
     insight = new Insight({
         // Google Analytics tracking code
         trackingCode: 'UA-27851629-18',
@@ -59,28 +64,13 @@ module.exports = yeoman.generators.Base.extend({
   prompting: {
     askForAnalytics: function() {
       var done = this.async();
-      
-      // welcome message
-      if (!this.options['skip-welcome-message']) {
-        this.log(chalk.yellow(require('yosay')('Welcome to Lighting Beetle generator. Hodd luck!')));
-      }
-      
-      var prompts = [{
-        when: function () {
-            return insight.optOut === undefined;
-        },
-        type: 'confirm',
-        name: 'analytics',
-        message: 'May generator-lb anonymously report usage statistics to improve the tool over time?',
-        default: true
-      }];
-      
-      this.prompt(prompts, function(props) {
-        this.analytics = props.analytics;
-        insight.track('install', 'start');
-        this.config.set('analytics', props.analytics);
+      if (insight.optOut === undefined) {
+        insight.askPermission('May generator-lb anonymously report usage statistics to improve the tool over time?', function() {
+          done();
+        }.bind(this));
+      } else {
         done();
-      }.bind(this));
+      }
     },
     askForProjectName: function() {
       var done = this.async();
@@ -93,6 +83,8 @@ module.exports = yeoman.generators.Base.extend({
       }];
       
       this.prompt(prompts, function(props) {
+        insight.track('install', 'start');
+        console.log(insight.optOut);
         this.projectName = props.name;
         this.projectNameSlug = _s.slugify(props.name);
         
