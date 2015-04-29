@@ -84,7 +84,7 @@ module.exports = yeoman.generators.Base.extend({
       
       this.prompt(prompts, function(props) {
         insight.track('install', 'start');
-        console.log(insight.optOut);
+
         this.projectName = props.name;
         this.projectNameSlug = _s.slugify(props.name);
         
