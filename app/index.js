@@ -181,8 +181,11 @@ module.exports = yeoman.generators.Base.extend({
         insight.track('lightingFly', this.includeLightingFly);
         insight.track('jQuery1', this.includejQuery1);
         insight.track('jQuery2', this.includejQuery2);
-        insight.track('bootstrap', this.includeBootstrap);
-        insight.track('foundation', this.includeFoundation);
+        
+        if (props.feFramework) {
+          insight.track('bootstrap', this.includeBootstrap);
+          insight.track('foundation', this.includeFoundation);
+        }
         
         done();
       }.bind(this));
