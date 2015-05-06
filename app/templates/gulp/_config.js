@@ -15,6 +15,13 @@ var scripts = 'scripts';
 var styles = 'styles';
 var views = 'views';
 
+// Default settings
+module.exports.uglifyJs = true; // to remove .min sufix edit template manually
+module.exports.minifyCss = true; // to remove .min sufix edit template manually
+module.exports.cacheBust = true;
+module.exports.optimizeImages = true;
+module.exports.lintJs = true;
+
 // Browser sync task config
 module.exports.browserSync = {
   dev: {
@@ -217,7 +224,7 @@ module.exports.wiredep = {
     src: path.join(app, views, '/layouts/*.jade'),
     dest: path.join(app, views, '/layouts'),
     cfg: {
-      exclude: ['bootstrap-sass', 'modernizr'],
+      exclude: ['modernizr'],
       ignorePath: '../../',
       overides: {}
     }

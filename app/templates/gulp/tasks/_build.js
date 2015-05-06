@@ -33,7 +33,7 @@ gulp.task('buildSize', 'Determine size of `dist/` folder', ['buildSize:css', 'bu
 });
 
 // run build in sequence - this shoud be implemented in Gulp 4 natively
-gulp.task('build', 'Build project', function(cb) {
+gulp.task('build', 'Build project (use with --force to force build)', function(cb) {
   build.setBuild(true);
   runSequence(
     ['wiredep','clean'],

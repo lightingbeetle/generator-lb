@@ -12,11 +12,15 @@ var handleError = require('./../utils/handleError.js');
 // Lint .js files
 
 gulp.task('jshint', 'Lint js files', function () {
-  return gulp.src(config.jshint.src)
-    .pipe(jshint())
-    .pipe(jshint.reporter(config.jshint.reporter))
-    .pipe(jsHintErrorReporter())
-    .on('error', handleError);
+  if (config.lintJs) {
+    return gulp.src(config.jshint.src)
+      .pipe(jshint())
+      .pipe(jshint.reporter(config.jshint.reporter))
+      .pipe(jsHintErrorReporter())
+      .on('error', handleError);
+  } else {
+    return;
+  }
 });
 
 

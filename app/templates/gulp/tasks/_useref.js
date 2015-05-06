@@ -17,13 +17,13 @@ gulp.task('useref', 'Bundle CSS and JS based on build tags and copy to `dist/` f
   
   return gulp.src(config.useref.src)
     .pipe(assets)
-    .pipe(gulpif('*.js', uglify())) // uglify JS
-    .pipe(gulpif('*.css', minifyCss())) // minify CSS
-    .pipe(rev())
-    .pipe((assets.restore()))
+    .pipe(gulpif('*.js', gulpif(config.uglifyJs, uglify()))) // uglify JS
+    .pipe(gulpif('*.css', gulpif(config.minifyCss, minifyCss()))) // minify CSS
+    .pipe(gulpif(config.cacheBust, rev()))
+    .pipe(assets.restore())
     .pipe(useref())
-    .pipe(revReplace())
+    .pipe(gulpif(config.cacheBust, revReplace()))
     .pipe(gulp.dest(config.useref.dest))
-    .pipe(rev.manifest(config.useref.revManifestCfg)) // create rev-manifest.json 
+    .pipe(gulpif(config.cacheBust, rev.manifest(config.useref.revManifestCfg))) // create rev-manifest.json 
     .pipe(gulp.dest(config.useref.dest));
 });

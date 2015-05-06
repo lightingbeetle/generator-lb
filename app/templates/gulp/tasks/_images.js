@@ -3,6 +3,7 @@
 var gulp = require('gulp-help')(require('gulp'));
 var imagemin = require('gulp-imagemin');
 var cache = require('gulp-cache');
+var gulpif = require('gulp-if');
 
 var config = require('./../config.js');
 
@@ -16,6 +17,6 @@ gulp.task('clearCache', 'Clear Imagemin cache', function (done) {
 
 gulp.task('images', 'Run Imagemin optimalizations and copy to `dist/`', function () {
   return gulp.src(config.images.src)
-    .pipe(cache(imagemin(config.images.cfg)))
+    .pipe(gulpif(config.optimizeImages, cache(imagemin(config.images.cfg))))
     .pipe(gulp.dest(config.images.dest));
 });
