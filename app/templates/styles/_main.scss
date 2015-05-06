@@ -1,8 +1,5 @@
 <% if (includeBootstrap) { %>$icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/bootstrap/"; <% } %>
 
-<% if (includeLightingFly) { %>@import 'lightingfly/_lighting_fly'; 
-@import 'lightingfly/_lighting_grid';<% } %>
-
 // bower:scss
 // endbower
 
@@ -10,10 +7,12 @@
   padding-top: 60px;
   font-family: 'Helvetica Neue', Helvetica;
   text-align: center;
+  
   h1,
   h2,
   p {
     color: rgb(246, 117, 50);
   }
+  
   a { border-bottom-color: #f7854a; }
 }

@@ -9,6 +9,10 @@
 ```javascript
 (sudo) npm install -g yo
 ```
+* [Gulp](http://gulpjs.com/)
+```javascript
+(sudo) npm install -g gulp
+```
 * [Bower](http://bower.io/)
 ```javascript
 (sudo) npm install -g bower
@@ -25,9 +29,10 @@
 * Bootstrap (Frontend framework) (Sass version) (optional)
 * Foundation (Frontend framework) (optional)
 * Modernizr (HTML5/CSS3 features detection) (optional)
-* jQuery (feature-rich JavaScript library) (optional)
+* jQuery 1.x/2.x(feature-rich JavaScript library) (optional)
 * LightingFly (SCSS mixins library) (optional)
 * Mocha (Unit testing) (optional)
+* ES6 compilation to ES5 (optional)
 
 ## Built-in features
 
@@ -37,6 +42,7 @@
 * Sass compilation
 * CSS/JS concating and minification
 * JS linting
+* ES6 compilation
 * Automatic wiring up Bower components
 * Image optimaliztion
 * Lean Modernizr builds
@@ -59,8 +65,8 @@ Gulpfile contains some useful tasks:
 1. `gulp serve` for development with livereload
 2. `gulp build` for building from source to `dist` folder
 3. `gulp serve:dist` for build preview
-4. `gulp deploy` for deploing on dev server via sftp (config is in .env file) 
-5. `gulp deploy:prod` for deploing on prod server via sftp (config is in .env file) 
+4. `gulp deploy` for deploying on dev server via sftp (config is in .env file) 
+5. `gulp deploy:prod` for deploying on prod server via sftp (config is in .env file) 
 
 ## Folder structure
 
@@ -96,16 +102,14 @@ Gulpfile contains some useful tasks:
     +-- tasks
         +-- browserSync.js
         +-- build.js
-        +-- buildSize.js
         +-- clean.js
+        +-- clearCache.js
         +-- copy.js
-        +-- extras.js
-        +-- fonts.js
+        +-- deploy.js
         +-- images.js
         +-- jade.js
-        +-- jadePrepareData.js
-        +-- jshint.js
-        +-- modernizr.js
+        +-- modernizr.js (optional)
+        +-- scripts.js
         +-- serve.js
         +-- styles.js
         +-- useref.js
@@ -130,15 +134,12 @@ Gulpfile contains some useful tasks:
 ```
 
 ## Notes
+ * Gulp tasks can be configured inside `config.js` file in `gulp` folder.
  * Data for jade templates can by stored as JSON objects inside. ```app/views/data/```
-
-## Trubleshooting
- * Gulp wiredep is sometimes accomplished on second time
+ * Build can be forced with ```gulp build --force```
 
 ## Issues
  * gulp-ruby-sass do not use notification system
- * Modernizr task is really awkward and sometimes segfaulting
- * gulp-rev is currently disabled and not working (advanced cacheing)
  
 ## Contributors
  * Adam Močkoř (mockor@lbstudio.sk)
