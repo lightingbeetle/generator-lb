@@ -65,8 +65,8 @@ Gulpfile contains some useful tasks:
 1. `gulp serve` for development with livereload
 2. `gulp build` for building from source to `dist` folder
 3. `gulp serve:dist` for build preview
-4. `gulp deploy` for deploing on dev server via sftp (config is in .env file) 
-5. `gulp deploy:prod` for deploing on prod server via sftp (config is in .env file) 
+4. `gulp deploy` for deploying on dev server via sftp (config is in .env file) 
+5. `gulp deploy:prod` for deploying on prod server via sftp (config is in .env file) 
 
 ## Folder structure
 
@@ -136,10 +136,10 @@ Gulpfile contains some useful tasks:
 ## Notes
  * Gulp tasks can be configured inside `config.js` file in `gulp` folder.
  * Data for jade templates can by stored as JSON objects inside. ```app/views/data/```
+ * Build can be forced with ```gulp build --force```
 
 ## Issues
  * gulp-ruby-sass do not use notification system
- * Modernizr task is really awkward and sometimes segfaulting
  
 ## Contributors
  * Adam Močkoř (mockor@lbstudio.sk)
