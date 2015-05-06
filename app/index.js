@@ -4,6 +4,7 @@ var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
 var _s = require('underscore.string');
 var Insight = require('insight');
+var mkdir = require('mkdirp');
 
 var ifFile = require('gulp-if');
 var frep = require('gulp-frep');
@@ -55,7 +56,7 @@ module.exports = yeoman.generators.Base.extend({
     
     insight = new Insight({
         // Google Analytics tracking code
-        trackingCode: 'UA-27851629-18',
+        trackingCode: 'UA-27851629-19',
         pkg: this.pkg,
         version: this.version
     });
@@ -177,7 +178,7 @@ module.exports = yeoman.generators.Base.extend({
         this.config.set('feFramework', props.feFramework);
         
         insight.track('modernizr', this.includeModernizr);
-        insight.track('lightingFly', this.lightingfly);
+        insight.track('lightingFly', this.includeLightingFly);
         insight.track('jQuery1', this.includejQuery1);
         insight.track('jQuery2', this.includejQuery2);
         insight.track('bootstrap', this.includeBootstrap);
@@ -195,18 +196,18 @@ module.exports = yeoman.generators.Base.extend({
         message: 'What SASS compilator do you want to use?',
         choices: [{
           name: 'Compass - Ruby',
-          value: 'includeRubySass',
+          value: 'rubySass',
         },{
           name: 'LibSass - Node.js',
-          value: 'includeLibSass',
+          value: 'libSass',
         }],
         default: 0
       }];
       
       this.prompt(prompts, function(props) {
         
-        this.includeRubySass = hasFeature('includeRubySass', props.sassCompilator);
-        this.includeLibSass = hasFeature('includeLibSass', props.sassCompilator);
+        this.includeRubySass = hasFeature('rubySass', props.sassCompilator);
+        this.includeLibSass = hasFeature('libSass', props.sassCompilator);
         
         insight.track('sass', props.sassCompilator);
         
@@ -344,7 +345,6 @@ module.exports = yeoman.generators.Base.extend({
       }
 
       this.write('bower.json', JSON.stringify(bower, null, 2));
-      this.mkdir('bower_components');
     },
     
     env: function(){
@@ -373,20 +373,19 @@ module.exports = yeoman.generators.Base.extend({
 
     js : function () {
       this.directory('app');
-      this.mkdir('app/scripts');
       this.template('scripts/_main.js', 'app/scripts/main.js');
     },
 
     app: function () {
       this.directory('app');
-      this.mkdir('app/scripts');
-      this.mkdir('app/styles');
-      this.mkdir('app/images');
-      this.mkdir('app/icons');
-      this.mkdir('app/fonts');
-      this.mkdir('app/styles/modules');
-      this.mkdir('app/scripts/plugins');
-      this.mkdir('app/scripts/modules');
+      mkdir('app/scripts');
+      mkdir('app/styles');
+      mkdir('app/images');
+      mkdir('app/icons');
+      mkdir('app/fonts');
+      mkdir('app/styles/modules');
+      mkdir('app/scripts/plugins');
+      mkdir('app/scripts/modules');
     }
   },
 
