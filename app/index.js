@@ -150,6 +150,10 @@ module.exports = yeoman.generators.Base.extend({
       this.prompt(prompts, function(props) {
         // set features of aplication
         
+        this.features = props.features;
+        
+        console.log(this.features);
+        
         this.includeModernizr = hasFeature('includeModernizr', props.features);
         this.includeLightingFly = hasFeature('includeLightingFly', props.features);  
         
