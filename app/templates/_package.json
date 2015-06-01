@@ -40,7 +40,8 @@
     "gulp-util": "~3.0.4",
     "jade": "~1.9.2",
     "jshint-stylish": "~1.0.1",
-    "map-stream": "~0.0.5",<% if (includeLibSass) { %>
+    "map-stream": "~0.0.5",<% if (includeMultiLanguage) { %>
+    "merge-stream": "~0.1.7",<% } %><% if (includeLibSass) { %>
     "node-sass": "~2.0.0-beta",<% } %>
     "require-dir": "~0.3.0",
     "run-sequence": "~1.1.0",

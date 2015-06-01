@@ -49,6 +49,7 @@
 * Mocha unit testing (optional)
 * Improved file caching
 * Deploying via rsync/sftp
+* Multi-language templates support (optional)
 
 ## Installation guide
 

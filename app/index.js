@@ -152,8 +152,6 @@ module.exports = yeoman.generators.Base.extend({
         
         this.features = props.features;
         
-        console.log(this.features);
-        
         this.includeModernizr = hasFeature('includeModernizr', props.features);
         this.includeLightingFly = hasFeature('includeLightingFly', props.features);  
         
@@ -240,6 +238,27 @@ module.exports = yeoman.generators.Base.extend({
         insight.track('ES6', props.includeES6);
         
         this.config.set('ES6', props.includeES6);
+        
+        done();
+      }.bind(this));
+    },
+    askForMultiLanguage: function() {
+      var done = this.async();
+      
+      var prompts = [{
+        type: 'confirm',
+        name: 'includeMultiLanguage',
+        message: 'Do you want support for multi-language templates?',
+        default: false
+      }];
+      
+      this.prompt(prompts, function(props) {
+        //testing framework
+        this.includeMultiLanguage = props.includeMultiLanguage;
+        
+        insight.track('multiLanguage', props.includeMultiLanguage);
+        
+        this.config.set('multiLanguage', props.includeMultiLanguage);
         
         done();
       }.bind(this));
@@ -376,7 +395,10 @@ module.exports = yeoman.generators.Base.extend({
       this.template('views/layouts/_default.jade', 'app/views/layouts/_default.jade');
       this.template('views/modules/_header.jade', 'app/views/modules/_header.jade');
       this.template('views/modules/_footer.jade', 'app/views/modules/_footer.jade');
-      this.copy('views/data/_index.json','app/views/data/index.json');
+      this.template('views/data/_index.json','app/views/data/index.json');
+      if (this.includeMultiLanguage) {
+        this.copy('views/mixins/_language.jade','app/views/mixins/_language.jade');
+      }
     },
 
     js : function () {

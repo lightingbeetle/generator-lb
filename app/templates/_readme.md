@@ -50,6 +50,7 @@ gulp help
 * Lean Modernizr builds
 * Improved file caching
 * Deploying via rsync/sftp
+<% if (includeMultiLanguage) { %>* Multi-language templates support <% } %>
 
 ---
 

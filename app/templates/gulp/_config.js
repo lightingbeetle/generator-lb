@@ -15,6 +15,13 @@ var scripts = 'scripts';
 var styles = 'styles';
 var views = 'views';
 
+<% if (includeMultiLanguage) { %>
+var languages = {
+  list: ['en', 'de', 'sk'],
+  primary: 'en'
+};
+<% } %>
+
 // Default settings
 module.exports.uglifyJs = true; // to remove .min sufix edit template manually
 module.exports.minifyCss = true; // to remove .min sufix edit template manually
@@ -122,6 +129,7 @@ module.exports.images = {
 
 // Jade task config
 module.exports.jade = {
+  <% if (includeMultiLanguage) { %>languages: languages,<% } %>
   src: path.join(app, views, '*.jade'),
   dest: tmp,
   cfg: {
@@ -191,7 +199,7 @@ module.exports.styles = {
 };
 
 module.exports.useref = {
-  src: tmp + '/*.html',
+  src: tmp + '/**/*.html',
   dest: dist,
   assetsCfg: {
     searchPath : app
