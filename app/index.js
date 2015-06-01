@@ -350,7 +350,8 @@ module.exports = yeoman.generators.Base.extend({
       if (this.includeLightingFly) {
         bower.dependencies.lightingfly = '~0.2.1';
       }
-
+      
+      mkdir('bower_components');
       this.write('bower.json', JSON.stringify(bower, null, 2));
     },
     
