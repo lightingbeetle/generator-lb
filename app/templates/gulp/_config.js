@@ -134,7 +134,7 @@ module.exports.jade = {
   dest: tmp,
   cfg: {
     pretty: true,
-    compileDebug: false
+    compileDebug: true
   }
 };
 
