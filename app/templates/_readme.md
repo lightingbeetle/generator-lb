@@ -7,11 +7,12 @@
 Prerequisites:
 * [Node.js](http://nodejs.org/) >=0.10.0  
 <% if (includeRubySass) { %>* [Sass](http://sass-lang.com/) >=3.4.0  <% } %>
-* [Bower](http://bower.io/) (optional)
+<% if (features.length) { %>* [Bower](http://bower.io/) <% } %>
 
 Installation process:
 1. Clone this repository
 2. Run ```npm install``` to install dependencies
+<% if (features.length) { %>3. Run ```bower install``` to install front-end dependencies<% } %>
 
 ## Usage
 
@@ -22,7 +23,17 @@ gulp serve
 
 To build project run: (Result will be in ```dist/``` folder.)
 ```
-gulp build
+gulp build [--force]
+```
+
+To serve built project run:
+```
+gulp serve:dist
+```
+
+Gulp help:
+```
+gulp help
 ```
 
 
@@ -39,6 +50,7 @@ gulp build
 * Lean Modernizr builds
 * Improved file caching
 * Deploying via rsync/sftp
+<% if (includeMultiLanguage) { %>* Multi-language templates support <% } %>
 
 ---
 
