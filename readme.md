@@ -17,7 +17,6 @@
 ```javascript
 (sudo) npm install -g bower
 ```
-* [Git](http://git-scm.com/)
 * [Sass](http://sass-lang.com/)
 
 ## Built-in tools
@@ -50,6 +49,7 @@
 * Improved file caching
 * Deploying via rsync/sftp
 * Multi-language templates support (optional)
+* Advanced routing in development
 
 ## Installation guide
 
