@@ -1,5 +1,6 @@
 'use strict';
 var path = require('path');
+var modRewrite = require('connect-modrewrite');
 
 // Default paths
 var app = 'app';
@@ -22,6 +23,18 @@ var languages = {
 };
 <% } %>
 
+// Rewrite rules enables removing .html extensions in development.
+// This are possible routes for same test.html file:
+// http://localhost:3000/test.html
+// http://localhost:3000/test
+var rewriteRules = [
+  '^/$ - [L]', // default site root handling (index.html)
+  '.html$ - [L]', // ignore routes ends with '.html'
+  '(.*)/$ $1/index.html [L]', // routes with trailing slash are directories -> rewrite to directory index.html
+  '\\/\[a-zA-Z0-9_\\-.]+\\.\[a-zA-Z0-9]+$ - [L]', // ignore files with extension (eg. .css, .js, ...)
+  '(.*)$ $1.html [L]' // redirect routes ends with string without trailing slash to original html
+];
+
 // Default settings
 module.exports.uglifyJs = true; // to remove .min sufix edit template manually
 module.exports.minifyCss = true; // to remove .min sufix edit template manually
@@ -40,7 +53,10 @@ module.exports.browserSync = {
     },
     notify: false,
     debugInfo: false,
-    host: 'localhost'
+    host: 'localhost',
+    middleware: [
+      modRewrite(rewriteRules)
+    ]
   },
   dist: {
     server: {
@@ -48,7 +64,10 @@ module.exports.browserSync = {
     },
     notify: false,
     debugInfo: false,
-    host: 'localhost'
+    host: 'localhost',
+    middleware: [
+      modRewrite(rewriteRules)
+    ]
   }
 };
 
@@ -134,7 +153,7 @@ module.exports.jade = {
   dest: tmp,
   cfg: {
     pretty: true,
-    compileDebug: false
+    compileDebug: true
   }
 };
 
