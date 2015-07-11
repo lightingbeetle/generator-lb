@@ -13,9 +13,16 @@ gulp.task('clearCache', 'Clear Imagemin cache', function (done) {
   return cache.clearAll(done);
 });
 
+// Copy SVG to dist
+
+gulp.task('copySvg', 'Copy SVGs to `dist/`', function () {
+  return gulp.src(config.images.srcSvg)
+    .pipe(gulp.dest(config.images.dest));
+});
+
 // Optimize images
 
-gulp.task('images', 'Run Imagemin optimalizations and copy to `dist/`', function () {
+gulp.task('images', 'Run Imagemin optimalizations and copy to `dist/`', ['copySvg'], function () {
   return gulp.src(config.images.src)
     .pipe(gulpif(config.optimizeImages, cache(imagemin(config.images.cfg))))
     .pipe(gulp.dest(config.images.dest));

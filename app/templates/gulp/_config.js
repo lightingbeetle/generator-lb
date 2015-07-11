@@ -137,7 +137,8 @@ module.exports.deploy = {
 
 // Images task config
 module.exports.images = {
-  src: path.join(app, images, '**/*'),
+  src: path.join(app, images, '**/*.{gif,png,jpg}'),
+  srcSVG: path.join(app, images, '**/*.svg'),
   dest: dist + '/images',
   cfg: {
     progressive: true,
