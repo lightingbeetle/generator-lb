@@ -307,8 +307,7 @@ module.exports = yeoman.generators.Base.extend({
       this.copy('gulp/tasks/_default.js', 'gulp/tasks/default.js');
       this.copy('gulp/tasks/_deploy.js', 'gulp/tasks/deploy.js');
       this.copy('gulp/tasks/_images.js', 'gulp/tasks/images.js');
-      this.copy('gulp/tasks/_jade.js', 'gulp/tasks/jade.js');
-      this.copy('gulp/tasks/_useref.js', 'gulp/tasks/useref.js');
+      this.copy('gulp/tasks/_templates.js', 'gulp/tasks/templates.js');
       this.copy('gulp/tasks/_watch.js', 'gulp/tasks/watch.js');
       
       this.copy('gulp/utils/_buildHelper.js', 'gulp/utils/buildHelper.js');

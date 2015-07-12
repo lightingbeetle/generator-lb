@@ -151,7 +151,9 @@ module.exports.images = {
 module.exports.jade = {
   <% if (includeMultiLanguage) { %>languages: languages,<% } %>
   src: path.join(app, views, '*.jade'),
+  srcBuild: path.join(tmp, 'jade/*.jade'),
   dest: tmp,
+  destBuild: path.join(dist),
   cfg: {
     pretty: true,
     compileDebug: true
@@ -219,8 +221,9 @@ module.exports.styles = {
 };
 
 module.exports.useref = {
-  src: tmp + '/**/*.html',
+  src: path.join(app, views, '/**/*.jade'),
   dest: dist,
+  destJade: path.join(tmp, 'jade'),
   assetsCfg: {
     searchPath : app
   },

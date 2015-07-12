@@ -13,17 +13,17 @@ head
   meta(name="description", content="")
   meta(name="viewport", content="width=device-width")
   link(rel="shortcut icon", href="/favicon.ico")
-  // build:css /styles/vendor.min.css
-  // endbuild
-  // build:css({.tmp,app}) /styles/main.min.css
+  //- build:css /styles/vendor.min.css -->
+  //- endbuild -->
+  //- build:css({.tmp,app}) /styles/main.min.css -->
   // bower:css
   // endbower
   link(rel="stylesheet", href="/styles/main.css")
-  // endbuild
+  //- endbuild -->
   <% if (includeModernizr) { %>
-  // build:js(.tmp) /scripts/modernizr.min.js
+  //- build:js(.tmp) /scripts/modernizr.min.js -->
   script(src="/scripts/plugins/modernizr.js")
-  // endbuild
+  //- endbuild -->
   <% } %>
 
 body
@@ -34,15 +34,15 @@ body
     block content
 
   include ../modules/_footer
-
-  // build:js(./app/) /scripts/vendor.min.js
+  
+  //- build:js(./app/) /scripts/vendor.min.js -->
   // bower:js
   // endbower
-  // endbuild
-  // build:js /scripts/plugins.min.js
-  // endbuild
-  // build:js(.tmp) /scripts/main.min.js
+  //- endbuild -->
+  //- build:js /scripts/plugins.min.js -->
+  //- endbuild -->
+  //- build:js(.tmp) /scripts/main.min.js -->
   script(src="/scripts/main.js")
-  // endbuild
+  //- endbuild -->
 
 | </html>

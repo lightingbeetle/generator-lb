@@ -37,9 +37,9 @@ gulp.task('build', 'Build project (use with --force to force build)', function(c
   build.setBuild(true);
   runSequence(
     ['wiredep','clean'],
-    ['styles','jade', 'scripts'],
+    ['styles', 'scripts'],
     ['images', 'copy', 'extras'<% if (includeModernizr) { %>, 'modernizr'<% }%>],
-    'useref',
+    'templates',
     'buildSize',
     function() {
       notifier.notify({
