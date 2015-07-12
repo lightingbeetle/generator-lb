@@ -44,7 +44,7 @@ gulp.task('templates', 'Compile Jade templates', ['jade:prepareData', 'useref'],
         return json;
       }))
       .pipe(jade(config.jade.cfg))
-      .pipe((config.jade.languages.primary === lang) ? gulp.dest(dest) : gulp.dest(dest, lang)));
+      .pipe((config.jade.languages.primary === lang) ? gulp.dest(dest) : gulp.dest(path.join(dest, lang)));
   });
   
   return merge(languages);<% } %>
