@@ -16,7 +16,7 @@ gulp.task('clearCache', 'Clear Imagemin cache', function (done) {
 // Copy SVG to dist
 
 gulp.task('copySvg', 'Copy SVGs to `dist/`', function () {
-  return gulp.src(config.images.srcSvg)
+  return gulp.src(config.images.srcSVG)
     .pipe(gulp.dest(config.images.dest));
 });
 
