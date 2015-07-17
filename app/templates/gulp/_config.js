@@ -147,27 +147,6 @@ module.exports.images = {
   }
 };
 
-// Jade task config
-module.exports.jade = {
-  <% if (includeMultiLanguage) { %>languages: languages,<% } %>
-  src: path.join(app, views, '*.jade'),
-  srcBuild: path.join(tmp, 'jade/*.jade'),
-  dest: tmp,
-  destBuild: path.join(dist),
-  cfg: {
-    pretty: true,
-    compileDebug: true
-  }
-};
-
-// JadeData task config
-module.exports.jadeData = {
-  src: path.join(app, views, data, '/**/*.json'),
-  dest: app + '/views',
-  dataName: 'data.json',
-  dataPath: path.join(app, views, 'data.json')
-};
-
 // JSHint task config
 module.exports.jshint = {
   src: [
@@ -200,10 +179,7 @@ module.exports.modernizr = {
 
 // User scripts task
 module.exports.scripts = {
-  src: [
-    path.join(app, scripts, '*.js'),
-    path.join(app, scripts, 'modules/**/*.js')
-  ],
+  src: path.join(app, scripts, '**/*.js'),
   dest: path.join(tmp, scripts)
 };
 
@@ -218,6 +194,27 @@ module.exports.styles = {
     container: '<%= projectNameSlug %>'
   }, <% } else if (includeLibSass) { %>{}, <% } %>
   autoprefixerCfg: {browsers: ['last 2 version']}
+};
+
+// Templates task config
+module.exports.templates = {
+  <% if (includeMultiLanguage) { %>languages: languages,<% } %>
+  src: path.join(app, views, '*.jade'),
+  srcBuild: path.join(tmp, 'jade/*.jade'),
+  dest: tmp,
+  destBuild: path.join(dist),
+  cfg: {
+    pretty: true,
+    compileDebug: true
+  }
+};
+
+// TemplatesData task config
+module.exports.templatesData = {
+  src: path.join(app, views, data, '/**/*.json'),
+  dest: app + '/views',
+  dataName: 'data.json',
+  dataPath: path.join(app, views, 'data.json')
 };
 
 module.exports.useref = {

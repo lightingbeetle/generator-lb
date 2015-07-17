@@ -22,29 +22,29 @@ var build = require('./../utils/buildHelper.js');
 
 // Compile jade to html
 
-gulp.task('templates', 'Compile Jade templates', ['jade:prepareData', 'useref'], function() {
-  var src = build.isBuild() ? config.jade.srcBuild : config.jade.src;
-  var dest = build.isBuild() ? config.jade.destBuild : config.jade.dest;
+gulp.task('templates', 'Compile templates', ['templates:prepareData', 'useref'], function() {
+  var src = build.isBuild() ? config.templates.srcBuild : config.templates.src;
+  var dest = build.isBuild() ? config.templates.destBuild : config.templates.dest;
   
   <% if (!includeMultiLanguage) { %>return gulp.src(src)
     .pipe(plumber(handleError))
     .pipe(data(function() {
-      return JSON.parse(fs.readFileSync(config.jadeData.dataPath));
+      return JSON.parse(fs.readFileSync(config.templatesData.dataPath));
     }))
-    .pipe(jade(config.jade.cfg))
+    .pipe(jade(config.templates.cfg))
     .pipe(gulp.dest(dest));
   <% } else { %>  
-  var languages = config.jade.languages.list.map(function(lang) {
+  var languages = config.templates.languages.list.map(function(lang) {
     return gulp.src(src)
       .pipe(plumber(handleError))
       .pipe(data(function() {
-        var json = JSON.parse(fs.readFileSync(config.jadeData.dataPath));
+        var json = JSON.parse(fs.readFileSync(config.templatesData.dataPath));
         json.language = lang;
-        json.primaryLanguage = config.jade.languages.primary;
+        json.primaryLanguage = config.templates.languages.primary;
         return json;
       }))
-      .pipe(jade(config.jade.cfg))
-      .pipe((config.jade.languages.primary === lang) ? gulp.dest(dest) : gulp.dest(path.join(dest, lang)));
+      .pipe(jade(config.templates.cfg))
+      .pipe((config.templates.languages.primary === lang) ? gulp.dest(dest) : gulp.dest(path.join(dest, lang)));
   });
   
   return merge(languages);<% } %>
@@ -52,17 +52,17 @@ gulp.task('templates', 'Compile Jade templates', ['jade:prepareData', 'useref'],
 
 // Concat *.json file to single data.json
 
-gulp.task('jade:prepareData', 'Merge views data', function() {
-  return gulp.src(config.jadeData.src)
-    .pipe(extend(config.jadeData.dataName))
-    .pipe(gulp.dest(config.jadeData.dest));
+gulp.task('templates:prepareData', 'Merge views data', function() {
+  return gulp.src(config.templatesData.src)
+    .pipe(extend(config.templatesData.dataName))
+    .pipe(gulp.dest(config.templatesData.dest));
 });
 
 // Bundle css and js based on build tags in Jade templates
 
 gulp.task('useref', 'Bundle CSS and JS based on build tags and copy to `dist/` folder', function () {
   // run useref only in build
-  if (build.isBuild) {
+  if (build.isBuild()) {
     var assets = useref.assets(config.useref.assetsCfg);
     
     var jadeFilesOnly = filter(['**/*.jade']);
