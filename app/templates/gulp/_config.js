@@ -11,6 +11,7 @@ var bowerDir = 'bower_components';
 // Default paths in app folder
 var data = 'data';
 var fonts = 'fonts';
+var icons = 'icons';
 var images = 'images';
 var scripts = 'scripts';
 var styles = 'styles';
@@ -103,6 +104,12 @@ module.exports.clean = [tmp, dist];
 module.exports.copyFonts = {
   src: path.join(app, fonts, '**/*'),
   dest: dist + '/fonts'
+};
+
+// Copy fonts task config
+module.exports.copyIcons = {
+  src: path.join(app, icons, '**/*'),
+  dest: dist + '/icons'
 };
 
 // Copy extras task config
