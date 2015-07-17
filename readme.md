@@ -67,7 +67,8 @@ Gulpfile contains some useful tasks:
 2. `gulp build` for building from source to `dist` folder
 3. `gulp serve:dist` for build preview
 4. `gulp deploy` for deploying on dev server via sftp (config is in .env file) 
-5. `gulp deploy:prod` for deploying on prod server via sftp (config is in .env file) 
+5. `gulp deploy:prod` for deploying on prod server via sftp (config is in .env file)  
+6. `gulp help` for information about other tasks
 
 ## Folder structure
 
@@ -82,7 +83,6 @@ Gulpfile contains some useful tasks:
         +-- plugins
         +-- main.js
     +-- styles
-        +-- lightingfly (lightingfly)
         +-- modules
         +-- plugins
         +-- main.scss
@@ -108,12 +108,11 @@ Gulpfile contains some useful tasks:
         +-- copy.js
         +-- deploy.js
         +-- images.js
-        +-- jade.js
         +-- modernizr.js (optional)
         +-- scripts.js
         +-- serve.js
         +-- styles.js
-        +-- useref.js
+        +-- templates.js
         +-- watch.js
         +-- wiredep.js
     +-- utils
