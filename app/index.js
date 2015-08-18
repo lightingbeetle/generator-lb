@@ -395,8 +395,10 @@ module.exports = yeoman.generators.Base.extend({
       this.template('views/modules/_header.jade', 'app/views/modules/_header.jade');
       this.template('views/modules/_footer.jade', 'app/views/modules/_footer.jade');
       this.template('views/data/_index.json','app/views/data/index.json');
+      mkdir('app/views/helpers');
+      mkdir('app/views/mixins');
       if (this.includeMultiLanguage) {
-        this.copy('views/mixins/_language.jade','app/views/mixins/_language.jade');
+        this.copy('views/helpers/_language.jade','app/views/helpers/_language.jade');
       }
     },
 

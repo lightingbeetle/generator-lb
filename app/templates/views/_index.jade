@@ -6,5 +6,5 @@ block content
     h1 Please <%= projectName %> come for G.
     h2 Hodd luck! 
       <% if (includeMultiLanguage) { %>span
-        +language(index.greeting)<% } %>
+        !=l(index.greeting)<% } %>
     p= index.footer
