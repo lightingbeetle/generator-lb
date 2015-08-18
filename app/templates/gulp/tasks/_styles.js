@@ -37,12 +37,12 @@ gulp.task('styles', 'Compile Sass to CSS', function () {
   return gulp.src(config.styles.src)
     .pipe(sourcemaps.init())
     .pipe(sass(config.styles.sassCfg))
+    .on('error', handleError)
     .pipe(postcss([
       autoprefixer(config.styles.autoprefixerCfg)
     ]))
     .pipe(sourcemaps.write())
     .pipe(gulp.dest(config.styles.dest))
-    .on('error', handleError)
     .pipe(reload({stream:true}));
 }); 
 <% } %>
