@@ -155,12 +155,11 @@ module.exports.images = {
 };
 
 // JSHint task config
-module.exports.jshint = {
+module.exports.eslint = {
   src: [
     path.join(app, scripts,'**/*.js'), 
     path.join('!' + app, scripts,'plugins/**/*.js') // do not lint external plugins
-  ],
-  reporter: require('jshint-stylish')
+  ]
 };
 
 <% if (includeModernizr) { %>

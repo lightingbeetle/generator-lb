@@ -221,27 +221,6 @@ module.exports = yeoman.generators.Base.extend({
         done();
       }.bind(this));
     },
-    askForES6: function() {
-      var done = this.async();
-      
-      var prompts = [{
-        type: 'confirm',
-        name: 'includeES6',
-        message: 'Do you want to use ES6 with Babel transpiler?',
-        default: true
-      }];
-      
-      this.prompt(prompts, function(props) {
-        //testing framework
-        this.includeES6 = props.includeES6;
-        
-        insight.track('ES6', props.includeES6);
-        
-        this.config.set('ES6', props.includeES6);
-        
-        done();
-      }.bind(this));
-    },
     askForMultiLanguage: function() {
       var done = this.async();
       
@@ -312,7 +291,6 @@ module.exports = yeoman.generators.Base.extend({
       
       this.copy('gulp/utils/_buildHelper.js', 'gulp/utils/buildHelper.js');
       this.copy('gulp/utils/_handleError.js', 'gulp/utils/handleError.js');
-      this.copy('gulp/utils/_jsHintErrorReporter.js', 'gulp/utils/jsHintErrorReporter.js');
       
       this.template('gulp/_config.js', 'gulp/config.js');
       
@@ -377,8 +355,8 @@ module.exports = yeoman.generators.Base.extend({
       this.copy('env', '.env');
     },
 
-    jshint: function () {
-      this.copy('jshintrc', '.jshintrc');
+    eslint: function () {
+      this.copy('eslintrc', '.eslintrc');
     },
 
     editorConfig: function () {

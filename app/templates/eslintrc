@@ -1,0 +1,12 @@
+{
+  "extends": "eslint-config-airbnb",
+  
+  "rules": {
+    "no-trailing-spaces": [2, { "skipBlankLines": true }]
+  },
+  
+  "globals": {
+    "$": true,
+    "Modernizr": true,
+  }
+}

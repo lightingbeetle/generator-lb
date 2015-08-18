@@ -1,22 +1,21 @@
 'use strict';
 
 var gulp = require('gulp-help')(require('gulp'));
-var jshint = require('gulp-jshint');
+var eslint = require('gulp-eslint');
 var babel = require('gulp-babel');
 var sourcemaps = require('gulp-sourcemaps');
 
 var config = require('./../config.js');
-var jsHintErrorReporter = require('./../utils/jsHintErrorReporter.js');
 var handleError = require('./../utils/handleError.js');
 
 // Lint .js files
 
-gulp.task('jshint', 'Lint js files', function () {
+gulp.task('lintjs', 'Lint js files', function () {
   if (config.lintJs) {
-    return gulp.src(config.jshint.src)
-      .pipe(jshint())
-      .pipe(jshint.reporter(config.jshint.reporter))
-      .pipe(jsHintErrorReporter())
+    return gulp.src(config.eslint.src)
+      .pipe(eslint())
+      .pipe(eslint.format())
+      .pipe(eslint.failAfterError())
       .on('error', handleError);
   } else {
     return;
@@ -24,11 +23,11 @@ gulp.task('jshint', 'Lint js files', function () {
 });
 
 
-gulp.task('scripts', <% if (includeES6) { %>'Compile ES6 to ES5'<% } else {%>false<% } %>,['jshint'],function () {
+gulp.task('scripts', 'Compile ES6 to ES5', ['lintjs'],function () {
   return gulp.src(config.scripts.src)
-  <% if (includeES6) { %>.pipe(sourcemaps.init())
+    .pipe(sourcemaps.init())
     .pipe(babel())
     .on('error', handleError)
-    .pipe(sourcemaps.write('.'))<% } %>
+    .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest(config.scripts.dest));
 });

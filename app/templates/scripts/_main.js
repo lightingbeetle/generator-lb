@@ -1,6 +1,4 @@
-'use strict';
-
-var myApp = myApp || {};
+const myApp = myApp || {};
 
 <% if (includeFoundation) { %>$(function() {
   $(document).foundation();
