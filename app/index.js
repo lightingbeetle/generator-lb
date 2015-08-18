@@ -427,7 +427,18 @@ module.exports = yeoman.generators.Base.extend({
         skipMessage: this.options['skip-install-message'],
         skipInstall: this.options['skip-install'],
         callback: function () {
+          this.log(chalk.yellow(
+          '                                     __                   ____\n' +
+          '   ____ ____  ____  ___  _________ _/ /_____  _____      / / /_ \n' + 
+          '  / __ `/ _ \\/ __ \\/ _ \\/ ___/ __ `/ __/ __ \\/ ___/_____/ / __ \\ \n' + 
+          ' / /_/ /  __/ / / /  __/ /  / /_/ / /_/ /_/ / /  /_____/ / /_/ /\n' +
+          ' \\__, /\\___/_/ /_/\\___/_/   \\__,_/\\__/\\____/_/        /_/_.___/ \n' +
+          '/____/\n\n'));
           this.log(chalk.green('All done, hodd luck!'));
+          this.log(chalk.green(''));
+          this.log(chalk.cyan('Serve project with: $ gulp serve'));
+          this.log(chalk.cyan('Build project with: $ gulp build'));
+          this.log(chalk.cyan('Help:               $ gulp help'));
           insight.track('install', 'done');
         }.bind(this)
       });
