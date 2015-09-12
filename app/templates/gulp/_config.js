@@ -32,7 +32,7 @@ var rewriteRules = [
   '^/$ - [L]', // default site root handling (index.html)
   '.html$ - [L]', // ignore routes ends with '.html'
   '(.*)/$ $1/index.html [L]', // routes with trailing slash are directories -> rewrite to directory index.html
-  '\\/\[a-zA-Z0-9_\\-.]+\\.\[a-zA-Z0-9]+$ - [L]', // ignore files with extension (eg. .css, .js, ...)
+  '\\/\[a-zA-Z0-9_\\-\@.]+\\.\[a-zA-Z0-9]+$ - [L]', // ignore files with extension (eg. .css, .js, ...)
   '(.*)$ $1.html [L]' // redirect routes ends with string without trailing slash to original html
 ];
 
