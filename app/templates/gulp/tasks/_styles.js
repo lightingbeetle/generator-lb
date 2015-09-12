@@ -10,7 +10,7 @@ var sourcemaps = require('gulp-sourcemaps');
 var postcss = require('gulp-postcss');
 var plumber = require('gulp-plumber');
 
-var autoprefixer = require('autoprefixer-core');
+var autoprefixer = require('autoprefixer');
 
 var config = require('./../config.js');
 var reload = require('./browserSync.js').reload;

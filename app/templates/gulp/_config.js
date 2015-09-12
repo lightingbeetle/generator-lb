@@ -196,8 +196,7 @@ module.exports.styles = {
   sassCfg: <% if (includeRubySass) { %>{
     sourcemap: true,
     style: 'expanded',
-    lineNumbers: true,
-    container: '<%= projectNameSlug %>'
+    lineNumbers: true
   }, <% } else if (includeLibSass) { %>{}, <% } %>
   autoprefixerCfg: {browsers: ['last 2 version']}
 };
