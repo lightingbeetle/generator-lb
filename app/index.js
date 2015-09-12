@@ -241,37 +241,6 @@ module.exports = yeoman.generators.Base.extend({
         
         done();
       }.bind(this));
-    },
-    askForTestFramework: function() {
-      var done = this.async();
-      
-      var prompts = [{
-        type: 'confirm',
-        name: 'includeTestFramework',
-        message: 'Do you want include front-end testing (Mocha)?',
-        default: false
-      }];
-      
-      this.prompt(prompts, function(props) {
-        //testing framework
-        this.includeTestFramework = props.includeTestFramework;
-        
-        if (this.includeTestFramework) {
-          // setup the test-framework property, Gruntfile template will need this
-          this.option('test-framework', {
-            desc: 'Test framework to be invoked',
-            type: String,
-            defaults: 'mocha'
-          });
-          this.testFramework = this.options['test-framework'];
-        }
-        
-        insight.track('testFramework', props.includeTestFramework);
-        
-        this.config.set('testFramework', props.includeTestFramework);
-        
-        done();
-      }.bind(this));
     }
   },
   configuring: function() {
@@ -423,16 +392,5 @@ module.exports = yeoman.generators.Base.extend({
     } else {
       insight.track('install', 'skip-install');
     }
-    
-    this.on('end', function () {
-      if (this.includeTestFramework) {
-        this.invoke(this.options['test-framework'], {
-          options: {
-            'skip-message': this.options['skip-install-message'],
-            'skip-install': this.options['skip-install']
-          }
-        });
-      }
-    });
   }
 });
