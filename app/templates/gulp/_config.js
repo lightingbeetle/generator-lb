@@ -2,6 +2,13 @@
 var path = require('path');
 var modRewrite = require('connect-modrewrite');
 
+// Default settings
+module.exports.uglifyJs = process.env.UGLIFYJS || true; // to remove .min sufix edit template manually
+module.exports.minifyCss = process.env.MINIFYCSS || true; // to remove .min sufix edit template manually
+module.exports.cacheBust = process.env.CACHEBUST || true;
+module.exports.optimizeImages = process.env.OPTIMIZEIMAGES || true;
+module.exports.lintJs = process.env.LINTJS || true;
+
 // Default paths
 var app = 'app';
 var tmp = '.tmp';
@@ -35,13 +42,6 @@ var rewriteRules = [
   '\\/\[a-zA-Z0-9_\\-\@.]+\\.\[a-zA-Z0-9]+$ - [L]', // ignore files with extension (eg. .css, .js, ...)
   '(.*)$ $1.html [L]' // redirect routes ends with string without trailing slash to original html
 ];
-
-// Default settings
-module.exports.uglifyJs = true; // to remove .min sufix edit template manually
-module.exports.minifyCss = true; // to remove .min sufix edit template manually
-module.exports.cacheBust = true;
-module.exports.optimizeImages = true;
-module.exports.lintJs = true;
 
 // Browser sync task config
 module.exports.browserSync = {
