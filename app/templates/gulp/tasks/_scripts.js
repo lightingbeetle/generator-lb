@@ -13,7 +13,7 @@ var handleError = require('./../utils/handleError.js');
 gulp.task('lintjs', 'Lint js files', function () {
   if (config.lintJs) {
     return gulp.src(config.eslint.src)
-      .pipe(eslint())
+      .pipe(eslint({ignore: false})) // temp hack with ignore
       .pipe(eslint.format())
       .pipe(eslint.failAfterError())
       .on('error', handleError);
