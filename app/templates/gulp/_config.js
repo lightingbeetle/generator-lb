@@ -191,7 +191,7 @@ module.exports.scripts = {
 
 // Styles task config
 module.exports.styles = {
-  src: path.join(app, styles, 'main.scss'),
+  src: path.join(app, styles, '*.scss'),
   dest: path.join(tmp,styles),
   sassCfg: <% if (includeRubySass) { %>{
     sourcemap: true,
