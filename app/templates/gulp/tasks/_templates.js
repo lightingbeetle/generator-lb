@@ -66,7 +66,7 @@ gulp.task('useref', 'Bundle CSS and JS based on build tags and copy to `dist/` f
     var assets = useref.assets(config.useref.assetsCfg);
     
     var jadeFilesOnly = filter(['**/*.jade'], {restore: true});
-    var excludeJade = filter(['**','!**/*.jade'], {restore: true});
+    var excludeJade = filter(['**','!**/*.jade']);
     
     return gulp.src(config.useref.src)
       .pipe(assets)
