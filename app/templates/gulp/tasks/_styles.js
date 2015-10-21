@@ -9,6 +9,7 @@ var sass = require('gulp-sass');
 var sourcemaps = require('gulp-sourcemaps');
 var postcss = require('gulp-postcss');
 var plumber = require('gulp-plumber');
+<% if (includeBootstrap) { %>var replace = require('gulp-replace');<% } %>
 
 var autoprefixer = require('autoprefixer');
 
@@ -22,6 +23,7 @@ var handleError = require('./../utils/handleError.js');
 gulp.task('styles', 'Compile Sass to CSS', function () {
   return rubySass(config.styles.src, config.styles.sassCfg)
     .on('error', handleError)
+    <% if (includeBootstrap) { %>.pipe(replace('../../bower_components/bootstrap-sass/assets/fonts/bootstrap/', '../fonts/'))<% } %>
     .pipe(postcss([
       autoprefixer(config.styles.autoprefixerCfg)
     ]))
@@ -35,6 +37,7 @@ gulp.task('styles', 'Compile Sass to CSS', function () {
 
 gulp.task('styles', 'Compile Sass to CSS', function () {
   return gulp.src(config.styles.src)
+    <% if (includeBootstrap) { %>.pipe(replace('../../bower_components/bootstrap-sass/assets/fonts/bootstrap/', '../fonts/'))<% } %>
     .pipe(sourcemaps.init())
     .pipe(sass(config.styles.sassCfg))
     .on('error', handleError)
