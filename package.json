@@ -1,6 +1,6 @@
 {
   "name": "generator-lb",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Lighting Beetle static website/templates generator",
   "license": "WTFPL",
   "repository": "https://github.com/lightingbeetle/generator-lb",
