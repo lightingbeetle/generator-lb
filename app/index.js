@@ -297,19 +297,19 @@ module.exports = generator.Base.extend({
       };
 
       if (this.includeBootstrap) {
-        bower.dependencies['bootstrap-sass'] = '~3.3.4';
+        bower.dependencies['bootstrap-sass'] = '~3.3.6';
       }
 
       if (this.includeFoundation) {
-        bower.dependencies.foundation = 'zurb/bower-foundation#~5.5.1';
+        bower.dependencies.foundation = 'foundation-sites#~6.1.1';
       }
 
       if (this.includejQuery1) {
-        bower.dependencies.jquery = '~1.11.2';
+        bower.dependencies.jquery = '~1.11.3';
       }
       
       if (this.includejQuery2) {
-        bower.dependencies.jquery = '~2.1.3';
+        bower.dependencies.jquery = '~2.1.4';
       }
       
       if (this.includeLightingFly) {
