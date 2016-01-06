@@ -188,7 +188,10 @@ module.exports.modernizr = {
 // User scripts task
 module.exports.scripts = {
   src: path.join(app, scripts, '**/*.js'),
-  dest: path.join(tmp, scripts)
+  dest: path.join(tmp, scripts),
+  babel: {
+    presets: ['es2015']
+  }
 };
 
 // Styles task config

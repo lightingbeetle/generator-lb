@@ -26,7 +26,7 @@ gulp.task('lintjs', 'Lint js files', function () {
 gulp.task('scripts', 'Compile ES6 to ES5', ['lintjs'],function () {
   return gulp.src(config.scripts.src)
     .pipe(sourcemaps.init())
-    .pipe(babel())
+    .pipe(babel(config.scripts.babel))
     .on('error', handleError)
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest(config.scripts.dest));
