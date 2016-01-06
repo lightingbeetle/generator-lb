@@ -1,6 +1,6 @@
 'use strict';
 
-var yeoman = require('yeoman-generator');
+var generator = require('yeoman-generator');
 var chalk = require('chalk');
 var _s = require('underscore.string');
 var Insight = require('insight');
@@ -26,7 +26,7 @@ var frepPatterns = [{
 
 var insight;
 
-module.exports = yeoman.generators.Base.extend({
+module.exports = generator.Base.extend({
   initializing: function () {
     this.pkg = require('../package.json');
     this.version = this.pkg.version;

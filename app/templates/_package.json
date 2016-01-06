@@ -46,7 +46,8 @@
     "gulp-util": "~3.0.4",
     "jade": "~1.11.0",
     "map-stream": "~0.0.5",<% if (includeMultiLanguage) { %>
-    "merge-stream": "~0.1.7",<% } %><% if (includeLibSass) { %>
+    "merge-stream": "~0.1.7",
+    "node-notifier": "^4.4.0",<% } %><% if (includeLibSass) { %>
     "node-sass": "~3.3.2",<% } %>
     "require-dir": "~0.3.0",
     "run-sequence": "~1.1.0",
