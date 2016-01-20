@@ -3,7 +3,7 @@
 var gulp = require('gulp-help')(require('gulp'));
 var runSequence = require('run-sequence');
 var size = require('gulp-size');
-var notifier = require('gulp-notify/node_modules/node-notifier');
+var notifier = require('node-notifier');
 
 var config = require('./../config.js');
 var build = require('./../utils/buildHelper.js');
