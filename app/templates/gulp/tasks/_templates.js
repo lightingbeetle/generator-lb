@@ -9,12 +9,15 @@ var fs = require('fs');
 var extend = require('gulp-extend');
 var useref = require('gulp-useref');
 var uglify = require('gulp-uglify');
-var minifyCss = require('gulp-minify-css');
+var cssnano = require('gulp-cssnano');
 var gulpif = require('gulp-if');
 var rev = require('gulp-rev');
 var revReplace = require('gulp-rev-replace');
 var filter = require('gulp-filter');
 <% if (includeMultiLanguage) { %>var merge = require('merge-stream');<% } %>
+
+<% if (includeDataYAML) { %>var yamlMerge = require('gulp-yaml-merge');
+var yaml = require('js-yaml');<% } %>
 
 var config = require('./../config.js');
 var handleError = require('./../utils/handleError.js');
@@ -29,7 +32,8 @@ gulp.task('templates', 'Compile templates', ['templates:prepareData', 'useref'],
   <% if (!includeMultiLanguage) { %>return gulp.src(src)
     .pipe(plumber(handleError))
     .pipe(data(function() {
-      return JSON.parse(fs.readFileSync(config.templatesData.dataPath));
+      <% if (includeDataYAML) { %>return yaml.safeLoad(fs.readFileSync(config.templatesData.dataPath, 'utf8'));
+      <% } else { %> return JSON.parse(fs.readFileSync(config.templatesData.dataPath));<% } %>
     }))
     .pipe(jade(config.templates.cfg))
     .pipe(gulp.dest(dest));
@@ -38,7 +42,8 @@ gulp.task('templates', 'Compile templates', ['templates:prepareData', 'useref'],
     return gulp.src(src)
       .pipe(plumber(handleError))
       .pipe(data(function() {
-        var json = JSON.parse(fs.readFileSync(config.templatesData.dataPath));
+        <% if (includeDataYAML) { %>var json = yaml.safeLoad(fs.readFileSync(config.templatesData.dataPath, 'utf8'));
+        <% } else { %> var json = JSON.parse(fs.readFileSync(config.templatesData.dataPath));<% } %>
         json.language = lang;
         json.primaryLanguage = config.templates.languages.primary;
         return json;
@@ -54,7 +59,8 @@ gulp.task('templates', 'Compile templates', ['templates:prepareData', 'useref'],
 
 gulp.task('templates:prepareData', 'Merge views data', function() {
   return gulp.src(config.templatesData.src)
-    .pipe(extend(config.templatesData.dataName))
+    <% if (includeDataYAML) { %>.pipe(yamlMerge(config.templatesData.dataName))
+    <% } else { %>.pipe(extend(config.templatesData.dataName))<% } %>
     .pipe(gulp.dest(config.templatesData.dest));
 });
 
@@ -63,18 +69,15 @@ gulp.task('templates:prepareData', 'Merge views data', function() {
 gulp.task('useref', 'Bundle CSS and JS based on build tags and copy to `dist/` folder', function () {
   // run useref only in build
   if (build.isBuild()) {
-    var assets = useref.assets(config.useref.assetsCfg);
     
     var jadeFilesOnly = filter(['**/*.jade'], {restore: true});
     var excludeJade = filter(['**','!**/*.jade']);
     
     return gulp.src(config.useref.src)
-      .pipe(assets)
-      .pipe(gulpif('*.js', gulpif(config.uglifyJs, uglify()))) // uglify JS
-      .pipe(gulpif('*.css', gulpif(config.minifyCss, minifyCss()))) // minify CSS
-      .pipe(gulpif(config.cacheBust, rev()))
-      .pipe(assets.restore())
       .pipe(useref())
+      .pipe(gulpif('*.js', gulpif(config.uglifyJs, uglify()))) // uglify JS
+      .pipe(gulpif('*.css', gulpif(config.minifyCss, cssnano()))) // minify CSS
+      .pipe(gulpif('!**/*.jade',gulpif(config.cacheBust, rev())))
       .pipe(gulpif(config.cacheBust, revReplace({replaceInExtensions: ['.jade', '.css', '.js']})))
       .pipe(jadeFilesOnly)
       .pipe(gulp.dest(config.useref.destJade))

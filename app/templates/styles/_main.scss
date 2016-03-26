@@ -3,6 +3,8 @@
 // bower:scss
 // endbower
 
+<% if (includeFoundation) { %>@include foundation-everything;<% } %>
+
 .sample-intro {
   padding-top: 60px;
   font-family: 'Helvetica Neue', Helvetica;
