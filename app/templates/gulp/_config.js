@@ -221,10 +221,10 @@ module.exports.templates = {
 
 // TemplatesData task config
 module.exports.templatesData = {
-  src: path.join(app, views, data, '/**/*.json'),
-  dest: app + '/views',
-  dataName: 'data.json',
-  dataPath: path.join(app, views, 'data.json')
+  src: path.join(app, views, data, '/**/*.<% if (includeDataYAML) { %>yaml<% } else { %>json<% } %>'),
+  dest: path.join(tmp, '/data'),
+  dataName: 'data.<% if (includeDataYAML) { %>yaml<% } else { %>json<% } %>',
+  dataPath: path.join(tmp, 'data/data.<% if (includeDataYAML) { %>yaml<% } else { %>json<% } %>')
 };
 
 module.exports.useref = {

@@ -247,7 +247,36 @@ export default class Generator extends Base {
           
           done();
         });
-      }
+      },
+      askForDataFormat: function() {
+        const done = this.async();
+        
+        const prompts = [{
+          type: 'list',
+          name: 'dataFormat',
+          message: 'What data source format do you prefer?',
+          choices: [{
+            name: 'YAML',
+            value: 'yaml',
+          }, {
+            name: 'JSON',
+            value: 'json',
+          }],
+          default: 0
+        }];
+        
+        this.prompt(prompts, (props) => {
+          
+          this.includeDataYAML = hasFeature('yaml', props.dataFormat);
+          this.includeDataJSON = hasFeature('json', props.dataFormat);
+          
+          this.insight.track('dataFormat', props.dataFormat);
+          
+          this.config.set('dataFormat', props.dataFormat);
+          
+          done();
+        });
+      },
     };
   }
   
@@ -358,11 +387,17 @@ export default class Generator extends Base {
         this.template('views/layouts/_default.jade', 'app/views/layouts/_default.jade');
         this.template('views/modules/_header.jade', 'app/views/modules/_header.jade');
         this.template('views/modules/_footer.jade', 'app/views/modules/_footer.jade');
-        this.template('views/data/_index.json','app/views/data/index.json');
         mkdir('app/views/helpers');
         mkdir('app/views/mixins');
         if (this.includeMultiLanguage) {
           this.copy('views/helpers/_language.jade','app/views/helpers/_language.jade');
+        }
+        
+        // data template
+        if (this.includeDataYAML) {
+          this.template('views/data/_index.yaml','app/views/data/index.yaml');
+        } else {
+          this.template('views/data/_index.json','app/views/data/index.json');
         }
       },
 

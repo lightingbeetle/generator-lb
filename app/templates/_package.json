@@ -45,7 +45,10 @@
     "gulp-uglify": "~1.5.1",
     "gulp-useref": "~3.0.4",
     "gulp-util": "~3.0.4",
-    "jade": "~1.11.0",
+    <% if (includeDataYAML) { %>
+    "gulp-yaml-merge": "adammockor/gulp-yaml-merge",<% } %>
+    "jade": "~1.11.0",<% if (includeDataYAML) { %>
+    "js-yaml": "~3.5.5",<% } %>
     "map-stream": "~0.0.5",<% if (includeMultiLanguage) { %>
     "merge-stream": "~1.0.0",
     "node-notifier": "^4.4.0",<% } %><% if (includeLibSass) { %>

@@ -1,0 +1,6 @@
+index:
+  <% if (includeMultiLanguage) { %>greeting:
+    en: "Good luck!"
+    de: "Viel Glück!"
+    sk: "Veľa štastia!"<% } %>
+  footer: "Lighting Beetle @ 2016"
