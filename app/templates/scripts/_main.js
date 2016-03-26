@@ -1,5 +1,3 @@
-const myApp = myApp || {};
-
 <% if (includeFoundation) { %>$(function() {
   $(document).foundation();
 });
