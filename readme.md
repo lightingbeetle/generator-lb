@@ -17,33 +17,33 @@
 ```javascript
 (sudo) npm install -g bower
 ```
-* [Sass](http://sass-lang.com/)
 
 ## Built-in tools
 
 * Gulp (Task Manager)
 * Bower (Web Package manager)
-* Sass (Compass/LibSass) (CSS Preprocessor)
+* Sass (LibSass/ruby) (CSS Preprocessor)
 * Jade (HTML templating)
+* ES6 compilation to ES5 using Babel
 * Bootstrap (Frontend framework) (Sass version) (optional)
 * Foundation (Frontend framework) (optional)
 * Modernizr (HTML5/CSS3 features detection) (optional)
 * jQuery 1.x/2.x(feature-rich JavaScript library) (optional)
 * LightingFly (SCSS mixins library) (optional)
 * Mocha (Unit testing) (optional)
-* ES6 compilation to ES5 (optional)
 
 ## Built-in features
 
-* CSS autoprefixing
-* Webserver with liverelaod
+* CSS autoprefixing (autoprefixer)
+* Webserver with liverelaod (browserSync)
 * Jade compilation
 * Sass compilation
-* CSS/JS concating and minification
-* JS linting
-* ES6 compilation
-* Automatic wiring up Bower components
-* Image optimaliztion
+* YAML/JSON data sources for templates
+* CSS/JS concating and minification (cssnano)
+* JS linting (eslint with airbnb config)
+* ES6 compilation (babel)
+* Automatic wiring up Bower components (wiredep)
+* Image optimaliztion (imagemin)
 * Lean Modernizr builds
 * Mocha unit testing (optional)
 * Improved file caching
@@ -86,11 +86,13 @@ Gulpfile contains some useful tasks:
         +-- modules
         +-- plugins
         +-- main.scss
-    +-- views (optional)
+    +-- views
         +-- data
-            +-- index.json
+            +-- index.[json/yaml]
+        +-- helpers
         +-- layouts
             +-- _default.jade
+        +-- modules
             +-- _footer.jade
             +-- _header.jade
         +-- index.jade
@@ -104,8 +106,8 @@ Gulpfile contains some useful tasks:
         +-- browserSync.js
         +-- build.js
         +-- clean.js
-        +-- clearCache.js
         +-- copy.js
+        +-- default.js
         +-- deploy.js
         +-- images.js
         +-- modernizr.js (optional)
@@ -118,15 +120,13 @@ Gulpfile contains some useful tasks:
     +-- utils
         +-- buildHelper.js
         +-- handleError.js
-        +-- jsHintErrorReporter.js
     +-- config.js
 +-- node_modules
-+-- test (optional)
 +-- .editorconfig
 +-- .env
 +-- .gitattributes
 +-- .gitignore
-+-- .jshintrc
++-- .eslintrc
 +-- .yo-rc.json
 +-- bower.json
 +-- gulpfile.js
@@ -135,11 +135,8 @@ Gulpfile contains some useful tasks:
 
 ## Notes
  * Gulp tasks can be configured inside `config.js` file in `gulp` folder.
- * Data for jade templates can by stored as JSON objects inside. ```app/views/data/```
+ * Data for jade templates can by stored as YAML/JSON objects inside. ```app/views/data/```
  * Build can be forced with ```gulp build --force```
-
-## Issues
- * gulp-ruby-sass do not use notification system
  
 ## Contributors
  * Adam Močkoř (mockor@lbstudio.sk)
