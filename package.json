@@ -45,6 +45,7 @@
     "yo": ">=1.2.0"
   },
   "devDependencies": {
+    "babel-plugin-transform-object-assign": "~6.5.0",
     "tap-spec": "~4.1.1",
     "tape": "~4.5.1",
     "yeoman-assert": "~2.1.2",
