@@ -1,5 +1,7 @@
 # Generator LB
 
+[![Build Status](https://travis-ci.org/lightingbeetle/generator-lb.svg?branch=master)](https://travis-ci.org/lightingbeetle/generator-lb)
+
 > Yeoman generator for creating static website/templates using Sass, Jade, Gulp, Bower used by [Lighting Beetle](http://www.lbstudio.sk).
 
 ## Prereqisities
