@@ -15,24 +15,19 @@
 ```javascript
 (sudo) npm install -g gulp
 ```
-* [Bower](http://bower.io/)
-```javascript
-(sudo) npm install -g bower
-```
 
 ## Built-in tools
 
 * Gulp (Task Manager)
-* Bower (Web Package manager)
 * Sass (LibSass/ruby) (CSS Preprocessor)
 * Jade (HTML templating)
-* ES6 compilation to ES5 using Babel
+* ES2015 compilation to ES5 using Babel
+* ES2015 modules bundling with Rollup.js
 * Bootstrap (Frontend framework) (Sass version) (optional)
 * Foundation (Frontend framework) (optional)
 * Modernizr (HTML5/CSS3 features detection) (optional)
 * jQuery 1.x/2.x(feature-rich JavaScript library) (optional)
 * LightingFly (SCSS mixins library) (optional)
-* Mocha (Unit testing) (optional)
 
 ## Built-in features
 
@@ -43,11 +38,10 @@
 * YAML/JSON data sources for templates
 * CSS/JS concating and minification (cssnano)
 * JS linting (eslint with airbnb config)
-* ES6 compilation (babel)
-* Automatic wiring up Bower components (wiredep)
+* ES2015 transpiling (babel)
+* ES2015 modules bundling (rollup)
 * Image optimaliztion (imagemin)
 * Lean Modernizr builds
-* Mocha unit testing (optional)
 * Improved file caching
 * Deploying via rsync/sftp
 * Multi-language templates support (optional)
@@ -81,6 +75,8 @@ Gulpfile contains some useful tasks:
     +-- icons
     +-- images
     +-- scripts
+        +-- external
+            +-- jquery.js
         +-- modules
         +-- plugins
         +-- main.js
@@ -113,24 +109,24 @@ Gulpfile contains some useful tasks:
         +-- deploy.js
         +-- images.js
         +-- modernizr.js (optional)
+        +-- rev.js
         +-- scripts.js
         +-- serve.js
         +-- styles.js
         +-- templates.js
         +-- watch.js
-        +-- wiredep.js
     +-- utils
         +-- buildHelper.js
         +-- handleError.js
     +-- config.js
 +-- node_modules
++-- .babelrc
 +-- .editorconfig
 +-- .env
 +-- .gitattributes
 +-- .gitignore
 +-- .eslintrc
 +-- .yo-rc.json
-+-- bower.json
 +-- gulpfile.js
 +-- package.json
 ```
