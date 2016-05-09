@@ -169,7 +169,7 @@ export default class Generator extends Base {
           this.includeFoundation = hasFeature('includeFoundation', props.feFramework);
           
           if (this.includeBootstrap) {
-            if (this.includejQuery1 === false && this.includejQuery2 === false)  {
+            if (this.includejQuery1 !== true || this.includejQuery2 !== true)  {
               this.includejQuery1 = false;
               this.includejQuery2 = true;
             }
@@ -365,6 +365,10 @@ export default class Generator extends Base {
         this.copy('eslintrc', '.eslintrc');
         this.copy('eslintignore', '.eslintignore');
       },
+      
+      babel: function () {
+        this.copy('babelrc', '.babelrc');
+      },
 
       editorConfig: function () {
         this.copy('editorconfig', '.editorconfig');
@@ -396,6 +400,13 @@ export default class Generator extends Base {
       js : function () {
         this.directory('app');
         this.template('scripts/_main.js', 'app/scripts/main.js');
+        this.template('scripts/modules/_utils.js', 'app/scripts/modules/utils.js');
+        
+        if (this.includejQuery1 || this.includejQuery2) {
+          this.copy('scripts/external/jquery.js', 'app/scripts/external/jquery.js');
+        }
+        
+        mkdir('app/scripts/plugins');
       },
 
       app: function () {
@@ -406,8 +417,6 @@ export default class Generator extends Base {
         mkdir('app/icons');
         mkdir('app/fonts');
         mkdir('app/styles/modules');
-        mkdir('app/scripts/plugins');
-        mkdir('app/scripts/modules');
       }
     };
   }

@@ -8,12 +8,13 @@ module.exports.minifyCss = process.env.MINIFYCSS || true; // to remove .min sufi
 module.exports.cacheBust = process.env.CACHEBUST || true;
 module.exports.optimizeImages = process.env.OPTIMIZEIMAGES || true;
 module.exports.lintJs = process.env.LINTJS || true;
+module.exports.sourceMaps = process.env.SOURCEMAPS || true;
 
 // Default paths
 var app = 'app';
 var tmp = '.tmp';
 var dist = 'dist';
-var bowerDir = 'bower_components';
+var nodeDir = 'node_modules';
 
 // Default paths in app folder
 var data = 'data';
@@ -49,7 +50,7 @@ module.exports.browserSync = {
     server: {
       baseDir: [tmp, app],
       routes: {
-        '/bower_components': bowerDir
+        '/node_modules': nodeDir
       }
     },
     notify: false,
@@ -187,11 +188,13 @@ module.exports.modernizr = {
 
 // User scripts task
 module.exports.scripts = {
-  src: path.join(app, scripts, '**/*.js'),
+  src: path.join(app, scripts, '*.js'),
   dest: path.join(tmp, scripts),
-  babel: {
-    presets: ['es2015']
-  }
+  rollupCfg: {
+    format: 'iife',
+    moduleName: '<%= projectNameSlug %>',
+  },
+  destBuild: path.join(dist, scripts)
 };
 
 // Styles task config
