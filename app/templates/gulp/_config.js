@@ -253,6 +253,5 @@ module.exports.watch = {
     path.join(app, views, '/**/*.jade'), 
     path.join(app, views, data, '/**/*.<% if (includeDataYAML) { %>yaml<% } else { %>json<% } %>')
   ],
-  scripts: path.join(app, scripts, '/**/*.js'),
-  wiredep: 'bower.json' 
+  scripts: path.join(app, scripts, '/**/*.js')
 };
