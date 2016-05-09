@@ -36,7 +36,7 @@ gulp.task('buildSize', 'Determine size of `dist/` folder', ['buildSize:css', 'bu
 gulp.task('build', 'Build project (use with --force to force build)', function(cb) {
   build.setBuild(true);
   runSequence(
-    ['wiredep','clean'],
+    ['clean'],
     ['styles', 'scripts'],
     ['images', 'copy', 'extras'<% if (includeModernizr) { %>, 'modernizr'<% }%>],
     'templates',

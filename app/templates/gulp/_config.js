@@ -247,24 +247,3 @@ module.exports.watch = {
   scripts: path.join(app, scripts, '/**/*.js'),
   wiredep: 'bower.json' 
 };
-
-// Wiredep task config
-module.exports.wiredep = {
-  sass: {
-    src: path.join(app, styles, '/*.scss'),
-    dest: path.join(app, styles),
-    cfg: {
-      ignorePath: '',
-      overides: {}
-    }
-  },
-  jade: {
-    src: path.join(app, views, '/layouts/*.jade'),
-    dest: path.join(app, views, '/layouts'),
-    cfg: {
-      exclude: ['modernizr'],
-      ignorePath: '../../',
-      overides: {}
-    }
-  } 
-}

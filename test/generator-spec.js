@@ -62,7 +62,6 @@ test('generator-lb:defaults', (t) => {
     'gulp/tasks/serve.js',
     'gulp/tasks/scripts.js',
     'gulp/tasks/styles.js',
-    'gulp/tasks/wiredep.js',
     'readme.md',
     '.gitignore',
     '.gitattributes',

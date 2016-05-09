@@ -54,7 +54,6 @@
     "node-sass": "~3.4.2",<% } %>
     "require-dir": "~0.3.0",
     "run-sequence": "~1.1.0",
-    "wiredep": "~4.0.0",
     "yargs": "~4.6.0"
   },
   "engines": {

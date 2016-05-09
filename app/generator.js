@@ -313,8 +313,6 @@ export default class Generator extends Base {
         this.template('gulp/tasks/_serve.js', 'gulp/tasks/serve.js');
         this.template('gulp/tasks/_scripts.js', 'gulp/tasks/scripts.js');
         this.template('gulp/tasks/_styles.js', 'gulp/tasks/styles.js');
-        this.template('gulp/tasks/_wiredep.js', 'gulp/tasks/wiredep.js');
-        
         
         if (this.includeModernizr) { 
           this.copy('gulp/tasks/_modernizr.js', 'gulp/tasks/modernizr.js');
