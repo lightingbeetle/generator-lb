@@ -41,7 +41,6 @@ test('generator-lb:defaults', (t) => {
   const prompt = defaultPrompt;
   
   const expected = [
-    'bower.json',
     'package.json',
     ['package.json', /\"name\": \"test-of-generator\"/],
     ['package.json', /node-sass/],
@@ -96,7 +95,7 @@ test('generator-lb:bootstrap', (t) => {
   });
   
   const expected = [
-    ['bower.json', /bootstrap-sass/],
+    ['package.json', /bootstrap-sass/],
   ];
   
   runTest(prompt)
@@ -107,14 +106,14 @@ test('generator-lb:bootstrap', (t) => {
     .catch((err) => handleError(err, t));
 });
 
-test('generator-lb:foundtation', (t) => {
+test('generator-lb:foundation', (t) => {
   const prompt = Object.assign(defaultPrompt, {
     features: ['includeFEFramework'],
     feFramework: 'includeFoundation',
   });
   
   const expected = [
-    ['bower.json', /foundation-sites/],
+    ['package.json', /foundation-sites/],
   ];
   
   runTest(prompt)
@@ -150,7 +149,7 @@ test('generator-lb:jquery1', (t) => {
   });
   
   const expected = [
-    ['bower.json', /\"jquery\": \"~1.11.3\"/],
+    ['package.json', /\"jquery\":\"~1.11.3\"/],
   ];
   
   runTest(prompt)
@@ -168,7 +167,7 @@ test('generator-lb:jquery2', (t) => {
   });
   
   const expected = [
-    ['bower.json', /\"jquery\": \"~2.1.4\"/],
+    ['package.json', /\"jquery\":\"~2.1.4\"/],
   ];
   
   runTest(prompt)
@@ -185,7 +184,7 @@ test('generator-lb:lightingFly', (t) => {
   });
   
   const expected = [
-    ['bower.json', /lightingfly/],
+    ['package.json', /lightingfly/],
   ];
   
   runTest(prompt)

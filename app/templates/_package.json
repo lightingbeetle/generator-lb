@@ -6,6 +6,7 @@
   },
   "version" : "0.0.1",
   "description": "<%= projectName %> description",
+  "dependencies": <%- JSON.stringify(dependencies) %>,
   "devDependencies": {
     "autoprefixer": "~6.3.4",
     "babel-eslint": "~6.0.0",

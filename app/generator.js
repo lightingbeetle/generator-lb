@@ -318,6 +318,31 @@ export default class Generator extends Base {
           this.copy('gulp/tasks/_modernizr.js', 'gulp/tasks/modernizr.js');
         }
       },
+      
+      dependencies: function () {
+        this.dependencies = {};
+        
+        if (this.includeBootstrap) {
+          this.dependencies['bootstrap-sass'] = '~3.3.6';
+        }
+        
+        if (this.includeFoundation) {
+          this.dependencies['foundation-sites'] = '~6.2.1';
+        }
+        
+        if (this.includejQuery1) {
+          this.dependencies.jquery = '~1.11.3';
+        }
+        
+        if (this.includejQuery2) {
+          this.dependencies.jquery = '~2.1.4';
+        }
+        
+        if (this.includeLightingFly) {
+          this.dependencies.lightingfly = '~0.2.1';
+        }
+
+      },
 
       packageJSON: function () {
         this.template('_package.json', 'package.json');
@@ -330,37 +355,6 @@ export default class Generator extends Base {
       git: function () {
         this.template('gitignore', '.gitignore');
         this.copy('gitattributes', '.gitattributes');
-      },
-
-      bower: function () {
-        const bower = {
-          name: this.projectNameSlug,
-          private: true,
-          dependencies: {}
-        };
-
-        if (this.includeBootstrap) {
-          bower.dependencies['bootstrap-sass'] = '~3.3.6';
-        }
-
-        if (this.includeFoundation) {
-          bower.dependencies.foundation = 'foundation-sites#~6.1.1';
-        }
-
-        if (this.includejQuery1) {
-          bower.dependencies.jquery = '~1.11.3';
-        }
-        
-        if (this.includejQuery2) {
-          bower.dependencies.jquery = '~2.1.4';
-        }
-        
-        if (this.includeLightingFly) {
-          bower.dependencies.lightingfly = '~0.2.1';
-        }
-        
-        mkdir('bower_components');
-        this.write('bower.json', JSON.stringify(bower, null, 2));
       },
       
       env: function(){
