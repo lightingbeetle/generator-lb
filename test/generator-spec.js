@@ -51,6 +51,7 @@ test('generator-lb:defaults', (t) => {
     'gulp/tasks/default.js',
     'gulp/tasks/deploy.js',
     'gulp/tasks/images.js',
+    'gulp/tasks/rev.js',
     'gulp/tasks/templates.js',
     'gulp/tasks/watch.js',
     'gulp/utils/buildHelper.js',
@@ -96,6 +97,8 @@ test('generator-lb:bootstrap', (t) => {
   
   const expected = [
     ['package.json', /bootstrap-sass/],
+    ['package.json', /\"jquery\":/],
+    'app/scripts/external/jquery.js',
   ];
   
   runTest(prompt)
@@ -114,6 +117,8 @@ test('generator-lb:foundation', (t) => {
   
   const expected = [
     ['package.json', /foundation-sites/],
+    ['package.json', /\"jquery\": \"~2/],
+    'app/scripts/external/jquery.js',
   ];
   
   runTest(prompt)
@@ -149,7 +154,8 @@ test('generator-lb:jquery1', (t) => {
   });
   
   const expected = [
-    ['package.json', /\"jquery\":\"~1.11.3\"/],
+    ['package.json', /\"jquery\": \"~1/],
+    'app/scripts/external/jquery.js',
   ];
   
   runTest(prompt)
@@ -167,7 +173,8 @@ test('generator-lb:jquery2', (t) => {
   });
   
   const expected = [
-    ['package.json', /\"jquery\":\"~2.1.4\"/],
+    ['package.json', /\"jquery\": \"~2/],
+    'app/scripts/external/jquery.js',
   ];
   
   runTest(prompt)
