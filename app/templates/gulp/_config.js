@@ -201,12 +201,18 @@ module.exports.scripts = {
 module.exports.styles = {
   src: path.join(app, styles, '*.scss'),
   dest: path.join(tmp,styles),
+  destBuild: path.join(dist, styles),
   sassCfg: <% if (includeRubySass) { %>{
     sourcemap: true,
     style: 'expanded',
     lineNumbers: true
-  }, <% } else if (includeLibSass) { %>{}, <% } %>
-  autoprefixerCfg: {browsers: ['last 2 version']}
+  }, <% } else if (includeLibSass) { %>{
+    includePaths: 'node_modules',
+    outputStyle: 'expanded'
+  }, <% } %>
+  autoprefixerCfg: {
+    browsers: ['last 2 version']
+  }
 };
 
 // Templates task config

@@ -1,6 +1,11 @@
-<% if (includeBootstrap) { %>$icon-font-path: "../../bower_components/bootstrap-sass/assets/fonts/bootstrap/";<% } %>
+<% if (includeBootstrap) { -%>
+$icon-font-path: "../../node_modules/bootstrap-sass/assets/fonts/bootstrap/";
 
-<% if (includeFoundation) { %>@include foundation-everything;<% } %>
+@import "bootstrap-sass/assets/stylesheets/_bootstrap";
+<% } -%>
+<% if (includeFoundation) { -%>
+@include foundation-everything;
+<% } -%>
 
 .sample-intro {
   padding-top: 60px;
