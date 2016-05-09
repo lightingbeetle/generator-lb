@@ -428,6 +428,7 @@ export default class Generator extends Base {
         this.installDependencies({
           skipMessage: this.options['skip-install-message'],
           skipInstall: this.options['skip-install'],
+          bower: false,
           callback: () => {
             this.log(chalk.yellow(`
                                      __                   ____ 

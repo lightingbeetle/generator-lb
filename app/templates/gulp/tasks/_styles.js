@@ -1,6 +1,7 @@
 'use strict';
 
 var gulp = require('gulp-help')(require('gulp'));
+var gulpif = require('gulp-if');
 <% if (includeRubySass) { %>
 var rubySass = require('gulp-ruby-sass');
 <% } else if (includeLibSass) { %>
