@@ -1,10 +1,6 @@
 {
-  "extends": "airbnb/base",
-  
-  "rules": {
-    "no-trailing-spaces": [2, { "skipBlankLines": true }]
-  },
-  
+  "extends": "airbnb-base",
+
   "globals": {
     "$": true,
     "jQuery": true,
