@@ -173,6 +173,7 @@ module.exports.modernizr = {
     path.join(tmp, styles,'*.css')
   ],
   dest: path.join(tmp, scripts, 'plugins'),
+  destBuild: path.join(dist, scripts, 'plugins'),
   cfg: {
     silent: true,
     options: [
@@ -181,7 +182,10 @@ module.exports.modernizr = {
       'html5printshiv',
       'testProp',
       'fnBind'
-    ]
+    ],
+    "excludeTests": [
+      'hidden'
+    ],
   }
 };
 <% } %>
