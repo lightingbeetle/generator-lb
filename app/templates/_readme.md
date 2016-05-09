@@ -5,14 +5,12 @@
 ## How to install
 
 Prerequisites:
-* [Node.js](http://nodejs.org/) >=0.10.0  
+* [Node.js](http://nodejs.org/) >=0.12.0  
 <% if (includeRubySass) { %>* [Sass](http://sass-lang.com/) >=3.4.0  <% } %>
-<% if (features.length) { %>* [Bower](http://bower.io/) <% } %>
 
 Installation process:
 1. Clone this repository
 2. Run ```npm install``` to install dependencies
-<% if (features.length) { %>3. Run ```bower install``` to install front-end dependencies<% } %>
 
 ## Usage
 
@@ -39,13 +37,14 @@ gulp help
 
 ## Built-in features
 
-* CSS autoprefixing
 * Webserver with liverelaod
 * Jade compilation
 * Sass compilation
-* CSS/JS concating and minification
-* JS linting
-* Automatic wiring up Bower components
+* ES2015 transpiling with Babel.js
+* ES2015 modules bundling with Rollup.js
+* JS linting with ESLint
+* CSS autoprefixing
+* CSS minification
 * Image optimaliztion
 * Lean Modernizr builds
 * Improved file caching
