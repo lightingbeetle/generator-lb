@@ -104,9 +104,9 @@ module.exports.clean = [tmp, dist];
 // Copy fonts task config
 module.exports.copyFonts = {
   src: [
-    path.join(app, fonts, '**/*')<% if (includeBootstrap) { %>, 'bower_components/bootstrap-sass/assets/fonts/bootstrap/*'<% } %>
+    path.join(app, fonts, '**/*')<% if (includeBootstrap) { %>, 'node_modules/bootstrap-sass/assets/fonts/**/*'<% } %>
   ],
-  dest: dist + '/fonts'
+  dest: path.join(dist, fonts)
 };
 
 // Copy fonts task config
