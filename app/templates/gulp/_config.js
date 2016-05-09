@@ -210,7 +210,6 @@ module.exports.styles = {
 module.exports.templates = {
   <% if (includeMultiLanguage) { %>languages: languages,<% } %>
   src: path.join(app, views, '*.jade'),
-  srcBuild: path.join(tmp, 'jade/*.jade'),
   dest: tmp,
   destBuild: path.join(dist),
   cfg: {
@@ -225,16 +224,6 @@ module.exports.templatesData = {
   dest: path.join(tmp, '/data'),
   dataName: 'data.<% if (includeDataYAML) { %>yaml<% } else { %>json<% } %>',
   dataPath: path.join(tmp, 'data/data.<% if (includeDataYAML) { %>yaml<% } else { %>json<% } %>')
-};
-
-module.exports.useref = {
-  src: path.join(app, views, '/**/*.jade'),
-  dest: dist,
-  destJade: path.join(tmp, 'jade'),
-  assetsCfg: {
-    searchPath : app
-  },
-  revManifestCfg: {merge: true}
 };
 
 // Watch task config

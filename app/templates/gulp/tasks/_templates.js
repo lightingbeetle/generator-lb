@@ -7,9 +7,6 @@ var data = require('gulp-data');
 var plumber  = require('gulp-plumber');
 var fs = require('fs');
 var extend = require('gulp-extend');
-var useref = require('gulp-useref');
-var uglify = require('gulp-uglify');
-var cssnano = require('gulp-cssnano');
 var gulpif = require('gulp-if');
 var rev = require('gulp-rev');
 var revReplace = require('gulp-rev-replace');
@@ -25,11 +22,10 @@ var build = require('./../utils/buildHelper.js');
 
 // Compile jade to html
 
-gulp.task('templates', 'Compile templates', ['templates:prepareData', 'useref'], function() {
-  var src = build.isBuild() ? config.templates.srcBuild : config.templates.src;
+gulp.task('templates', 'Compile templates', ['templates:prepareData'], function() {
   var dest = build.isBuild() ? config.templates.destBuild : config.templates.dest;
   
-  <% if (!includeMultiLanguage) { %>return gulp.src(src)
+  <% if (!includeMultiLanguage) { %>return gulp.src(config.templates.src)
     .pipe(plumber(handleError))
     .pipe(data(function() {
       <% if (includeDataYAML) { %>return yaml.safeLoad(fs.readFileSync(config.templatesData.dataPath, 'utf8'));
@@ -39,7 +35,7 @@ gulp.task('templates', 'Compile templates', ['templates:prepareData', 'useref'],
     .pipe(gulp.dest(dest));
   <% } else { %>  
   var languages = config.templates.languages.list.map(function(lang) {
-    return gulp.src(src)
+    return gulp.src(config.templates.src)
       .pipe(plumber(handleError))
       .pipe(data(function() {
         <% if (includeDataYAML) { %>var json = yaml.safeLoad(fs.readFileSync(config.templatesData.dataPath, 'utf8'));
@@ -62,31 +58,4 @@ gulp.task('templates:prepareData', 'Merge views data', function() {
     <% if (includeDataYAML) { %>.pipe(yamlMerge(config.templatesData.dataName))
     <% } else { %>.pipe(extend(config.templatesData.dataName))<% } %>
     .pipe(gulp.dest(config.templatesData.dest));
-});
-
-// Bundle css and js based on build tags in Jade templates
-
-gulp.task('useref', 'Bundle CSS and JS based on build tags and copy to `dist/` folder', function () {
-  // run useref only in build
-  if (build.isBuild()) {
-    
-    var jadeFilesOnly = filter(['**/*.jade'], {restore: true});
-    var excludeJade = filter(['**','!**/*.jade']);
-    
-    return gulp.src(config.useref.src)
-      .pipe(useref())
-      .pipe(gulpif('*.js', gulpif(config.uglifyJs, uglify()))) // uglify JS
-      .pipe(gulpif('*.css', gulpif(config.minifyCss, cssnano()))) // minify CSS
-      .pipe(gulpif('!**/*.jade',gulpif(config.cacheBust, rev())))
-      .pipe(gulpif(config.cacheBust, revReplace({replaceInExtensions: ['.jade', '.css', '.js']})))
-      .pipe(jadeFilesOnly)
-      .pipe(gulp.dest(config.useref.destJade))
-      .pipe(jadeFilesOnly.restore)
-      .pipe(excludeJade)
-      .pipe(gulp.dest(config.useref.dest))
-      .pipe(gulpif(config.cacheBust, rev.manifest(config.useref.revManifestCfg))) // create rev-manifest.json 
-      .pipe(gulp.dest(config.useref.dest));
-  } else {
-    return;
-  }
 });
