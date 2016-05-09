@@ -41,6 +41,7 @@ gulp.task('build', 'Build project (use with --force to force build)', function(c
     ['images', 'copy', 'extras'<% if (includeModernizr) { %>, 'modernizr'<% }%>],
     'templates',
     'buildSize',
+    config.cacheBust ? 'rev' : function() {},
     function() {
       notifier.notify({
         title: 'Build',

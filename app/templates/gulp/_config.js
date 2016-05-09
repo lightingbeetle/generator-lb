@@ -186,6 +186,17 @@ module.exports.modernizr = {
 };
 <% } %>
 
+// Cachebusting task config
+module.exports.rev = {
+  srcFiles: [
+    path.join(dist, '**/*.css'),
+    path.join(dist, '**/*.js'),
+  ],
+  srcHtml: path.join(dist, '**/*.html'),
+  manifestPath: path.join(dist, 'rev-manifest.json'),
+  dest: path.join(dist),
+}
+
 // User scripts task
 module.exports.scripts = {
   src: path.join(app, scripts, '*.js'),
