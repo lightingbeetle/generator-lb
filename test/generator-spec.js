@@ -1,7 +1,7 @@
-import { join } from 'path';
-import assert from 'yeoman-assert';
-import helpers  from 'yeoman-test';
-import test from 'tape';
+const path = require('path');
+const assert = require('yeoman-assert');
+const helpers = require('yeoman-test');
+const test = require('tape');
 
 const defaultPrompt = {
   optIn: false,
@@ -23,16 +23,14 @@ function testExpected(expected) {
 }
 
 function runTest(prompt) {
-  return new Promise((resolve, reject) => {
-    helpers.run(join(__dirname, '../app'))
-      .withOptions({ skipInstall: true })
-      .withPrompts(prompt)
-      .on('end', () => resolve())
-      .on('error', (err) => reject(err));
-  });
+  return helpers.run(path.join(__dirname, '../app'))
+    .withOptions({ skipInstall: true })
+    .withPrompts(prompt)
+    .toPromise();
 }
 
 function handleError(err, t) {
+  console.log(err);
   t.error(err);
   t.end();
 }

@@ -1,13 +1,13 @@
 'use strict';
 
-import { Base } from 'yeoman-generator';
-import chalk from 'chalk';
-import { slugify } from 'underscore.string';
-import Insight from 'insight';
-import mkdir from 'mkdirp';
+const Base = require('yeoman-generator').Base;
+const chalk = require('chalk');
+const slugify = require('underscore.string').slugify;
+const Insight = require('insight');
+const mkdir = require('mkdirp');
 
-import ifFile from 'gulp-if';
-import frep from 'gulp-frep';
+const ifFile = require('gulp-if');
+const frep = require('gulp-frep');
 
 function hasFeature(feat, features) {
   return features && features.indexOf(feat) !== -1;
@@ -24,11 +24,10 @@ const frepPatterns = [{
   }
 ];
 
-export default class Generator extends Base {
+module.exports = class Generator extends Base {
   
   constructor(...args) {
     super(...args);
-    
     // CLeanup after templating
     // Probably not best solution...
     
@@ -71,18 +70,11 @@ export default class Generator extends Base {
   get prompting() {
     return {
       askForAnalytics: function() {
-        let done = this.async();
         if (this.insight.optOut === undefined) {
-          this.insight.askPermission('May generator-lb anonymously report usage statistics to improve the tool over time?', () => {
-            done();
-          });
-        } else {
-          done();
+          this.insight.askPermission('May generator-lb anonymously report usage statistics to improve the tool over time?', () => {});
         }
       },
       askForProjectName: function() {
-        const done = this.async();
-        
         const prompts = [{
           type: 'input',
           name: 'name',
@@ -90,18 +82,16 @@ export default class Generator extends Base {
           default : this.appname // default is current folder
         }];
         
-        this.prompt(prompts, (props) => {
+        return this.prompt(prompts).then((props) => {
           this.insight.track('install', 'start');
 
           this.projectName = props.name;
           this.projectNameSlug = slugify(props.name);
           
           this.config.set('name', props.name);
-          done();
         });
       },
       askForFeatures: function(){
-        const done = this.async();
     
         const prompts = [{
           type: 'checkbox',
@@ -154,7 +144,7 @@ export default class Generator extends Base {
           }]
         }];
         
-        this.prompt(prompts, (props) => {
+        return this.prompt(prompts).then((props) => {
           // set features of aplication
           
           this.features = props.features;
@@ -195,13 +185,9 @@ export default class Generator extends Base {
             this.insight.track('bootstrap', this.includeBootstrap);
             this.insight.track('foundation', this.includeFoundation);
           }
-          
-          done();
         });
       },
       askForSassCompilator: function() {
-        const done = this.async();
-        
         const prompts = [{
           type: 'list',
           name: 'sassCompilator',
@@ -216,21 +202,16 @@ export default class Generator extends Base {
           default: 0
         }];
         
-        this.prompt(prompts, (props) => {
-          
+        return this.prompt(prompts).then((props) => {   
           this.includeRubySass = hasFeature('rubySass', props.sassCompilator);
           this.includeLibSass = hasFeature('libSass', props.sassCompilator);
           
           this.insight.track('sass', props.sassCompilator);
           
           this.config.set('sassCompilator', props.sassCompilator);
-          
-          done();
         });
       },
-      askForMultiLanguage: function() {
-        const done = this.async();
-        
+      askForMultiLanguage: function() {        
         const prompts = [{
           type: 'confirm',
           name: 'includeMultiLanguage',
@@ -238,20 +219,16 @@ export default class Generator extends Base {
           default: false
         }];
         
-        this.prompt(prompts, (props) => {
+        return this.prompt(prompts).then((props) => {
           //testing framework
           this.includeMultiLanguage = props.includeMultiLanguage;
           
           this.insight.track('multiLanguage', props.includeMultiLanguage);
           
           this.config.set('multiLanguage', props.includeMultiLanguage);
-          
-          done();
         });
       },
       askForDataFormat: function() {
-        const done = this.async();
-        
         const prompts = [{
           type: 'list',
           name: 'dataFormat',
@@ -266,7 +243,7 @@ export default class Generator extends Base {
           default: 0
         }];
         
-        this.prompt(prompts, (props) => {
+        return this.prompt(prompts).then((props) => {
           
           this.includeDataYAML = hasFeature('yaml', props.dataFormat);
           this.includeDataJSON = hasFeature('json', props.dataFormat);
@@ -274,8 +251,6 @@ export default class Generator extends Base {
           this.insight.track('dataFormat', props.dataFormat);
           
           this.config.set('dataFormat', props.dataFormat);
-          
-          done();
         });
       },
     };
