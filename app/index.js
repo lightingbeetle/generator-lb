@@ -26,8 +26,8 @@ const frepPatterns = [{
 
 module.exports = class Generator extends Base {
   
-  constructor(...args) {
-    super(...args);
+  constructor() {
+    super(arguments[0], arguments[1]);
     // CLeanup after templating
     // Probably not best solution...
     
