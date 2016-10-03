@@ -17,7 +17,7 @@ function testExpected(expected) {
     if (typeof file === 'string') {
       assert.file(file);
     } else if (Array.isArray(file)) {
-      assert.fileContent(...file);
+      assert.fileContent.apply(this, file);
     }
   });
 }
