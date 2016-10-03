@@ -30,7 +30,7 @@
     "gulp-help": "~1.6.0",
     "gulp-if": "~2.0.0",
     "gulp-imagemin": "~2.4.0",
-    "gulp-jade": "~1.1.0",<% if (includeModernizr) { %>
+    "gulp-pug": "~3.0.4",<% if (includeModernizr) { %>
     "gulp-modernizr": "~1.0.0-alpha",<% } %>
     "gulp-notify": "~2.2.0",
     "gulp-postcss": "~6.1.0",
@@ -47,7 +47,7 @@
     "gulp-sourcemaps": "~1.6.0",
     "gulp-util": "~3.0.4",<% if (includeDataYAML) { %>
     "gulp-yaml-merge": "adammockor/gulp-yaml-merge",<% } %>
-    "jade": "~1.11.0",<% if (includeDataYAML) { %>
+    "pug": "2.0.0-beta6",<% if (includeDataYAML) { %>
     "js-yaml": "~3.6.0",<% } %>
     "map-stream": "~0.0.5",<% if (includeMultiLanguage) { %>
     "merge-stream": "~1.0.0",<% } %>

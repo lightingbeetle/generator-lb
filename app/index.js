@@ -41,8 +41,8 @@ module.exports = class Generator extends Base {
       frep(frepPatterns)
     ));
     
-    // cleanup .jade files
-    this.registerTransformStream(ifFile('*.jade',
+    // cleanup .pug files
+    this.registerTransformStream(ifFile('*.pug',
       frep(frepPatterns)
     ));
     
@@ -355,15 +355,15 @@ module.exports = class Generator extends Base {
         this.template('styles/_main.scss', 'app/styles/main.scss');
       },
 
-      jade : function () {
-        this.template('views/_index.jade', 'app/views/index.jade');
-        this.template('views/layouts/_default.jade', 'app/views/layouts/_default.jade');
-        this.template('views/modules/_header.jade', 'app/views/modules/_header.jade');
-        this.template('views/modules/_footer.jade', 'app/views/modules/_footer.jade');
+      pug : function () {
+        this.template('views/_index.pug', 'app/views/index.pug');
+        this.template('views/layouts/_default.pug', 'app/views/layouts/_default.pug');
+        this.template('views/modules/_header.pug', 'app/views/modules/_header.pug');
+        this.template('views/modules/_footer.pug', 'app/views/modules/_footer.pug');
         mkdir('app/views/helpers');
         mkdir('app/views/mixins');
         if (this.includeMultiLanguage) {
-          this.copy('views/helpers/_language.jade','app/views/helpers/_language.jade');
+          this.copy('views/helpers/_language.pug','app/views/helpers/_language.pug');
         }
         
         // data template

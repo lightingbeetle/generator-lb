@@ -233,7 +233,7 @@ module.exports.styles = {
 // Templates task config
 module.exports.templates = {
   <% if (includeMultiLanguage) { %>languages: languages,<% } %>
-  src: path.join(app, views, '*.jade'),
+  src: path.join(app, views, '*.pug'),
   dest: tmp,
   destBuild: path.join(dist),
   cfg: {
@@ -253,8 +253,8 @@ module.exports.templatesData = {
 // Watch task config
 module.exports.watch = {
   styles: path.join(app, styles, '/**/*.scss'),
-  jade: [
-    path.join(app, views, '/**/*.jade'), 
+  pug: [
+    path.join(app, views, '/**/*.pug'), 
     path.join(app, views, data, '/**/*.<% if (includeDataYAML) { %>yaml<% } else { %>json<% } %>')
   ],
   scripts: path.join(app, scripts, '/**/*.js')

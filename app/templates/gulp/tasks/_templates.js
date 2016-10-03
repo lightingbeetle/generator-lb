@@ -2,7 +2,7 @@
 <% if (includeMultiLanguage) { %>var path = require('path');<% } %>
 
 var gulp = require('gulp-help')(require('gulp'));
-var jade = require('gulp-jade');
+var pug = require('gulp-pug');
 var data = require('gulp-data');
 var plumber  = require('gulp-plumber');
 var fs = require('fs');
@@ -20,7 +20,7 @@ var config = require('./../config.js');
 var handleError = require('./../utils/handleError.js');
 var build = require('./../utils/buildHelper.js');
 
-// Compile jade to html
+// Compile pug to html
 
 gulp.task('templates', 'Compile templates', ['templates:prepareData'], function() {
   var dest = build.isBuild() ? config.templates.destBuild : config.templates.dest;
@@ -31,7 +31,7 @@ gulp.task('templates', 'Compile templates', ['templates:prepareData'], function(
       <% if (includeDataYAML) { %>return yaml.safeLoad(fs.readFileSync(config.templatesData.dataPath, 'utf8'));
       <% } else { %> return JSON.parse(fs.readFileSync(config.templatesData.dataPath));<% } %>
     }))
-    .pipe(jade(config.templates.cfg))
+    .pipe(pug(config.templates.cfg))
     .pipe(gulp.dest(dest));
   <% } else { %>  
   var languages = config.templates.languages.list.map(function(lang) {
@@ -44,7 +44,7 @@ gulp.task('templates', 'Compile templates', ['templates:prepareData'], function(
         json.primaryLanguage = config.templates.languages.primary;
         return json;
       }))
-      .pipe(jade(config.templates.cfg))
+      .pipe(pug(config.templates.cfg))
       .pipe((config.templates.languages.primary === lang) ? gulp.dest(dest) : gulp.dest(path.join(dest, lang)));
   });
   
