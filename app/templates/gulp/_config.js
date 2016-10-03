@@ -25,12 +25,12 @@ var scripts = 'scripts';
 var styles = 'styles';
 var views = 'views';
 
-<% if (includeMultiLanguage) { %>
+<% if (includeMultiLanguage) { -%>
 var languages = {
   list: ['en', 'de', 'sk'],
   primary: 'en'
 };
-<% } %>
+<% } -%>
 
 // Rewrite rules enables removing .html extensions in development.
 // This are possible routes for same test.html file:
@@ -165,7 +165,7 @@ module.exports.eslint = {
   ]
 };
 
-<% if (includeModernizr) { %>
+<% if (includeModernizr) { -%>
 // Modernizr task config
 module.exports.modernizr = {
   src: [ 
@@ -188,7 +188,7 @@ module.exports.modernizr = {
     ],
   }
 };
-<% } %>
+<% } -%>
 
 // Cachebusting task config
 module.exports.rev = {

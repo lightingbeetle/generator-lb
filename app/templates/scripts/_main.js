@@ -1,5 +1,4 @@
 <% if (includejQuery1 || includejQuery2) { %>import {} from './external/jquery.js';<% } -%>
-
 <% if (includeBootstrap) { %>
 // Import only bootstrap packages you need
 // import {} from 'bootstrap-sass/assets/javascripts/bootstrap/affix';
@@ -14,15 +13,12 @@
 // import {} from 'bootstrap-sass/assets/javascripts/bootstrap/tab';
 // import {} from 'bootstrap-sass/assets/javascripts/bootstrap/transition';
 // import {} from 'bootstrap-sass/assets/javascripts/bootstrap/popover';
-
 // Or import everything
 import {} from 'bootstrap-sass';
 <% } -%>
-
 <% if (includeFoundation) { %>
-  import {} from 'foundation-sites';
+import {} from 'foundation-sites';
 <% } -%>  
-
 import { sayHello } from './modules/utils';
 
 <% if (includeFoundation) { -%>
