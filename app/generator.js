@@ -57,6 +57,7 @@ export default class Generator extends Base {
     return function() {
       this.pkg = require('../package.json');
       this.version = this.pkg.version;
+      this.config.set('version', this.version);
       
       this.insight = new Insight({
         // Google Analytics tracking code
