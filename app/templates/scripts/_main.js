@@ -1,4 +1,4 @@
-<% if (includejQuery1 || includejQuery2) { %>import {} from './external/jquery';<% } -%>
+<% if (includejQuery2 || includejQuery3) { %>import {} from './external/jquery';<% } -%>
 <% if (includeBootstrap) { %>
 // Import only bootstrap packages you need
 // import {} from 'bootstrap-sass/assets/javascripts/bootstrap/affix';

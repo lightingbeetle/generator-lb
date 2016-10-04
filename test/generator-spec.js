@@ -145,25 +145,6 @@ test('generator-lb:modernizr', (t) => {
     .catch((err) => handleError(err, t));
 });
 
-test('generator-lb:jquery1', (t) => {
-  const prompt = Object.assign(defaultPrompt, {
-    features: ['includejQuery'],
-    jQuery: 'includejQuery1',
-  });
-
-  const expected = [
-    ['package.json', /\"jquery\": \"~1/],
-    'app/scripts/external/jquery.js',
-  ];
-
-  runTest(prompt)
-    .then(() => {
-      t.doesNotThrow(() => testExpected(expected), null, 'jQuery 1.x.x present');
-      t.end();
-    })
-    .catch((err) => handleError(err, t));
-});
-
 test('generator-lb:jquery2', (t) => {
   const prompt = Object.assign(defaultPrompt, {
     features: ['includejQuery'],
@@ -178,6 +159,25 @@ test('generator-lb:jquery2', (t) => {
   runTest(prompt)
     .then(() => {
       t.doesNotThrow(() => testExpected(expected), null, 'jQuery 2.x.x present');
+      t.end();
+    })
+    .catch((err) => handleError(err, t));
+});
+
+test('generator-lb:jquery3', (t) => {
+  const prompt = Object.assign(defaultPrompt, {
+    features: ['includejQuery'],
+    jQuery: 'includejQuery3',
+  });
+
+  const expected = [
+    ['package.json', /\"jquery\": \"~3/],
+    'app/scripts/external/jquery.js',
+  ];
+
+  runTest(prompt)
+    .then(() => {
+      t.doesNotThrow(() => testExpected(expected), null, 'jQuery 3.x.x present');
       t.end();
     })
     .catch((err) => handleError(err, t));

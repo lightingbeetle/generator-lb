@@ -122,7 +122,7 @@ module.exports = class Generator extends Base {
           name: 'feFramework',
           message: 'Please, choose frontend framework',
           choices: [{
-            name: 'Bootstrap 3 (jQuery)',
+            name: 'Bootstrap 3 (jQuery3)',
             value: 'includeBootstrap'
           }, {
             name: 'Foundation 6 (jQuery2, Modernizr)',
@@ -136,11 +136,11 @@ module.exports = class Generator extends Base {
           name: 'jQuery',
           message: 'Please, choose jQuery version',
           choices: [{
+            name: 'jQuery 3.x',
+            value: 'includejQuery3'
+          }, {
             name: 'jQuery 2.x',
             value: 'includejQuery2'
-          }, {
-            name: 'jQuery 1.x',
-            value: 'includejQuery1'
           }]
         }];
 
@@ -152,23 +152,23 @@ module.exports = class Generator extends Base {
           this.includeModernizr = hasFeature('includeModernizr', props.features);
           this.includeLightingFly = hasFeature('includeLightingFly', props.features);
 
-          this.includejQuery1 = hasFeature('includejQuery1', props.jQuery);
           this.includejQuery2 = hasFeature('includejQuery2', props.jQuery);
+          this.includejQuery3 = hasFeature('includejQuery3', props.jQuery);
 
           // set FE framework
           this.includeBootstrap = hasFeature('includeBootstrap', props.feFramework);
           this.includeFoundation = hasFeature('includeFoundation', props.feFramework);
 
           if (this.includeBootstrap) {
-            if (this.includejQuery1 !== true || this.includejQuery2 !== true)  {
-              this.includejQuery1 = false;
-              this.includejQuery2 = true;
+            if (this.includejQuery2 !== true || this.includejQuery3 !== true)  {
+              this.includejQuery2 = false;
+              this.includejQuery3 = true;
             }
           }
 
           if (this.includeFoundation) {
-            this.includejQuery1 = false;
             this.includejQuery2 = true;
+            this.includejQuery3 = false;
             this.includeModernizr = true;
           }
 
@@ -178,8 +178,8 @@ module.exports = class Generator extends Base {
 
           this.insight.track('modernizr', this.includeModernizr);
           this.insight.track('lightingFly', this.includeLightingFly);
-          this.insight.track('jQuery1', this.includejQuery1);
           this.insight.track('jQuery2', this.includejQuery2);
+          this.insight.track('jQuery3', this.includejQuery3);
 
           if (props.feFramework) {
             this.insight.track('bootstrap', this.includeBootstrap);
@@ -300,19 +300,19 @@ module.exports = class Generator extends Base {
         this.dependencies = {};
 
         if (this.includeBootstrap) {
-          this.dependencies['bootstrap-sass'] = '~3.3.6';
+          this.dependencies['bootstrap-sass'] = '~3.3.7';
         }
 
         if (this.includeFoundation) {
-          this.dependencies['foundation-sites'] = '~6.2.1';
-        }
-
-        if (this.includejQuery1) {
-          this.dependencies.jquery = '~1.11.3';
+          this.dependencies['foundation-sites'] = '~6.2.3';
         }
 
         if (this.includejQuery2) {
-          this.dependencies.jquery = '~2.1.4';
+          this.dependencies.jquery = '~2.2.4';
+        }
+
+        if (this.includejQuery3) {
+          this.dependencies.jquery = '~3.1.1';
         }
 
         if (this.includeLightingFly) {
@@ -379,7 +379,7 @@ module.exports = class Generator extends Base {
         this.template('scripts/_main.js', 'app/scripts/main.js');
         this.template('scripts/modules/_utils.js', 'app/scripts/modules/utils.js');
 
-        if (this.includejQuery1 || this.includejQuery2) {
+        if (this.includejQuery2 || this.includejQuery3) {
           this.copy('scripts/external/jquery.js', 'app/scripts/external/jquery.js');
         }
 
