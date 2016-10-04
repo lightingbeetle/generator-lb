@@ -7,7 +7,6 @@ const defaultPrompt = {
   optIn: false,
   name: 'test of generator',
   features: [],
-  sassCompilator: 'libSass',
   includeMultiLanguage: false,
   dataFormat: 'yaml',
 };
@@ -195,41 +194,6 @@ test('generator-lb:lightingFly', (t) => {
   runTest(prompt)
     .then(() => {
       t.doesNotThrow(() => testExpected(expected), null, 'lightingFly present');
-      t.end();
-    })
-    .catch((err) => handleError(err, t));
-});
-
-test('generator-lb:libSass', (t) => {
-  const prompt = Object.assign(defaultPrompt, {
-    sassCompilator: ['libSass']
-  });
-
-  const expected = [
-    ['package.json', /gulp-sass/],
-    ['package.json', /node-sass/],
-  ];
-
-  runTest(prompt)
-    .then(() => {
-      t.doesNotThrow(() => testExpected(expected), null, 'libSass present');
-      t.end();
-    })
-    .catch((err) => handleError(err, t));
-});
-
-test('generator-lb:rubySass', (t) => {
-  const prompt = Object.assign(defaultPrompt, {
-    sassCompilator: ['rubySass']
-  });
-
-  const expected = [
-    ['package.json', /gulp-ruby-sass/],
-  ];
-
-  runTest(prompt)
-    .then(() => {
-      t.doesNotThrow(() => testExpected(expected), null, 'rubySass present');
       t.end();
     })
     .catch((err) => handleError(err, t));

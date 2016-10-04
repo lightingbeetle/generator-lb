@@ -187,30 +187,6 @@ module.exports = class Generator extends Base {
           }
         });
       },
-      askForSassCompilator: function() {
-        const prompts = [{
-          type: 'list',
-          name: 'sassCompilator',
-          message: 'What SASS compilator do you want to use?',
-          choices: [{
-            name: 'LibSass - Node.js',
-            value: 'libSass',
-          }, {
-            name: 'Compass - Ruby',
-            value: 'rubySass',
-          }],
-          default: 0
-        }];
-
-        return this.prompt(prompts).then((props) => {
-          this.includeRubySass = hasFeature('rubySass', props.sassCompilator);
-          this.includeLibSass = hasFeature('libSass', props.sassCompilator);
-
-          this.insight.track('sass', props.sassCompilator);
-
-          this.config.set('sassCompilator', props.sassCompilator);
-        });
-      },
       askForMultiLanguage: function() {
         const prompts = [{
           type: 'confirm',
