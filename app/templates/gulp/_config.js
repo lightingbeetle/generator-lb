@@ -203,7 +203,7 @@ module.exports.rev = {
 
 // User scripts task
 module.exports.scripts = {
-  src: path.join(app, scripts, '*.js'),
+  src: path.join(app, scripts, 'main.js'),
   dest: path.join(tmp, scripts),
   rollupCfg: {
     format: 'iife',

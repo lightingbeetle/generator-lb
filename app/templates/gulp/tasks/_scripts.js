@@ -1,16 +1,21 @@
 'use strict';
+var path = require('path');
 
 var gulp = require('gulp-help')(require('gulp'));
 var gulpif = require('gulp-if');
 
 var eslint = require('gulp-eslint');
 
-var rollup = require('gulp-rollup');
+var rollupStream = require('rollup-stream');
+var rollup = require('rollup');
 var babel = require('rollup-plugin-babel');
 var nodeResolve = require('rollup-plugin-node-resolve');
 var commonjs = require('rollup-plugin-commonjs');
+var replace = require('rollup-plugin-replace');
 var uglify = require('rollup-plugin-uglify');
+var source = require('vinyl-source-stream')
 
+var buffer = require('vinyl-buffer');
 var sourcemaps = require('gulp-sourcemaps');
 
 var config = require('./../config.js');
@@ -31,24 +36,39 @@ gulp.task('lintjs', 'Lint js files', function () {
   }
 });
 
+var cache;
 
 gulp.task('scripts', 'Compile ES6 to ES5', ['lintjs'],function () {
   var dest = build.isBuild() ? config.scripts.destBuild : config.scripts.dest;
   
+  config.scripts.rollupCfg.entry = config.scripts.src;
+  config.scripts.rollupCfg.rollup = rollup;
   config.scripts.rollupCfg.sourceMap = config.sourceMaps && !build.isBuild();
   config.scripts.rollupCfg.plugins = [
-    babel({
-      exclude: 'node_modules/**'
+    nodeResolve({
+      jsnext: true,
+      browser: true,
     }),
-    nodeResolve(),
-    commonjs(),
+    commonjs({
+      include: 'node_modules/**',
+    }),
+    babel({
+      exclude: 'node_modules/**',
+    }),
+    replace({
+      'process.env.NODE_ENV': JSON.stringify(build.isBuild() ? 'production' : 'development' )
+    }),
     build.isBuild() ? uglify() : function() {},
   ];
   
-  return gulp.src(config.scripts.src)
-    .pipe(gulpif(config.sourceMaps && !build.isBuild(), sourcemaps.init()))
-    .pipe(rollup(config.scripts.rollupCfg))
+  return rollupStream(config.scripts.rollupCfg)
+    .on('bundle', function(bundle) {
+      cache = bundle;
+    })
     .on('error', handleError)
+    .pipe(source(path.basename(config.scripts.rollupCfg.entry)))
+    .pipe(gulpif(config.sourceMaps && !build.isBuild(), buffer()))
+    .pipe(gulpif(config.sourceMaps && !build.isBuild(), sourcemaps.init({loadMaps: true})))
     .pipe(gulpif(config.sourceMaps && !build.isBuild(), sourcemaps.write('.')))
     .pipe(gulp.dest(dest));
 });
