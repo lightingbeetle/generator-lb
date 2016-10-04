@@ -1,13 +1,12 @@
-import { join } from 'path';
-import assert from 'yeoman-assert';
-import helpers  from 'yeoman-test';
-import test from 'tape';
+const path = require('path');
+const assert = require('yeoman-assert');
+const helpers = require('yeoman-test');
+const test = require('tape');
 
 const defaultPrompt = {
   optIn: false,
   name: 'test of generator',
   features: [],
-  sassCompilator: 'libSass',
   includeMultiLanguage: false,
   dataFormat: 'yaml',
 };
@@ -17,31 +16,28 @@ function testExpected(expected) {
     if (typeof file === 'string') {
       assert.file(file);
     } else if (Array.isArray(file)) {
-      assert.fileContent(...file);
+      assert.fileContent.apply(this, file);
     }
   });
 }
 
 function runTest(prompt) {
-  return new Promise((resolve, reject) => {
-    helpers.run(join(__dirname, '../app'))
-      .withOptions({ skipInstall: true })
-      .withPrompts(prompt)
-      .on('end', () => resolve())
-      .on('error', (err) => reject(err));
-  });
+  return helpers.run(path.join(__dirname, '../app'))
+    .withOptions({ skipInstall: true })
+    .withPrompts(prompt)
+    .toPromise();
 }
 
 function handleError(err, t) {
+  console.log(err);
   t.error(err);
   t.end();
 }
 
 test('generator-lb:defaults', (t) => {
   const prompt = defaultPrompt;
-  
+
   const expected = [
-    'bower.json',
     'package.json',
     ['package.json', /\"name\": \"test-of-generator\"/],
     ['package.json', /node-sass/],
@@ -52,6 +48,7 @@ test('generator-lb:defaults', (t) => {
     'gulp/tasks/default.js',
     'gulp/tasks/deploy.js',
     'gulp/tasks/images.js',
+    'gulp/tasks/rev.js',
     'gulp/tasks/templates.js',
     'gulp/tasks/watch.js',
     'gulp/utils/buildHelper.js',
@@ -62,7 +59,6 @@ test('generator-lb:defaults', (t) => {
     'gulp/tasks/serve.js',
     'gulp/tasks/scripts.js',
     'gulp/tasks/styles.js',
-    'gulp/tasks/wiredep.js',
     'readme.md',
     '.gitignore',
     '.gitattributes',
@@ -71,17 +67,17 @@ test('generator-lb:defaults', (t) => {
     '.eslintignore',
     '.editorconfig',
     'app/styles/main.scss',
-    'app/views/index.jade',
-    'app/views/layouts/_default.jade',
-    'app/views/modules/_header.jade',
-    'app/views/modules/_footer.jade',
+    'app/views/index.pug',
+    'app/views/layouts/_default.pug',
+    'app/views/modules/_header.pug',
+    'app/views/modules/_footer.pug',
     'app/views/data/index.yaml',
     'app/.htaccess',
     'app/favicon.ico',
     'app/robots.txt',
     'app/scripts/main.js'
   ];
-  
+
   runTest(prompt)
     .then(() => {
       t.doesNotThrow(() => testExpected(expected), null, 'All files present');
@@ -95,11 +91,13 @@ test('generator-lb:bootstrap', (t) => {
     features: ['includeFEFramework'],
     feFramework: 'includeBootstrap',
   });
-  
+
   const expected = [
-    ['bower.json', /bootstrap-sass/],
+    ['package.json', /bootstrap-sass/],
+    ['package.json', /\"jquery\":/],
+    'app/scripts/external/jquery.js',
   ];
-  
+
   runTest(prompt)
     .then(() => {
       t.doesNotThrow(() => testExpected(expected), null, 'bootstrap-sass present');
@@ -108,16 +106,18 @@ test('generator-lb:bootstrap', (t) => {
     .catch((err) => handleError(err, t));
 });
 
-test('generator-lb:foundtation', (t) => {
+test('generator-lb:foundation', (t) => {
   const prompt = Object.assign(defaultPrompt, {
     features: ['includeFEFramework'],
     feFramework: 'includeFoundation',
   });
-  
+
   const expected = [
-    ['bower.json', /foundation-sites/],
+    ['package.json', /foundation-sites/],
+    ['package.json', /\"jquery\": \"~2/],
+    'app/scripts/external/jquery.js',
   ];
-  
+
   runTest(prompt)
     .then(() => {
       t.doesNotThrow(() => testExpected(expected), null, 'foundation-sites present');
@@ -130,33 +130,15 @@ test('generator-lb:modernizr', (t) => {
   const prompt = Object.assign(defaultPrompt, {
     features: ['includeModernizr']
   });
-  
+
   const expected = [
     'gulp/tasks/modernizr.js',
     ['package.json', /gulp-modernizr/],
   ];
-  
+
   runTest(prompt)
     .then(() => {
       t.doesNotThrow(() => testExpected(expected), null, 'modernizr present');
-      t.end();
-    })
-    .catch((err) => handleError(err, t));
-});
-
-test('generator-lb:jquery1', (t) => {
-  const prompt = Object.assign(defaultPrompt, {
-    features: ['includejQuery'],
-    jQuery: 'includejQuery1',
-  });
-  
-  const expected = [
-    ['bower.json', /\"jquery\": \"~1.11.3\"/],
-  ];
-  
-  runTest(prompt)
-    .then(() => {
-      t.doesNotThrow(() => testExpected(expected), null, 'jQuery 1.x.x present');
       t.end();
     })
     .catch((err) => handleError(err, t));
@@ -167,14 +149,34 @@ test('generator-lb:jquery2', (t) => {
     features: ['includejQuery'],
     jQuery: 'includejQuery2',
   });
-  
+
   const expected = [
-    ['bower.json', /\"jquery\": \"~2.1.4\"/],
+    ['package.json', /\"jquery\": \"~2/],
+    'app/scripts/external/jquery.js',
   ];
-  
+
   runTest(prompt)
     .then(() => {
       t.doesNotThrow(() => testExpected(expected), null, 'jQuery 2.x.x present');
+      t.end();
+    })
+    .catch((err) => handleError(err, t));
+});
+
+test('generator-lb:jquery3', (t) => {
+  const prompt = Object.assign(defaultPrompt, {
+    features: ['includejQuery'],
+    jQuery: 'includejQuery3',
+  });
+
+  const expected = [
+    ['package.json', /\"jquery\": \"~3/],
+    'app/scripts/external/jquery.js',
+  ];
+
+  runTest(prompt)
+    .then(() => {
+      t.doesNotThrow(() => testExpected(expected), null, 'jQuery 3.x.x present');
       t.end();
     })
     .catch((err) => handleError(err, t));
@@ -184,49 +186,14 @@ test('generator-lb:lightingFly', (t) => {
   const prompt = Object.assign(defaultPrompt, {
     features: ['includeLightingFly'],
   });
-  
+
   const expected = [
-    ['bower.json', /lightingfly/],
+    ['package.json', /lightingfly/],
   ];
-  
+
   runTest(prompt)
     .then(() => {
       t.doesNotThrow(() => testExpected(expected), null, 'lightingFly present');
-      t.end();
-    })
-    .catch((err) => handleError(err, t));
-});
-
-test('generator-lb:libSass', (t) => {
-  const prompt = Object.assign(defaultPrompt, {
-    sassCompilator: ['libSass']
-  });
-  
-  const expected = [
-    ['package.json', /gulp-sass/],
-    ['package.json', /node-sass/],
-  ];
-  
-  runTest(prompt)
-    .then(() => {
-      t.doesNotThrow(() => testExpected(expected), null, 'libSass present');
-      t.end();
-    })
-    .catch((err) => handleError(err, t));
-});
-
-test('generator-lb:rubySass', (t) => {
-  const prompt = Object.assign(defaultPrompt, {
-    sassCompilator: ['rubySass']
-  });
-  
-  const expected = [
-    ['package.json', /gulp-ruby-sass/],
-  ];
-  
-  runTest(prompt)
-    .then(() => {
-      t.doesNotThrow(() => testExpected(expected), null, 'rubySass present');
       t.end();
     })
     .catch((err) => handleError(err, t));
@@ -236,12 +203,12 @@ test('generator-lb:multiLanguage', (t) => {
   const prompt = Object.assign(defaultPrompt, {
     includeMultiLanguage: true,
   });
-  
+
   const expected = [
     ['package.json', /merge-stream/],
     ['gulp/config.js', /var languages/]
   ];
-  
+
   runTest(prompt)
     .then(() => {
       t.doesNotThrow(() => testExpected(expected), null, 'multi-language support present');
@@ -254,11 +221,11 @@ test('generator-lb:YAML', (t) => {
   const prompt = Object.assign(defaultPrompt, {
     dataFormat: 'yaml',
   });
-  
+
   const expected = [
     'app/views/data/index.yaml',
   ];
-  
+
   runTest(prompt)
     .then(() => {
       t.doesNotThrow(() => testExpected(expected), null, 'YAML formatting present');
@@ -271,11 +238,11 @@ test('generator-lb:JSON', (t) => {
   const prompt = Object.assign(defaultPrompt, {
     dataFormat: 'json',
   });
-  
+
   const expected = [
     'app/views/data/index.json',
   ];
-  
+
   runTest(prompt)
     .then(() => {
       t.doesNotThrow(() => testExpected(expected), null, 'JSON formatting present');

@@ -1,12 +1,24 @@
 {
-  "extends": "airbnb/base",
-  
-  "rules": {
-    "no-trailing-spaces": [2, { "skipBlankLines": true }]
-  },
-  
+  "extends": "airbnb-base",
+
   "globals": {
     "$": true,
-    "Modernizr": true
-  }
+    "jQuery": true,
+    "Modernizr": true,
+    "window": true,
+  },
+
+  "env": {
+    "browser": true,
+  },
+
+  "rules": {
+    "no-param-reassign": 0,
+  },
+
+  "parserOptions": {
+      "ecmaFeatures": {
+        experimentalObjectRestSpread: true,
+      }
+    }
 }

@@ -1,20 +1,24 @@
-<% if (includeBootstrap) { %>$icon-font-path: "../../bower_components/bootstrap-sass/assets/fonts/bootstrap/";<% } %>
+<% if (includeBootstrap) { -%>
+$icon-font-path: "../../node_modules/bootstrap-sass/assets/fonts/bootstrap/";
 
-// bower:scss
-// endbower
+@import "bootstrap-sass/assets/stylesheets/_bootstrap";
+<% } -%>
+<% if (includeFoundation) { -%>
+@import './../../node_modules/foundation-sites/scss/foundation';
 
-<% if (includeFoundation) { %>@include foundation-everything;<% } %>
+@include foundation-everything;
+<% } -%>
 
 .sample-intro {
   padding-top: 60px;
   font-family: 'Helvetica Neue', Helvetica;
   text-align: center;
-  
+
   h1,
   h2,
   p {
     color: rgb(246, 117, 50);
   }
-  
+
   a { border-bottom-color: #f7854a; }
 }

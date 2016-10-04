@@ -8,12 +8,13 @@ module.exports.minifyCss = process.env.MINIFYCSS || true; // to remove .min sufi
 module.exports.cacheBust = process.env.CACHEBUST || true;
 module.exports.optimizeImages = process.env.OPTIMIZEIMAGES || true;
 module.exports.lintJs = process.env.LINTJS || true;
+module.exports.sourceMaps = process.env.SOURCEMAPS || true;
 
 // Default paths
 var app = 'app';
 var tmp = '.tmp';
 var dist = 'dist';
-var bowerDir = 'bower_components';
+var nodeDir = 'node_modules';
 
 // Default paths in app folder
 var data = 'data';
@@ -24,12 +25,12 @@ var scripts = 'scripts';
 var styles = 'styles';
 var views = 'views';
 
-<% if (includeMultiLanguage) { %>
+<% if (includeMultiLanguage) { -%>
 var languages = {
   list: ['en', 'de', 'sk'],
   primary: 'en'
 };
-<% } %>
+<% } -%>
 
 // Rewrite rules enables removing .html extensions in development.
 // This are possible routes for same test.html file:
@@ -49,7 +50,7 @@ module.exports.browserSync = {
     server: {
       baseDir: [tmp, app],
       routes: {
-        '/bower_components': bowerDir
+        '/node_modules': nodeDir
       }
     },
     notify: false,
@@ -76,22 +77,22 @@ module.exports.browserSync = {
 module.exports.buildSize = {
   srcAll: dist + '/**/*',
   cfgAll: {
-    title: 'build', 
+    title: 'build',
     gzip: true
   },
   srcCss: path.join(dist, styles, '/**/*'),
   cfgCss: {
-    title: 'CSS', 
+    title: 'CSS',
     gzip: true
   },
   srcJs: path.join(dist, scripts, '/**/*'),
   cfgJs: {
-    title: 'JS', 
+    title: 'JS',
     gzip: true
   },
   srcImages: path.join(dist, images, '/**/*'),
   cfgImages: {
-    title: 'Images', 
+    title: 'Images',
     gzip: false
   }
 };
@@ -103,9 +104,9 @@ module.exports.clean = [tmp, dist];
 // Copy fonts task config
 module.exports.copyFonts = {
   src: [
-    path.join(app, fonts, '**/*')<% if (includeBootstrap) { %>, 'bower_components/bootstrap-sass/assets/fonts/bootstrap/*'<% } %>
+    path.join(app, fonts, '**/*')<% if (includeBootstrap) { %>, 'node_modules/bootstrap-sass/assets/fonts/**/*'<% } %>
   ],
-  dest: dist + '/fonts'
+  dest: path.join(dist, fonts)
 };
 
 // Copy fonts task config
@@ -159,19 +160,20 @@ module.exports.images = {
 // JSHint task config
 module.exports.eslint = {
   src: [
-    path.join(app, scripts,'**/*.js'), 
+    path.join(app, scripts,'**/*.js'),
     path.join('!' + app, scripts,'plugins/**/*.js') // do not lint external plugins
   ]
 };
 
-<% if (includeModernizr) { %>
+<% if (includeModernizr) { -%>
 // Modernizr task config
 module.exports.modernizr = {
-  src: [ 
+  src: [
     path.join(app, scripts,'**/*.js'),
     path.join(tmp, styles,'*.css')
   ],
   dest: path.join(tmp, scripts, 'plugins'),
+  destBuild: path.join(dist, scripts, 'plugins'),
   cfg: {
     silent: true,
     options: [
@@ -180,37 +182,54 @@ module.exports.modernizr = {
       'html5printshiv',
       'testProp',
       'fnBind'
-    ]
+    ],
+    "excludeTests": [
+      'hidden'
+    ],
   }
 };
-<% } %>
+<% } -%>
+
+// Cachebusting task config
+module.exports.rev = {
+  srcFiles: [
+    path.join(dist, '**/*.css'),
+    path.join(dist, '**/*.js'),
+  ],
+  srcHtml: path.join(dist, '**/*.html'),
+  manifestPath: path.join(dist, 'rev-manifest.json'),
+  dest: path.join(dist),
+}
 
 // User scripts task
 module.exports.scripts = {
-  src: path.join(app, scripts, '**/*.js'),
+  src: path.join(app, scripts, 'main.js'),
   dest: path.join(tmp, scripts),
-  babel: {
-    presets: ['es2015']
-  }
+  rollupCfg: {
+    format: 'iife',
+    moduleName: '<%= projectNameSlug %>',
+  },
+  destBuild: path.join(dist, scripts)
 };
 
 // Styles task config
 module.exports.styles = {
   src: path.join(app, styles, '*.scss'),
   dest: path.join(tmp,styles),
-  sassCfg: <% if (includeRubySass) { %>{
-    sourcemap: true,
-    style: 'expanded',
-    lineNumbers: true
-  }, <% } else if (includeLibSass) { %>{}, <% } %>
-  autoprefixerCfg: {browsers: ['last 2 version']}
+  destBuild: path.join(dist, styles),
+  sassCfg: {
+    includePaths: 'node_modules',
+    outputStyle: 'expanded'
+  },
+  autoprefixerCfg: {
+    browsers: ['last 2 version']
+  }
 };
 
 // Templates task config
 module.exports.templates = {
   <% if (includeMultiLanguage) { %>languages: languages,<% } %>
-  src: path.join(app, views, '*.jade'),
-  srcBuild: path.join(tmp, 'jade/*.jade'),
+  src: path.join(app, views, '*.pug'),
   dest: tmp,
   destBuild: path.join(dist),
   cfg: {
@@ -227,44 +246,12 @@ module.exports.templatesData = {
   dataPath: path.join(tmp, 'data/data.<% if (includeDataYAML) { %>yaml<% } else { %>json<% } %>')
 };
 
-module.exports.useref = {
-  src: path.join(app, views, '/**/*.jade'),
-  dest: dist,
-  destJade: path.join(tmp, 'jade'),
-  assetsCfg: {
-    searchPath : app
-  },
-  revManifestCfg: {merge: true}
-};
-
 // Watch task config
 module.exports.watch = {
   styles: path.join(app, styles, '/**/*.scss'),
-  jade: [
-    path.join(app, views, '/**/*.jade'), 
+  pug: [
+    path.join(app, views, '/**/*.pug'),
     path.join(app, views, data, '/**/*.<% if (includeDataYAML) { %>yaml<% } else { %>json<% } %>')
   ],
-  scripts: path.join(app, scripts, '/**/*.js'),
-  wiredep: 'bower.json' 
+  scripts: path.join(app, scripts, '/**/*.js')
 };
-
-// Wiredep task config
-module.exports.wiredep = {
-  sass: {
-    src: path.join(app, styles, '/*.scss'),
-    dest: path.join(app, styles),
-    cfg: {
-      ignorePath: '',
-      overides: {}
-    }
-  },
-  jade: {
-    src: path.join(app, views, '/layouts/*.jade'),
-    dest: path.join(app, views, '/layouts'),
-    cfg: {
-      exclude: ['modernizr'],
-      ignorePath: '../../',
-      overides: {}
-    }
-  } 
-}
