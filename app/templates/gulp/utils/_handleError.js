@@ -14,12 +14,12 @@ module.exports = function() {
     title: '<%%= error.plugin %>',
     message: '<%%= error.message %>'
   }).apply(this, args);
-  
+
   // End process in build task
   // Use gulp build --force to override
   if (build.isBuild() && !argv.force) {
     gutil.log(gutil.colors.red('There was an error in building process!'));
-    process.exit(1); 
+    process.exit(1);
   }
 
   // Keep gulp from hanging on this task

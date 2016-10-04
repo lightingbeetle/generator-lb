@@ -25,7 +25,7 @@ var build = require('./../utils/buildHelper.js');
 
 gulp.task('styles', 'Compile Sass to CSS', function () {
   var dest = build.isBuild() ? config.styles.destBuild : config.styles.dest;
-  
+
   return rubySass(config.styles.src, config.styles.sassCfg)
     .on('error', handleError)
     <% if (includeBootstrap) { %>.pipe(replace('bootstrap-sass/assets/fonts/bootstrap/', '../fonts/'))<% } %>
@@ -42,8 +42,8 @@ gulp.task('styles', 'Compile Sass to CSS', function () {
 // Complie scss using libsass
 
 gulp.task('styles', 'Compile Sass to CSS', function () {
-  var dest = build.isBuild() ? config.styles.destBuild : config.styles.dest; 
-  
+  var dest = build.isBuild() ? config.styles.destBuild : config.styles.dest;
+
   return gulp.src(config.styles.src)
     <% if (includeBootstrap) { %>.pipe(replace('bootstrap-sass/assets/fonts/bootstrap/', '../fonts/'))<% } %>
     .pipe(gulpif(config.sourceMaps && !build.isBuild(), sourcemaps.write('.')))
@@ -56,5 +56,5 @@ gulp.task('styles', 'Compile Sass to CSS', function () {
     .pipe(gulpif(config.sourceMaps && !build.isBuild(), sourcemaps.write('.')))
     .pipe(gulp.dest(dest))
     .pipe(reload({stream:true}));
-}); 
+});
 <% } %>

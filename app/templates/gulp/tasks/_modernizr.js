@@ -9,8 +9,8 @@ var build = require('./../utils/buildHelper.js');
 // Lean Modernizr build
 
 gulp.task('modernizr', 'Create modernizr lean build', function () {
-  var dest = build.isBuild() ? config.modernizr.destBuild : config.modernizr.dest; 
-  
+  var dest = build.isBuild() ? config.modernizr.destBuild : config.modernizr.dest;
+
   return gulp.src(config.modernizr.src)
     .pipe(modernizr(config.modernizr.cfg))
     .pipe(gulp.dest(dest));

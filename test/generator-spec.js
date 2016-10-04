@@ -37,7 +37,7 @@ function handleError(err, t) {
 
 test('generator-lb:defaults', (t) => {
   const prompt = defaultPrompt;
-  
+
   const expected = [
     'package.json',
     ['package.json', /\"name\": \"test-of-generator\"/],
@@ -78,7 +78,7 @@ test('generator-lb:defaults', (t) => {
     'app/robots.txt',
     'app/scripts/main.js'
   ];
-  
+
   runTest(prompt)
     .then(() => {
       t.doesNotThrow(() => testExpected(expected), null, 'All files present');
@@ -92,13 +92,13 @@ test('generator-lb:bootstrap', (t) => {
     features: ['includeFEFramework'],
     feFramework: 'includeBootstrap',
   });
-  
+
   const expected = [
     ['package.json', /bootstrap-sass/],
     ['package.json', /\"jquery\":/],
     'app/scripts/external/jquery.js',
   ];
-  
+
   runTest(prompt)
     .then(() => {
       t.doesNotThrow(() => testExpected(expected), null, 'bootstrap-sass present');
@@ -112,13 +112,13 @@ test('generator-lb:foundation', (t) => {
     features: ['includeFEFramework'],
     feFramework: 'includeFoundation',
   });
-  
+
   const expected = [
     ['package.json', /foundation-sites/],
     ['package.json', /\"jquery\": \"~2/],
     'app/scripts/external/jquery.js',
   ];
-  
+
   runTest(prompt)
     .then(() => {
       t.doesNotThrow(() => testExpected(expected), null, 'foundation-sites present');
@@ -131,12 +131,12 @@ test('generator-lb:modernizr', (t) => {
   const prompt = Object.assign(defaultPrompt, {
     features: ['includeModernizr']
   });
-  
+
   const expected = [
     'gulp/tasks/modernizr.js',
     ['package.json', /gulp-modernizr/],
   ];
-  
+
   runTest(prompt)
     .then(() => {
       t.doesNotThrow(() => testExpected(expected), null, 'modernizr present');
@@ -150,12 +150,12 @@ test('generator-lb:jquery1', (t) => {
     features: ['includejQuery'],
     jQuery: 'includejQuery1',
   });
-  
+
   const expected = [
     ['package.json', /\"jquery\": \"~1/],
     'app/scripts/external/jquery.js',
   ];
-  
+
   runTest(prompt)
     .then(() => {
       t.doesNotThrow(() => testExpected(expected), null, 'jQuery 1.x.x present');
@@ -169,12 +169,12 @@ test('generator-lb:jquery2', (t) => {
     features: ['includejQuery'],
     jQuery: 'includejQuery2',
   });
-  
+
   const expected = [
     ['package.json', /\"jquery\": \"~2/],
     'app/scripts/external/jquery.js',
   ];
-  
+
   runTest(prompt)
     .then(() => {
       t.doesNotThrow(() => testExpected(expected), null, 'jQuery 2.x.x present');
@@ -187,11 +187,11 @@ test('generator-lb:lightingFly', (t) => {
   const prompt = Object.assign(defaultPrompt, {
     features: ['includeLightingFly'],
   });
-  
+
   const expected = [
     ['package.json', /lightingfly/],
   ];
-  
+
   runTest(prompt)
     .then(() => {
       t.doesNotThrow(() => testExpected(expected), null, 'lightingFly present');
@@ -204,12 +204,12 @@ test('generator-lb:libSass', (t) => {
   const prompt = Object.assign(defaultPrompt, {
     sassCompilator: ['libSass']
   });
-  
+
   const expected = [
     ['package.json', /gulp-sass/],
     ['package.json', /node-sass/],
   ];
-  
+
   runTest(prompt)
     .then(() => {
       t.doesNotThrow(() => testExpected(expected), null, 'libSass present');
@@ -222,11 +222,11 @@ test('generator-lb:rubySass', (t) => {
   const prompt = Object.assign(defaultPrompt, {
     sassCompilator: ['rubySass']
   });
-  
+
   const expected = [
     ['package.json', /gulp-ruby-sass/],
   ];
-  
+
   runTest(prompt)
     .then(() => {
       t.doesNotThrow(() => testExpected(expected), null, 'rubySass present');
@@ -239,12 +239,12 @@ test('generator-lb:multiLanguage', (t) => {
   const prompt = Object.assign(defaultPrompt, {
     includeMultiLanguage: true,
   });
-  
+
   const expected = [
     ['package.json', /merge-stream/],
     ['gulp/config.js', /var languages/]
   ];
-  
+
   runTest(prompt)
     .then(() => {
       t.doesNotThrow(() => testExpected(expected), null, 'multi-language support present');
@@ -257,11 +257,11 @@ test('generator-lb:YAML', (t) => {
   const prompt = Object.assign(defaultPrompt, {
     dataFormat: 'yaml',
   });
-  
+
   const expected = [
     'app/views/data/index.yaml',
   ];
-  
+
   runTest(prompt)
     .then(() => {
       t.doesNotThrow(() => testExpected(expected), null, 'YAML formatting present');
@@ -274,11 +274,11 @@ test('generator-lb:JSON', (t) => {
   const prompt = Object.assign(defaultPrompt, {
     dataFormat: 'json',
   });
-  
+
   const expected = [
     'app/views/data/index.json',
   ];
-  
+
   runTest(prompt)
     .then(() => {
       t.doesNotThrow(() => testExpected(expected), null, 'JSON formatting present');

@@ -25,39 +25,39 @@ const frepPatterns = [{
 ];
 
 module.exports = class Generator extends Base {
-  
+
   constructor() {
     super(arguments[0], arguments[1]);
     // CLeanup after templating
     // Probably not best solution...
-    
+
     // cleanup .js files
     this.registerTransformStream(ifFile('*.js',
       frep(frepPatterns)
     ));
-    
+
     // cleanup .scss files
     this.registerTransformStream(ifFile('*.scss',
       frep(frepPatterns)
     ));
-    
+
     // cleanup .pug files
     this.registerTransformStream(ifFile('*.pug',
       frep(frepPatterns)
     ));
-    
+
     // welcome message
     if (!this.options['skip-welcome-message']) {
       this.log(chalk.yellow(require('yosay')('Welcome to Lighting Beetle generator. Hodd luck!')));
     }
   }
-  
+
   get initializing() {
     return function() {
       this.pkg = require('../package.json');
       this.version = this.pkg.version;
       this.config.set('version', this.version);
-      
+
       this.insight = new Insight({
         // Google Analytics tracking code
         trackingCode: 'UA-27851629-19',
@@ -81,18 +81,18 @@ module.exports = class Generator extends Base {
           message: 'What is name of your project?',
           default : this.appname // default is current folder
         }];
-        
+
         return this.prompt(prompts).then((props) => {
           this.insight.track('install', 'start');
 
           this.projectName = props.name;
           this.projectNameSlug = slugify(props.name);
-          
+
           this.config.set('name', props.name);
         });
       },
       askForFeatures: function(){
-    
+
         const prompts = [{
           type: 'checkbox',
           name: 'features',
@@ -143,44 +143,44 @@ module.exports = class Generator extends Base {
             value: 'includejQuery1'
           }]
         }];
-        
+
         return this.prompt(prompts).then((props) => {
           // set features of aplication
-          
+
           this.features = props.features;
-          
+
           this.includeModernizr = hasFeature('includeModernizr', props.features);
-          this.includeLightingFly = hasFeature('includeLightingFly', props.features);  
-          
+          this.includeLightingFly = hasFeature('includeLightingFly', props.features);
+
           this.includejQuery1 = hasFeature('includejQuery1', props.jQuery);
           this.includejQuery2 = hasFeature('includejQuery2', props.jQuery);
-          
+
           // set FE framework
           this.includeBootstrap = hasFeature('includeBootstrap', props.feFramework);
           this.includeFoundation = hasFeature('includeFoundation', props.feFramework);
-          
+
           if (this.includeBootstrap) {
             if (this.includejQuery1 !== true || this.includejQuery2 !== true)  {
               this.includejQuery1 = false;
               this.includejQuery2 = true;
             }
           }
-          
+
           if (this.includeFoundation) {
             this.includejQuery1 = false;
             this.includejQuery2 = true;
             this.includeModernizr = true;
           }
-          
+
           this.config.set('features', props.features);
           this.config.set('jQuery', props.jQuery);
           this.config.set('feFramework', props.feFramework);
-          
+
           this.insight.track('modernizr', this.includeModernizr);
           this.insight.track('lightingFly', this.includeLightingFly);
           this.insight.track('jQuery1', this.includejQuery1);
           this.insight.track('jQuery2', this.includejQuery2);
-          
+
           if (props.feFramework) {
             this.insight.track('bootstrap', this.includeBootstrap);
             this.insight.track('foundation', this.includeFoundation);
@@ -201,30 +201,30 @@ module.exports = class Generator extends Base {
           }],
           default: 0
         }];
-        
-        return this.prompt(prompts).then((props) => {   
+
+        return this.prompt(prompts).then((props) => {
           this.includeRubySass = hasFeature('rubySass', props.sassCompilator);
           this.includeLibSass = hasFeature('libSass', props.sassCompilator);
-          
+
           this.insight.track('sass', props.sassCompilator);
-          
+
           this.config.set('sassCompilator', props.sassCompilator);
         });
       },
-      askForMultiLanguage: function() {        
+      askForMultiLanguage: function() {
         const prompts = [{
           type: 'confirm',
           name: 'includeMultiLanguage',
           message: 'Do you want support for multi-language templates?',
           default: false
         }];
-        
+
         return this.prompt(prompts).then((props) => {
           //testing framework
           this.includeMultiLanguage = props.includeMultiLanguage;
-          
+
           this.insight.track('multiLanguage', props.includeMultiLanguage);
-          
+
           this.config.set('multiLanguage', props.includeMultiLanguage);
         });
       },
@@ -242,35 +242,35 @@ module.exports = class Generator extends Base {
           }],
           default: 0
         }];
-        
+
         return this.prompt(prompts).then((props) => {
-          
+
           this.includeDataYAML = hasFeature('yaml', props.dataFormat);
           this.includeDataJSON = hasFeature('json', props.dataFormat);
-          
+
           this.insight.track('dataFormat', props.dataFormat);
-          
+
           this.config.set('dataFormat', props.dataFormat);
         });
       },
     };
   }
-  
+
   get configuring() {
     return function() {
       this.config.save();
     };
   }
-  
+
   get default() {
     return {};
   }
-  
+
   get writing() {
     return {
       gulp: function () {
         this.copy('_gulpfile.js','gulpfile.js');
-        
+
         this.copy('gulp/tasks/_browserSync.js', 'gulp/tasks/browserSync.js');
         this.copy('gulp/tasks/_clean.js', 'gulp/tasks/clean.js');
         this.copy('gulp/tasks/_default.js', 'gulp/tasks/default.js');
@@ -279,42 +279,42 @@ module.exports = class Generator extends Base {
         this.copy('gulp/tasks/_rev.js', 'gulp/tasks/rev.js');
         this.copy('gulp/tasks/_templates.js', 'gulp/tasks/templates.js');
         this.copy('gulp/tasks/_watch.js', 'gulp/tasks/watch.js');
-        
+
         this.copy('gulp/utils/_buildHelper.js', 'gulp/utils/buildHelper.js');
         this.copy('gulp/utils/_handleError.js', 'gulp/utils/handleError.js');
-        
+
         this.template('gulp/_config.js', 'gulp/config.js');
-        
+
         this.template('gulp/tasks/_build.js', 'gulp/tasks/build.js');
         this.template('gulp/tasks/_copy.js', 'gulp/tasks/copy.js');
         this.template('gulp/tasks/_serve.js', 'gulp/tasks/serve.js');
         this.template('gulp/tasks/_scripts.js', 'gulp/tasks/scripts.js');
         this.template('gulp/tasks/_styles.js', 'gulp/tasks/styles.js');
-        
-        if (this.includeModernizr) { 
+
+        if (this.includeModernizr) {
           this.copy('gulp/tasks/_modernizr.js', 'gulp/tasks/modernizr.js');
         }
       },
-      
+
       dependencies: function () {
         this.dependencies = {};
-        
+
         if (this.includeBootstrap) {
           this.dependencies['bootstrap-sass'] = '~3.3.6';
         }
-        
+
         if (this.includeFoundation) {
           this.dependencies['foundation-sites'] = '~6.2.1';
         }
-        
+
         if (this.includejQuery1) {
           this.dependencies.jquery = '~1.11.3';
         }
-        
+
         if (this.includejQuery2) {
           this.dependencies.jquery = '~2.1.4';
         }
-        
+
         if (this.includeLightingFly) {
           this.dependencies.lightingfly = '~0.2.1';
         }
@@ -324,7 +324,7 @@ module.exports = class Generator extends Base {
       packageJSON: function () {
         this.template('_package.json', 'package.json');
       },
-      
+
       readme : function() {
         this.template('_readme.md', 'readme.md');
       },
@@ -333,7 +333,7 @@ module.exports = class Generator extends Base {
         this.template('gitignore', '.gitignore');
         this.copy('gitattributes', '.gitattributes');
       },
-      
+
       env: function(){
         this.copy('env', '.env');
       },
@@ -342,7 +342,7 @@ module.exports = class Generator extends Base {
         this.copy('eslintrc', '.eslintrc');
         this.copy('eslintignore', '.eslintignore');
       },
-      
+
       babel: function () {
         this.copy('babelrc', '.babelrc');
       },
@@ -365,7 +365,7 @@ module.exports = class Generator extends Base {
         if (this.includeMultiLanguage) {
           this.copy('views/helpers/_language.pug','app/views/helpers/_language.pug');
         }
-        
+
         // data template
         if (this.includeDataYAML) {
           this.template('views/data/_index.yaml','app/views/data/index.yaml');
@@ -378,11 +378,11 @@ module.exports = class Generator extends Base {
         this.directory('app');
         this.template('scripts/_main.js', 'app/scripts/main.js');
         this.template('scripts/modules/_utils.js', 'app/scripts/modules/utils.js');
-        
+
         if (this.includejQuery1 || this.includejQuery2) {
           this.copy('scripts/external/jquery.js', 'app/scripts/external/jquery.js');
         }
-        
+
         mkdir('app/scripts/plugins');
       },
 
@@ -407,7 +407,7 @@ module.exports = class Generator extends Base {
           bower: false,
           callback: () => {
             this.log(chalk.yellow(`
-                                     __                   ____ 
+                                     __                   ____
    ____ ____  ____  ___  _________ _/ /_____  _____      / / /_
   / __ \`/ _ \\/ __ \\/ _ \\/ ___/ __ \`/ __/ __ \\/ ___/_____/ / __ \\
  / /_/ /  __/ / / /  __/ /  / /_/ / /_/ /_/ / /  /_____/ / /_/ /
@@ -427,7 +427,7 @@ module.exports = class Generator extends Base {
       }
     };
   }
-  
+
   get end() {
     return {};
   }

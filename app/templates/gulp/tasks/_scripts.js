@@ -40,7 +40,7 @@ var cache;
 
 gulp.task('scripts', 'Compile ES6 to ES5', ['lintjs'],function () {
   var dest = build.isBuild() ? config.scripts.destBuild : config.scripts.dest;
-  
+
   config.scripts.rollupCfg.entry = config.scripts.src;
   config.scripts.rollupCfg.rollup = rollup;
   config.scripts.rollupCfg.sourceMap = config.sourceMaps && !build.isBuild();
@@ -60,7 +60,7 @@ gulp.task('scripts', 'Compile ES6 to ES5', ['lintjs'],function () {
     }),
     build.isBuild() ? uglify() : function() {},
   ];
-  
+
   return rollupStream(config.scripts.rollupCfg)
     .on('bundle', function(bundle) {
       cache = bundle;

@@ -24,7 +24,7 @@ var build = require('./../utils/buildHelper.js');
 
 gulp.task('templates', 'Compile templates', ['templates:prepareData'], function() {
   var dest = build.isBuild() ? config.templates.destBuild : config.templates.dest;
-  
+
   <% if (!includeMultiLanguage) { %>return gulp.src(config.templates.src)
     .pipe(plumber(handleError))
     .pipe(data(function() {
@@ -33,7 +33,7 @@ gulp.task('templates', 'Compile templates', ['templates:prepareData'], function(
     }))
     .pipe(pug(config.templates.cfg))
     .pipe(gulp.dest(dest));
-  <% } else { %>  
+  <% } else { %>
   var languages = config.templates.languages.list.map(function(lang) {
     return gulp.src(config.templates.src)
       .pipe(plumber(handleError))
@@ -47,7 +47,7 @@ gulp.task('templates', 'Compile templates', ['templates:prepareData'], function(
       .pipe(pug(config.templates.cfg))
       .pipe((config.templates.languages.primary === lang) ? gulp.dest(dest) : gulp.dest(path.join(dest, lang)));
   });
-  
+
   return merge(languages);<% } %>
 });
 

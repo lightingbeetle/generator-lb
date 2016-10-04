@@ -77,22 +77,22 @@ module.exports.browserSync = {
 module.exports.buildSize = {
   srcAll: dist + '/**/*',
   cfgAll: {
-    title: 'build', 
+    title: 'build',
     gzip: true
   },
   srcCss: path.join(dist, styles, '/**/*'),
   cfgCss: {
-    title: 'CSS', 
+    title: 'CSS',
     gzip: true
   },
   srcJs: path.join(dist, scripts, '/**/*'),
   cfgJs: {
-    title: 'JS', 
+    title: 'JS',
     gzip: true
   },
   srcImages: path.join(dist, images, '/**/*'),
   cfgImages: {
-    title: 'Images', 
+    title: 'Images',
     gzip: false
   }
 };
@@ -160,7 +160,7 @@ module.exports.images = {
 // JSHint task config
 module.exports.eslint = {
   src: [
-    path.join(app, scripts,'**/*.js'), 
+    path.join(app, scripts,'**/*.js'),
     path.join('!' + app, scripts,'plugins/**/*.js') // do not lint external plugins
   ]
 };
@@ -168,7 +168,7 @@ module.exports.eslint = {
 <% if (includeModernizr) { -%>
 // Modernizr task config
 module.exports.modernizr = {
-  src: [ 
+  src: [
     path.join(app, scripts,'**/*.js'),
     path.join(tmp, styles,'*.css')
   ],
@@ -254,7 +254,7 @@ module.exports.templatesData = {
 module.exports.watch = {
   styles: path.join(app, styles, '/**/*.scss'),
   pug: [
-    path.join(app, views, '/**/*.pug'), 
+    path.join(app, views, '/**/*.pug'),
     path.join(app, views, data, '/**/*.<% if (includeDataYAML) { %>yaml<% } else { %>json<% } %>')
   ],
   scripts: path.join(app, scripts, '/**/*.js')
