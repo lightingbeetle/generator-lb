@@ -311,6 +311,7 @@ module.exports = class Generator extends Base {
       },
 
       env: function(){
+        this.copy('env.example', '.env.example');
         this.copy('env', '.env');
       },
 
